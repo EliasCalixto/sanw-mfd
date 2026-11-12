@@ -1,0 +1,223 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crf93_sharedcommondataserviceforapps_ca08a"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_office365": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crf93_sharedoffice365_f3666"
+        },
+        "api": {
+          "name": "shared_office365"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "When_a_row_is_added,_modified_or_deleted": {
+          "metadata": {
+            "operationMetadataId": "88d5a4f6-2e7a-40f3-9621-dbd46a221d7e"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 3,
+              "subscriptionRequest/entityname": "mfd_cpd_item",
+              "subscriptionRequest/scope": 4,
+              "subscriptionRequest/filteringattributes": "mfd_activo"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Obtener_Item": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "953073d2-a9ac-4d18-8a0f-614897dd26f1"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "mfd_cpd_items",
+              "recordId": "@triggerOutputs()?['body/_mfd_item_value']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Listar_Supervisores": {
+          "runAfter": {
+            "Initialize_variable": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "de4a1f96-8b80-43d7-a888-cdcc1f8cb92b"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "mfd_cpd_users",
+              "$select": "mfd_email",
+              "$filter": "statecode eq 0 and mfd_recibenotificaciones eq true"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Initialize_variable": {
+          "runAfter": {
+            "Obtener_Autor": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "c60abf6f-8ad0-4eeb-80c4-15a7d4ef7387"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "vDestinatarios",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Apply_to_each": {
+          "foreach": "@outputs('Listar_Supervisores')?['body/value']",
+          "actions": {
+            "Append_to_string_variable": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "4ab144d4-b1b5-4849-a45b-68e338a713f7"
+              },
+              "type": "AppendToStringVariable",
+              "inputs": {
+                "name": "vDestinatarios",
+                "value": "@{items('Apply_to_each')?['mfd_email']};"
+              }
+            }
+          },
+          "runAfter": {
+            "Listar_Supervisores": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "98508713-7fc3-4f9e-a501-2848bf911dee"
+          },
+          "type": "Foreach"
+        },
+        "Send_an_email_(V2)": {
+          "runAfter": {
+            "Apply_to_each": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "5dea4ae1-2962-43cc-b110-caa59000f8aa"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_office365",
+              "operationId": "SendEmailV2",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+            },
+            "parameters": {
+              "emailMessage/To": "@variables('vDestinatarios')",
+              "emailMessage/Subject": "@{if(equals(triggerOutputs()?['body/mfd_activo'],false),'[CPD] ⚠ Item dado de baja: ','[CPD] Item reactivado: ')}@{triggerOutputs()?['body/mfd_name']}",
+              "emailMessage/Body": "<p>@{if(equals(triggerOutputs()?['body/mfd_activo'],false),'<b style=\"color:#b00020;font-size:16px;\">Se dio de baja un item del inventario.</b>','<b style=\"color:#107c10;font-size:16px;\">Un item fue reactivado y vuelve a estar disponible.</b>')}</p>\n<table border=\"1\" cellpadding=\"8\" cellspacing=\"0\" style=\"border-collapse:collapse;font-family:Segoe UI,Arial,sans-serif;font-size:14px;\">\n  <tr><td><b>Equipo</b></td><td>@{triggerOutputs()?['body/mfd_name']}</td></tr>\n  <tr><td><b>Código</b></td><td>@{triggerOutputs()?['body/mfd_codigo']}</td></tr>\n  <tr><td><b>Serie</b></td><td>@{triggerOutputs()?['body/mfd_serie']}</td></tr>\n  <tr><td><b>Marca / Modelo</b></td><td>@{triggerOutputs()?['body/mfd_marca']} @{triggerOutputs()?['body/mfd_modelo']}</td></tr>\n  <tr style=\"background-color:#fff3cd;\"><td><b>Realizado por</b></td><td><b>@{outputs('Obtener_Autor')?['body/fullname']}</b></td></tr>\n  <tr><td><b>Fecha y hora</b></td><td>@{convertTimeZone(utcNow(),'UTC','SA Pacific Standard Time','dd/MM/yyyy HH:mm')}</td></tr>\n  <tr><td><b>Nuevo estado</b></td><td>@{if(equals(triggerOutputs()?['body/mfd_activo'],false),'DE BAJA','ACTIVO')}</td></tr>\n</table>\n<p style=\"font-size:12px;color:#666;\">Notificación automática — Sistema de Control de Inventario CPD.</p>",
+              "emailMessage/Cc": "@outputs('Get_a_row_by_ID')?['body/personalemailaddress']",
+              "emailMessage/Importance": "Normal"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Get_a_row_by_ID": {
+          "runAfter": {
+            "Obtener_Item": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "d939f0e7-3bfd-4bfa-99ab-dfb93353005a"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "systemusers",
+              "recordId": "@outputs('Obtener_Item')?['body/_createdby_value']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Obtener_Autor": {
+          "runAfter": {
+            "Get_a_row_by_ID": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "4d2f266e-44e6-424f-a6a3-bd03d53583ca"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "systemusers",
+              "recordId": "_modifiedby_value"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -1,0 +1,229 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_d0098"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_office365_1": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "mfd_sharedoffice365_59339"
+        },
+        "api": {
+          "name": "shared_office365"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "Recurrence": {
+          "recurrence": {
+            "frequency": "Day",
+            "interval": 1,
+            "timeZone": "SA Pacific Standard Time",
+            "startTime": "2025-07-07T10:00:00Z"
+          },
+          "metadata": {
+            "operationMetadataId": "4515243d-dbd5-4576-adac-71a9c858f2fa"
+          },
+          "type": "Recurrence"
+        }
+      },
+      "actions": {
+        "List_rows_from_selected_environment_-_SANW_Employees": {
+          "runAfter": {
+            "List_rows_from_selected_environment_-_FLS_Employees": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "2483853c-c3ce-4de6-b411-a9948c79eb86"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecordsWithOrganization",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "organization": "https://sanw-np.crm.dynamics.com",
+              "entityName": "mfd_sanw_employees"
+            },
+            "authentication": "@parameters('$authentication')"
+          },
+          "runtimeConfiguration": {
+            "paginationPolicy": {
+              "minimumItemCount": 50000
+            }
+          }
+        },
+        "Apply_to_each": {
+          "foreach": "@outputs('List_rows_from_selected_environment_-_FLS_Employees')?['body/value']",
+          "actions": {
+            "Filter_array": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "d4efa5f4-14be-4d28-8c1e-5f0ae9f1c4e1"
+              },
+              "type": "Query",
+              "inputs": {
+                "from": "@outputs('List_rows_from_selected_environment_-_SANW_Employees')?['body/value']",
+                "where": "@equals(item()?['mfd_name'],items('Apply_to_each')?['mfd_name'])"
+              }
+            },
+            "Switch": {
+              "runAfter": {
+                "Filter_array": [
+                  "Succeeded"
+                ]
+              },
+              "cases": {
+                "Case": {
+                  "case": 0,
+                  "actions": {}
+                },
+                "Case_2": {
+                  "case": 1,
+                  "actions": {
+                    "Update_a_row_-_FLS_Employees": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "e64d5e6a-59f7-4585-a847-fe273048cc92"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "UpdateOnlyRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "mfd_fls_employees",
+                          "recordId": "@items('Apply_to_each')?['mfd_fls_employeeid']",
+                          "item/mfd_userprincipalname": "@first(body('Filter_array'))?['mfd_userprincipalname']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  }
+                },
+                "Case_3": {
+                  "case": -11,
+                  "actions": {
+                    "Send_an_email_from_a_shared_mailbox_(V2)": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "346bb2df-14ab-404b-a3e2-033498c953db"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_office365_1",
+                          "operationId": "SharedMailboxSendEmailV2",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                        },
+                        "parameters": {
+                          "emailMessage/MailboxAddress": "torresaj@churchofjesuschrist.org",
+                          "emailMessage/To": "torresaj@churchofjesuschrist.org",
+                          "emailMessage/Subject": "ERROR: NO SE HA ENCONTRADO EL EMPLEADO CON EL NOMBRE: @{items('Apply_to_each')?['Name']}",
+                          "emailMessage/Body": "<p>Hola,<br>\nAl parecer hay 2 empleados con el mismo Diplay Name en la tabla de Dataverse SANW_Employees. POR FAVOR VERIFICAR EL FLUJO Update FLS Employees Table<br>\n<br>\nhttps://make.powerapps.com/environments/0b1e63d8-aeb0-4c2a-8808-93ee84094d46/solutions/83f70a6d-32ab-ee11-be37-000d3a3418c8/objects/cloudflows/7c720722-735b-f011-bec1-6045bd00a4c7/view?isSol=1&amp;isSol=1</p>",
+                          "emailMessage/Importance": "Normal"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  }
+                }
+              },
+              "default": {
+                "actions": {
+                  "Send_an_email_from_a_shared_mailbox_(V2)_2": {
+                    "runAfter": {},
+                    "metadata": {
+                      "operationMetadataId": "ff595484-64e8-4269-a9b8-b863baa281db"
+                    },
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "host": {
+                        "connectionName": "shared_office365_1",
+                        "operationId": "SharedMailboxSendEmailV2",
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                      },
+                      "parameters": {
+                        "emailMessage/MailboxAddress": "torresaj@churchofjesuschrist.org",
+                        "emailMessage/To": "torresaj@churchofjesuschrist.org",
+                        "emailMessage/Subject": "ERROR: HAY 2 EMPLEADOS CON EL MISMO NOMNBRE @{items('Apply_to_each')?['Name']}",
+                        "emailMessage/Body": "<p>Hola,<br>\nAl parecer hay 2 empleados con el mismo Diplay Name en la tabla de Dataverse SANW_Employees. POR FAVOR VERIFICAR EL FLUJO Update FLS Employees Table<br>\n<br>\nhttps://make.powerapps.com/environments/0b1e63d8-aeb0-4c2a-8808-93ee84094d46/solutions/83f70a6d-32ab-ee11-be37-000d3a3418c8/objects/cloudflows/7c720722-735b-f011-bec1-6045bd00a4c7/view?isSol=1&amp;isSol=1</p>",
+                        "emailMessage/Importance": "Normal"
+                      },
+                      "authentication": "@parameters('$authentication')"
+                    }
+                  }
+                }
+              },
+              "expression": "@length(body('Filter_array'))",
+              "metadata": {
+                "operationMetadataId": "db6b0e8a-104b-4fc6-8af9-83994959f73b"
+              },
+              "type": "Switch"
+            }
+          },
+          "runAfter": {
+            "List_rows_from_selected_environment_-_SANW_Employees": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "e8d088d4-82b0-4692-958b-76882ab8f8f6"
+          },
+          "type": "Foreach"
+        },
+        "List_rows_from_selected_environment_-_FLS_Employees": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "2483853c-c3ce-4de6-b411-a9948c79eb86"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecordsWithOrganization",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "organization": "https://sanw-np.crm.dynamics.com",
+              "entityName": "mfd_fls_employees"
+            },
+            "authentication": "@parameters('$authentication')"
+          },
+          "runtimeConfiguration": {
+            "paginationPolicy": {
+              "minimumItemCount": 50000
+            }
+          }
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

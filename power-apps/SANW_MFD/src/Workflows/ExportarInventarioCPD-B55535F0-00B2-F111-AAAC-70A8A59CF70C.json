@@ -1,0 +1,204 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_onedriveforbusiness": {
+        "runtimeSource": "invoker",
+        "connection": {
+          "connectionReferenceLogicalName": "mfd_sharedonedriveforbusiness_c3928"
+        },
+        "api": {
+          "name": "shared_onedriveforbusiness"
+        }
+      },
+      "shared_excelonlinebusiness": {
+        "runtimeSource": "invoker",
+        "connection": {
+          "connectionReferenceLogicalName": "mfd_sharedexcelonlinebusiness_60a3c"
+        },
+        "api": {
+          "name": "shared_excelonlinebusiness"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "98e596ed-cb2f-469c-ac43-7df9420718cf"
+          },
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "datosJSON",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Create_share_link": {
+          "runAfter": {
+            "Run_script": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "88b56ce9-f4f3-4b91-b23d-6ff3c300b38c"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_onedriveforbusiness",
+              "operationId": "CreateShareLinkV2",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness"
+            },
+            "parameters": {
+              "id": "@outputs('Copy_file')?['body/Id']",
+              "type": "View",
+              "scope": "Organization"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Respond_to_a_Power_App_or_flow": {
+          "runAfter": {
+            "Create_share_link": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "a4623282-6986-478b-9100-3ebc2a95bf4e"
+          },
+          "type": "Response",
+          "kind": "PowerApp",
+          "inputs": {
+            "statusCode": 200,
+            "body": {
+              "linkarchivo": "@{outputs('Link_Descarga')}"
+            },
+            "schema": {
+              "type": "object",
+              "properties": {
+                "linkarchivo": {
+                  "title": "linkArchivo",
+                  "x-ms-dynamically-added": true,
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "Copy_file": {
+          "runAfter": {},
+          "metadata": {
+            "b!RwDYtrnnnU6-ONU9W7S5HYe4-oVHyUtApe5FlFL3PFGIGpucvKZBRJUSGiQOdNR7.01JMYV2SO2FAYMY22GA5CLDMN3ZY65PZAY": "/Plantillas CPD/Plantilla_Inventario.xlsx",
+            "operationMetadataId": "53b6a0a2-87d4-45ed-af60-de601b9de25b"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_onedriveforbusiness",
+              "operationId": "CopyDriveFile",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness"
+            },
+            "parameters": {
+              "id": "b!RwDYtrnnnU6-ONU9W7S5HYe4-oVHyUtApe5FlFL3PFGIGpucvKZBRJUSGiQOdNR7.01JMYV2SO2FAYMY22GA5CLDMN3ZY65PZAY",
+              "destination": "/Plantillas CPD_!",
+              "overwrite": true
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Run_script": {
+          "runAfter": {
+            "Link_Descarga": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "e3d9bfb4-3068-4b95-8bf5-72a5feb7785f",
+            "tableId": null
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_excelonlinebusiness",
+              "operationId": "RunScriptProd",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_excelonlinebusiness"
+            },
+            "parameters": {
+              "source": "me",
+              "drive": "b!RwDYtrnnnU6-ONU9W7S5HYe4-oVHyUtApe5FlFL3PFGIGpucvKZBRJUSGiQOdNR7",
+              "file": "@outputs('Copy_file')?['body/Id']",
+              "scriptId": "ms-officescript%3A%2F%2Fonedrive_business_itemlink%2F01JMYV2SJIAXUKIWJSPZHIDKYZTQ22ZTE5",
+              "ScriptParameters/datosJSON": "@   triggerBody()['text']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Cambiar_el_nombre_del_archivo": {
+          "runAfter": {
+            "Copy_file": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "fdce57b2-6809-4288-b347-92832c3f5bc7"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_onedriveforbusiness",
+              "operationId": "MoveFile",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness"
+            },
+            "parameters": {
+              "id": "@outputs('Copy_file')?['body/Id']",
+              "destination": "Inventario_CPD_@{formatDateTime(utcNow(),'yyyyMMdd_HHmmss')}.xlsx",
+              "overwrite": true
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Link_Descarga": {
+          "runAfter": {
+            "Cambiar_el_nombre_del_archivo": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "1735cd19-724e-4cd6-9644-4aa3741e5f8a"
+          },
+          "type": "Compose",
+          "inputs": "@concat('https://churchofjesuschrist-my.sharepoint.com/personal/arnolds1_churchofjesuschrist_org/_layouts/15/download.aspx?SourceUrl=', encodeUriComponent(concat('/personal/arnolds1_churchofjesuschrist_org/Documents', outputs('Cambiar_el_nombre_del_archivo')?['body/Path'])))"
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

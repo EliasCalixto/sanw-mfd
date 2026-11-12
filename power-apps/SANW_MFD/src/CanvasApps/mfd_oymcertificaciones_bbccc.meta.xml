@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CanvasApp xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>mfd_oymcertificaciones_bbccc</Name>
+  <AppVersion>2025-09-17T16:24:06Z</AppVersion>
+  <Status>Ready</Status>
+  <CreatedByClientVersion>3.25091.7.0</CreatedByClientVersion>
+  <MinClientVersion>3.25091.7.0</MinClientVersion>
+  <Tags>{"primaryDeviceWidth":"1366","primaryDeviceHeight":"768","supportsPortrait":"true","supportsLandscape":"true","primaryFormFactor":"Tablet","showStatusBar":"true","publisherVersion":"3.25091.7","minimumRequiredApiVersion":"2.2.0","hasComponent":"true","hasUnlockedComponent":"true","isUnifiedRootApp":"false","sienaVersion":"20250902T194658Z-3.25082.8.0"}</Tags>
+  <IsCdsUpgraded>0</IsCdsUpgraded>
+  <GalleryItemId xsi:nil="true"></GalleryItemId>
+  <BackgroundColor>rgba(2, 81, 100, 1)</BackgroundColor>
+  <DisplayName>OYM_Certificaciones</DisplayName>
+  <Description>V0.40
+Look and feel mejorado</Description>
+  <CommitMessage xsi:nil="true"></CommitMessage>
+  <Publisher xsi:nil="true"></Publisher>
+  <AuthorizationReferences>[]</AuthorizationReferences>
+  <ConnectionReferences>{"3f187e3f-aaae-4bbe-8c89-b2e9d2049464":{"id":"/providers/microsoft.powerapps/apis/shared_logicflows","displayName":"Logic flows","iconUri":"https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/v1.0.1766/1.0.1766.4330/logicflows/icon.png","dataSources":["CrearDocumentosparaCertificación"],"dependencies":["e4103ffc-7df9-43f8-b968-42205bbdb713"],"dependents":[],"parameterHints":{"workflowName":{"value":"2676daa7-28e3-4755-82cb-dc5b37d20c90"},"workflowEntityId":{"value":"59fe96bc-6c50-f011-8779-000d3a5d1fca"},"workflowDisplayName":{"value":"Crear Documentos para Certificación"},"e4103ffc-7df9-43f8-b968-42205bbdb713":{"value":"shared_commondataserviceforapps"}},"parameterHintsV2":{"workflowName":{"value":"2676daa7-28e3-4755-82cb-dc5b37d20c90"},"workflowEntityId":{"value":"59fe96bc-6c50-f011-8779-000d3a5d1fca"},"workflowDisplayName":{"value":"Crear Documentos para Certificación"},"shared_commondataserviceforapps":{"value":"e4103ffc-7df9-43f8-b968-42205bbdb713"}},"isOnPremiseConnection":false,"bypassConsent":false,"dataSets":{},"apiTier":"Standard","actions":["Run"]},"e4103ffc-7df9-43f8-b968-42205bbdb713":{"id":"/providers/microsoft.powerapps/apis/shared_commondataserviceforapps","displayName":"Microsoft Dataverse","iconUri":"https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/v1.0.1768/1.0.1768.4346/commondataserviceforapps/icon.png","dataSources":[],"dependencies":[],"dependents":["3f187e3f-aaae-4bbe-8c89-b2e9d2049464"],"parameterHints":{},"parameterHintsV2":{},"isOnPremiseConnection":false,"bypassConsent":false,"dataSets":{},"apiTier":"Premium"}}</ConnectionReferences>
+  <DatabaseReferences>{"default.cds":{"databaseDetails":{"referenceType":"Environmental","environmentName":"default.cds","overrideValues":{"status":"NotSpecified","environmentVariableName":""}},"dataSources":{"OYM_Certifications":{"entitySetName":"mfd_oym_certifications","logicalName":"mfd_oym_certification"},"OYM_Vendors":{"entitySetName":"mfd_oym_vendors","logicalName":"mfd_oym_vendor"},"Users":{"entitySetName":"systemusers","logicalName":"systemuser"},"OYM_CertDocs":{"entitySetName":"mfd_oym_certdocs","logicalName":"mfd_oym_certdoc"},"OYM_LogCertDocs":{"entitySetName":"mfd_oym_logcertdocs","logicalName":"mfd_oym_logcertdoc"},"OYM_Reviewers":{"entitySetName":"mfd_oym_reviewers","logicalName":"mfd_oym_reviewer"},"FLS_Employees":{"entitySetName":"mfd_fls_employees","logicalName":"mfd_fls_employee"},"OYM_Admins":{"entitySetName":"mfd_oym_adminses","logicalName":"mfd_oym_admins"},"OYM_CertDocsTemplates":{"entitySetName":"mfd_oym_certdocstemplates","logicalName":"mfd_oym_certdocstemplate"}}}}</DatabaseReferences>
+  <AppComponents>[]</AppComponents>
+  <AppComponentDependencies>[]</AppComponentDependencies>
+  <CanConsumeAppPass>1</CanConsumeAppPass>
+  <CanvasAppType>0</CanvasAppType>
+  <BypassConsent>0</BypassConsent>
+  <AdminControlBypassConsent>0</AdminControlBypassConsent>
+  <EmbeddedApp xsi:nil="true"></EmbeddedApp>
+  <IntroducedVersion>1.0</IntroducedVersion>
+  <CdsDependencies>{"cdsdependencies":[{"dependencyid":"59fe96bc-6c50-f011-8779-000d3a5d1fca","componenttype":29,"componenttypeplatformname":"Workflow"},{"logicalname":"mfd_oym_certification","componenttype":1},{"logicalname":"mfd_oym_vendor","componenttype":1},{"logicalname":"systemuser","componenttype":1},{"logicalname":"mfd_oym_certdoc","componenttype":1},{"logicalname":"mfd_oym_logcertdoc","componenttype":1},{"logicalname":"mfd_oym_reviewer","componenttype":1},{"logicalname":"mfd_fls_employee","componenttype":1},{"logicalname":"mfd_oym_admins","componenttype":1},{"logicalname":"mfd_oym_certdocstemplate","componenttype":1}]}</CdsDependencies>
+  <IsCustomizable>1</IsCustomizable>
+  <BackgroundImageUri>/CanvasApps/mfd_oymcertificaciones_bbccc_BackgroundImageUri</BackgroundImageUri>
+  <DocumentUri>/CanvasApps/mfd_oymcertificaciones_bbccc_DocumentUri.msapp</DocumentUri>
+  <AdditionalUris>
+    <AdditionalUri>/CanvasApps/mfd_oymcertificaciones_bbccc_AdditionalUris0_identity.json</AdditionalUri>
+  </AdditionalUris>
+</CanvasApp>

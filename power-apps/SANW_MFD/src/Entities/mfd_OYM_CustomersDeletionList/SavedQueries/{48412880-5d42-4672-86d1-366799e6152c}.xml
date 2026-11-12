@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{48412880-5d42-4672-86d1-366799e6152c}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="mfd_facilityidentifier" select="1" icon="1" preview="1">
+        <row name="result" id="mfd_oym_customersdeletionlistid">
+          <cell name="mfd_facilityidentifier" width="300" />
+          <cell name="mfd_facilitymanagementgroup" width="150" />
+          <cell name="mfd_localfacilityname" width="150" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="mfd_oym_customersdeletionlist">
+          <attribute name="mfd_oym_customersdeletionlistid" />
+          <attribute name="mfd_facilityidentifier" />
+          <attribute name="createdon" />
+          <order attribute="mfd_facilityidentifier" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="mfd_facilitymanagementgroup" />
+          <attribute name="mfd_localfacilityname" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active OYM_CustomersDeletionLists" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

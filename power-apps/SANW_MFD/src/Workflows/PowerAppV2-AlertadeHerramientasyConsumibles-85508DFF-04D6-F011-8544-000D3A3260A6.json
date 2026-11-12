@@ -1,0 +1,294 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_office365_1": {
+        "runtimeSource": "invoker",
+        "connection": {
+          "connectionReferenceLogicalName": "mfd_sharedoffice365_ceeff"
+        },
+        "api": {
+          "name": "shared_office365"
+        }
+      },
+      "shared_office365users_1": {
+        "runtimeSource": "invoker",
+        "connection": {
+          "connectionReferenceLogicalName": "mfd_sharedoffice365users_26934"
+        },
+        "api": {
+          "name": "shared_office365users"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "14cd9661-c654-4ec4-83a5-791b4eee4598"
+          },
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "vVehicle",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "vVehicleLicensePlate",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_2": {
+                  "title": "vInitialReservation",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_3": {
+                  "title": "vFinalReservation",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_4": {
+                  "title": "vTechnicianName",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_5": {
+                  "title": "vTechnicianEmail",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_6": {
+                  "title": "vInspectionType",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_7": {
+                  "title": "vjsonObservedVehicleItems",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1",
+                "text_2",
+                "text_3",
+                "text_4",
+                "text_5",
+                "text_6",
+                "text_7"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Send_an_email_from_a_shared_mailbox_(V2)": {
+          "runAfter": {
+            "Compose_2": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "77999331-b5c6-46ad-a9c7-4f2961c2fa19"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_office365_1",
+              "operationId": "SharedMailboxSendEmailV2",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+            },
+            "parameters": {
+              "emailMessage/MailboxAddress": "SANW-MFD-Notifications@churchofjesuschrist.org",
+              "emailMessage/To": "torresaj@churchofjesuschrist.org",
+              "emailMessage/Subject": "Algunos items del vehiculo \"@{triggerBody()['text']} - @{triggerBody()['text_1']}\" requieren atención.",
+              "emailMessage/Body": "<p>Estimado @{outputs('Get_manager_(V2)')?['body/displayName']},<br>\n<br>\nLos siguientes items del vehiculo @{triggerBody()['text']} @{triggerBody()['text_1']} requieren atención.<br>\n<br>\n@{outputs('Compose_2')}<br>\n<br>\nPor favor revisar y hacer seguimiento para que el inventario del vehiculo esté completo.<br>\n<br>\nSaludos,<br>\nDepartamento de Propiedades<br>\nÁrea Sudamérica Noroeste</p>",
+              "emailMessage/Cc": "@outputs('Get_user_profile_(V2)')?['body/mail']",
+              "emailMessage/Importance": "Normal"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Parse_JSON": {
+          "runAfter": {
+            "Get_manager_(V2)": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "a3f2fa74-68c6-46a8-8767-2306ea414ff0"
+          },
+          "type": "ParseJson",
+          "inputs": {
+            "content": "@triggerBody()['text_7']",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Name": {
+                    "type": "string"
+                  },
+                  "ToolCondition": {
+                    "type": "string"
+                  },
+                  "Comments": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Quantity": {
+                    "type": [
+                      "number",
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "Name",
+                  "ToolCondition",
+                  "Comments",
+                  "Quantity"
+                ]
+              }
+            }
+          }
+        },
+        "Get_manager_(V2)": {
+          "runAfter": {
+            "Get_user_profile_(V2)": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "77ad044c-36d8-4f3f-9404-0b9c017ac49f"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_office365users_1",
+              "operationId": "Manager_V2",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365users"
+            },
+            "parameters": {
+              "id": "@triggerBody()['text_5']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Get_user_profile_(V2)": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "8c085588-2974-48b9-b454-ac50a1dd346c"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_office365users_1",
+              "operationId": "UserProfile_V2",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365users"
+            },
+            "parameters": {
+              "id": "@triggerBody()['text_5']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Initialize_variable": {
+          "runAfter": {
+            "Parse_JSON": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "2e73ecd3-a540-41fa-acb4-e5de67f19d0b"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "varRows",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Apply_to_each": {
+          "foreach": "@body('Parse_JSON')",
+          "actions": {
+            "Append_to_string_variable": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "703a6f05-6542-48cb-8f4d-21d154abab02"
+              },
+              "type": "AppendToStringVariable",
+              "inputs": {
+                "name": "varRows",
+                "value": "@concat(\n  '<tr>',\n    '<td style=\"border:1px solid #dddddd;padding:6px;\">', item()?['Name'], '</td>',\n    '<td style=\"border:1px solid #dddddd;padding:6px;\">', item()?['ToolCondition'], '</td>',\n    '<td style=\"border:1px solid #dddddd;padding:6px;\">', coalesce(item()?['Comments'], ''), '</td>',\n    '<td style=\"border:1px solid #dddddd;padding:6px;text-align:right;\">', string(item()?['Quantity']), '</td>',\n  '</tr>'\n)"
+              }
+            }
+          },
+          "runAfter": {
+            "Initialize_variable": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "d0f76308-6012-4ea4-87e3-a36030642368"
+          },
+          "type": "Foreach"
+        },
+        "Compose_2": {
+          "runAfter": {
+            "Apply_to_each": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "48620838-6edc-4a99-b22e-00a7cbbb4e7e"
+          },
+          "type": "Compose",
+          "inputs": "@concat(\n  '<table style=\"border-collapse:collapse;width:100%;font-family:Segoe UI,Arial,sans-serif;font-size:12px;\">',\n    '<thead>',\n      '<tr>',\n        '<th style=\"border-bottom:2px solid #444;padding:6px;text-align:left;\">Ítem</th>',\n        '<th style=\"border-bottom:2px solid #444;padding:6px;text-align:left;\">Condición</th>',\n        '<th style=\"border-bottom:2px solid #444;padding:6px;text-align:left;\">Comentarios</th>',\n        '<th style=\"border-bottom:2px solid #444;padding:6px;text-align:right;\">Cantidad</th>',\n      '</tr>',\n    '</thead>',\n    '<tbody>',\n      variables('varRows'),\n    '</tbody>',\n  '</table>'\n)"
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

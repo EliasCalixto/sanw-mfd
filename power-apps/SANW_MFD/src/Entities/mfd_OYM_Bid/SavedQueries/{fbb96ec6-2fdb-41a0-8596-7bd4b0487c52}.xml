@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{fbb96ec6-2fdb-41a0-8596-7bd4b0487c52}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="mfd_bidid" select="1" icon="1" preview="1">
+        <row name="result" id="mfd_oym_bidid">
+          <cell name="mfd_bidid" width="300" />
+          <cell name="createdon" width="125" />
+          <cell name="mfd_baseamount" width="114" />
+          <cell name="mfd_meetingminute" width="128" />
+          <cell name="mfd_projectid" width="100" />
+          <cell name="mfd_state" width="100" />
+          <cell name="transactioncurrencyid" width="100" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>1</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="mfd_oym_bid">
+          <attribute name="mfd_oym_bidid" />
+          <attribute name="mfd_bidid" />
+          <attribute name="createdon" />
+          <order attribute="mfd_bidid" descending="false" />
+          <attribute name="mfd_baseamount" />
+          <attribute name="mfd_meetingminute" />
+          <attribute name="mfd_projectid" />
+          <attribute name="mfd_state" />
+          <attribute name="transactioncurrencyid" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="OYM_Bid Advanced Find View" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

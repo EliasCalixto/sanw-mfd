@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{9ede99a4-d0f5-4e11-8109-4edb744d7eb7}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab verticallayout="true" id="{2818b1b3-9590-4fc5-9187-0bf1a5736951}" IsUserDefined="1">
+          <labels>
+            <label description="" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{f811aa4b-9961-4cd2-94f4-0111b31acd17}">
+                  <labels>
+                    <label description="GENERAL" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{da100934-6e6c-43b3-8719-b467964e2338}">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="mfd_name" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{a646f8a7-555a-4e9c-a524-1c2bb102978d}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{64f0dfdc-cde0-4ce1-8ab0-da0d95af3174}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="Program" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_program" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="mfd_program" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{23980d88-51cb-48c4-8c5a-6bf44149498f}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="Code" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_code" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="mfd_code" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c0615645-86a9-4c40-ac6a-c267709a82ae}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="Image" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_image" classid="{7E548B0D-209C-477B-9DCD-F0F44472381D}" datafieldname="mfd_image" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{22c47130-95fb-4ac6-b01d-12eb32a89e28}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="Order" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_order" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="mfd_order" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8e810917-8c2c-43e2-ab0b-314545c8098e}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="QuickInspection" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_quickinspection" classid="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}" datafieldname="mfd_quickinspection" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{64cd42f2-6d0b-40a4-bff6-4b8f7f566893}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="Weight" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_weight" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="mfd_weight" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+  </systemform>
+</forms>

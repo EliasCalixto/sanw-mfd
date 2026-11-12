@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{e39b7d79-897c-48c1-aa95-a7e345637fe5}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab verticallayout="true" id="{a6b1dd62-4e0d-4ded-981c-26d1f8cc2007}" IsUserDefined="1">
+          <labels>
+            <label description="" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{9e9acf1f-c8a0-4f37-8936-b578ded616dd}">
+                  <labels>
+                    <label description="GENERAL" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{09338269-29fa-4188-a02b-795ee3bd9b1f}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_bidid" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="mfd_bidid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0111415a-edfc-4127-b0fd-40dbbf678e45}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{e623e8e2-d50d-490c-aa08-01da4d227725}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_baseamount" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="mfd_baseamount" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c7fa7735-0aa6-4f2f-9792-21477a36eed1}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_meetingminute" classid="{0A7FF475-B016-4687-9CE5-042BFDBD6519}" datafieldname="mfd_meetingminute" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7a3a3576-c9e9-49fa-a996-13f663ddc778}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_projectid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="mfd_projectid" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{d66a3e63-ccf5-45eb-91c2-bf28034ad684}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_state" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="mfd_state" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1a284e96-defc-4b01-812a-dd5cd75455f4}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="transactioncurrencyid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="transactioncurrencyid" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+  </systemform>
+</forms>

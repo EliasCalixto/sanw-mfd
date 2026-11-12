@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CanvasApp xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>mfd_oymrelevamientodepropiedades_7eff0</Name>
+  <AppVersion>2026-01-14T17:01:42Z</AppVersion>
+  <Status>Ready</Status>
+  <CreatedByClientVersion>3.25123.14.0</CreatedByClientVersion>
+  <MinClientVersion>3.25123.14.0</MinClientVersion>
+  <Tags>{"primaryDeviceWidth":"1366","primaryDeviceHeight":"768","supportsPortrait":"true","supportsLandscape":"true","primaryFormFactor":"Tablet","showStatusBar":"false","publisherVersion":"3.25123.14","minimumRequiredApiVersion":"2.2.0","hasComponent":"true","hasUnlockedComponent":"true","isUnifiedRootApp":"false","sienaVersion":"20260114T170142Z-3.25123.14.0"}</Tags>
+  <IsCdsUpgraded>0</IsCdsUpgraded>
+  <GalleryItemId xsi:nil="true"></GalleryItemId>
+  <BackgroundColor>rgba(215, 58, 60, 1)</BackgroundColor>
+  <DisplayName>OYM - Relevamiento de Propiedades</DisplayName>
+  <Description>v0.5</Description>
+  <CommitMessage xsi:nil="true"></CommitMessage>
+  <Publisher xsi:nil="true"></Publisher>
+  <AuthorizationReferences>[{"resourceId":"powerbi"}]</AuthorizationReferences>
+  <ConnectionReferences>{"75bb75c1-4124-41c0-8672-fd8af5d5dab3":{"id":"/providers/microsoft.powerapps/apis/shared_office365users","displayName":"Office 365 Users","iconUri":"https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/releases/v1.0.1788/1.0.1788.4524/office365users/icon.png","dataSources":["UsuariosdeOffice365"],"dependencies":[],"dependents":[],"parameterHints":{},"parameterHintsV2":{},"isOnPremiseConnection":false,"bypassConsent":false,"dataSets":{},"apiTier":"Standard","actions":["UserProfile_V2"]},"8aeed07a-bc75-4cd3-9a0b-8ba54f2fc9e9":{"id":"/providers/microsoft.powerapps/apis/shared_logicflows","displayName":"Logic flows","iconUri":"https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/v1.0.1774/1.0.1774.4397/logicflows/icon.png","dataSources":["ParentFlow-CrearInspecciones"],"dependencies":["a71d2639-d439-45a7-ac20-f0a2db68c55f"],"dependents":[],"parameterHints":{"workflowName":{"value":"8f4d08e8-d775-4ad4-a460-d28392605a5f"},"workflowEntityId":{"value":"03ae7a07-ccac-ee11-a569-000d3a341fff"},"a71d2639-d439-45a7-ac20-f0a2db68c55f":{"value":"shared_commondataserviceforapps"}},"parameterHintsV2":{"workflowName":{"value":"8f4d08e8-d775-4ad4-a460-d28392605a5f"},"workflowEntityId":{"value":"03ae7a07-ccac-ee11-a569-000d3a341fff"},"shared_commondataserviceforapps":{"value":"a71d2639-d439-45a7-ac20-f0a2db68c55f"}},"isOnPremiseConnection":false,"bypassConsent":false,"dataSets":{},"apiTier":"Standard"},"a71d2639-d439-45a7-ac20-f0a2db68c55f":{"id":"/providers/microsoft.powerapps/apis/shared_commondataserviceforapps","displayName":"Microsoft Dataverse","iconUri":"https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/releases/v1.0.1789/1.0.1789.4525/commondataserviceforapps/icon.png","dataSources":[],"dependencies":[],"dependents":["8aeed07a-bc75-4cd3-9a0b-8ba54f2fc9e9"],"parameterHints":{},"parameterHintsV2":{},"isOnPremiseConnection":false,"bypassConsent":false,"dataSets":{},"apiTier":"Premium"}}</ConnectionReferences>
+  <DatabaseReferences>{"default.cds":{"databaseDetails":{"referenceType":"NotSpecified","environmentName":"default.cds","overrideValues":{"status":"NotSpecified"}},"dataSources":{"MFD_Properties":{"entitySetName":"cr4d3_mfd_properties","logicalName":"cr4d3_mfd_property"},"MFD_SpaceUses":{"entitySetName":"cr4d3_mfd_spaceuses","logicalName":"cr4d3_mfd_spaceuse"}}}}</DatabaseReferences>
+  <AppComponents>[]</AppComponents>
+  <AppComponentDependencies>[]</AppComponentDependencies>
+  <CanConsumeAppPass>1</CanConsumeAppPass>
+  <CanvasAppType>0</CanvasAppType>
+  <BypassConsent>0</BypassConsent>
+  <AdminControlBypassConsent>0</AdminControlBypassConsent>
+  <EmbeddedApp xsi:nil="true"></EmbeddedApp>
+  <IntroducedVersion>1.0</IntroducedVersion>
+  <CdsDependencies>{"cdsdependencies":[{"dependencyid":"03ae7a07-ccac-ee11-a569-000d3a341fff","componenttype":29,"componenttypeplatformname":"Workflow"},{"logicalname":"cr4d3_mfd_property","componenttype":1},{"logicalname":"cr4d3_mfd_spaceuse","componenttype":1}]}</CdsDependencies>
+  <IsCustomizable>1</IsCustomizable>
+  <BackgroundImageUri>/CanvasApps/mfd_oymrelevamientodepropiedades_7eff0_BackgroundImageUri</BackgroundImageUri>
+  <DocumentUri>/CanvasApps/mfd_oymrelevamientodepropiedades_7eff0_DocumentUri.msapp</DocumentUri>
+  <AdditionalUris>
+    <AdditionalUri>/CanvasApps/mfd_oymrelevamientodepropiedades_7eff0_AdditionalUris0_identity.json</AdditionalUri>
+  </AdditionalUris>
+</CanvasApp>

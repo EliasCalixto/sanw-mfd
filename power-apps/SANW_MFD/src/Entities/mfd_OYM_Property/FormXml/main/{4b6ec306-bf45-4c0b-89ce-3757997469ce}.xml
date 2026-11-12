@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{4b6ec306-bf45-4c0b-89ce-3757997469ce}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab verticallayout="true" id="{3c497993-0fbf-4aaa-aacc-0be65c08c836}" IsUserDefined="1">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{35bb54d7-a9c2-46d2-8a3f-a0ca65f660de}">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{82fab06d-6b41-4207-bff8-5d3016f30c29}">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="mfd_name" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6fe5b9d3-32e6-47e6-810a-d25a078788db}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7d262962-e7e7-493c-b209-1a0660725fdc}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="PropertyNumber" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_propertynumber" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="mfd_propertynumber" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{40ab739c-b775-4353-9208-37f752986e87}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="LocatedInFMGroup" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_locatedinfmgroup" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="mfd_locatedinfmgroup" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c3a18e3b-eb27-499b-a776-e297b4b6fd45}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="LocatedInRegion" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_locatedinregion" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="mfd_locatedinregion" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{d26dacb6-3e0d-46b9-a0d6-bdef1a9b7bd7}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="Country" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_country" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="mfd_country" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{2e3e8690-8b1c-4b90-ba13-571014151f7b}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{fe756025-34b8-4ea6-b0a8-612d9881ff21}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{51941820-2a7d-486e-a139-c96875243047}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{f91932a7-3934-444f-9956-c18cbd3cba2c}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{c86a12b2-5962-4c59-89e9-c46066a89988}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{d53f60ec-82e1-4841-9df0-a6042f7cbc7f}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{9fe90af7-f486-4da3-ade4-da8de5eedba5}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{59ba5eb5-762b-4678-b92c-772f3ce6b493}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

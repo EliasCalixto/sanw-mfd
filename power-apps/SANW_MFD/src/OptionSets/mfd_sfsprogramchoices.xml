@@ -1,0 +1,456 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<optionset Name="mfd_sfsprogramchoices" localizedName="SFSProgramChoices" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <OptionSetType>picklist</OptionSetType>
+  <IsGlobal>1</IsGlobal>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <ExternalTypeName></ExternalTypeName>
+  <displaynames>
+    <displayname description="SFSProgramChoices" languagecode="1033" />
+  </displaynames>
+  <Descriptions>
+    <Description description="" languagecode="1033" />
+  </Descriptions>
+  <options>
+    <option value="1173319" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Area Administration Office" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137857" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Bishops' Central Storehouse" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1803296" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Center for Young Adults" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1158452" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="CES Area &amp; Coordinators Offices" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1158453" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="CES Dorms" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1158454" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="CES Housing" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1331260" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Church Schools" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137860" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Deseret Industries" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137861" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Deseret Manufacturing" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1768031" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Discovery Center" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1154763" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Distribution Center" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137862" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Employment" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1177422" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Excess Property" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1768028" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Family Search Library" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137864" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Farms &amp; Ranches" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1138178" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="FM Office/Support Bldg" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1154918" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Grain Storage" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="2193623" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Handcart Trek" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1177404" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Headquarters Facilities Department" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137869" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Historic Sites" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1154930" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Home Storage Center" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137846" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Institute" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137870" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Joseph Smith Academy" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137854" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Larger Temple" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137863" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="LDS Family Services" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137855" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="LDS Humanitarian Center" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137844" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Meetinghouse" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1157595" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Member Locator" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1741699" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Missionary Training Center" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137847" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Mission Home" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137849" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Mission Housing" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137848" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Mission Office" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1741552" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Non-Structure Lease Record" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1768029" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Other Family History Center" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137967" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Pageants" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137966" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Picnic Areas and Sports Fields" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137867" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Processing Plant" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1138179" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Project Management Office" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1768035" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Public Affairs Housing" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1768034" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Public Affairs Office" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="2193625" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Recreation Camp" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137856" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Self-Sustaining Unit" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137845" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Seminary" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1173320" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Service Center" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137853" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Smaller Temple" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1154417" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Special Unit Facilities" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1173321" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Staff Housing" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1768032" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Stake-Supported Family History Center" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137850" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Standalone Family History Center" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1768027" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Standard Family History Center" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137859" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Storehouse" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137852" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Temple Ancillary" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137868" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Temple President's Home" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137866" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Visitors' Center" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137858" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Wet-Pack Cannery" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+  </options>
+</optionset>

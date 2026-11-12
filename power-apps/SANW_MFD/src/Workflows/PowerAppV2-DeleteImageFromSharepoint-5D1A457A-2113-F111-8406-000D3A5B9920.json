@@ -1,0 +1,204 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_d0098"
+        },
+        "runtimeSource": "embedded"
+      },
+      "shared_sharepointonline": {
+        "api": {
+          "name": "shared_sharepointonline"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "sanwlms_sharedsharepointonline_d1c09"
+        },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text_1": {
+                  "description": "Please enter your input",
+                  "title": "vLogItemID",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "boolean": {
+                  "description": "Please select yes or no",
+                  "title": "vDeleteLogItem",
+                  "type": "boolean",
+                  "x-ms-content-hint": "BOOLEAN",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": [
+                "text_1",
+                "boolean"
+              ]
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "1d65c142-cd92-4649-a05f-7ee920c56849"
+          }
+        }
+      },
+      "actions": {
+        "List_rows_from_selected_environment": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "organization": "https://sanw-np.crm.dynamics.com",
+              "entityName": "mfd_oym_logitemfiles",
+              "$filter": "_mfd_logitemid_value eq @{triggerBody()?['text_1']}"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "ListRecordsWithOrganization",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {}
+        },
+        "For_each": {
+          "type": "Foreach",
+          "foreach": "@outputs('List_rows_from_selected_environment')?['body/value']",
+          "actions": {
+            "Delete_file": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                  "id": "@outputs('Get_file_metadata_using_path')?['body/Id']"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                  "operationId": "DeleteFile",
+                  "connectionName": "shared_sharepointonline"
+                }
+              },
+              "runAfter": {
+                "Get_file_metadata_using_path": [
+                  "SUCCEEDED"
+                ]
+              },
+              "metadata": {
+                "%252fLogItemFiles%252fFL--0000000010.jpeg": "/LogItemFiles/FL--0000000010.jpeg"
+              }
+            },
+            "Get_file_metadata_using_path": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                  "path": "/LogItemFiles/@{items('For_each')?['mfd_logitemfileincremental']}.@{last(split(items('For_each')?['mfd_name'], '.'))}"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                  "operationId": "GetFileMetadataByPath",
+                  "connectionName": "shared_sharepointonline"
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "List_rows_from_selected_environment": [
+              "Succeeded"
+            ]
+          }
+        },
+        "For_each_1": {
+          "type": "Foreach",
+          "foreach": "@outputs('List_rows_from_selected_environment')?['body/value']",
+          "actions": {
+            "Delete_a_row_from_selected_environment": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "organization": "https://sanw-np.crm.dynamics.com",
+                  "entityName": "mfd_oym_logitemfiles",
+                  "recordId": "@items('For_each_1')?['mfd_oym_logitemfileid']"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "DeleteRecordWithOrganization",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "For_each": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Condition": {
+          "type": "If",
+          "expression": {
+            "and": [
+              {
+                "equals": [
+                  "@triggerBody()?['boolean']",
+                  "@true"
+                ]
+              }
+            ]
+          },
+          "actions": {
+            "Delete_a_row_from_selected_environment_1": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "organization": "https://sanw-np.crm.dynamics.com",
+                  "entityName": "mfd_oym_logitems",
+                  "recordId": "@triggerBody()?['text_1']"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "DeleteRecordWithOrganization",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              }
+            }
+          },
+          "else": {
+            "actions": {}
+          },
+          "runAfter": {
+            "For_each_1": [
+              "Succeeded"
+            ]
+          }
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

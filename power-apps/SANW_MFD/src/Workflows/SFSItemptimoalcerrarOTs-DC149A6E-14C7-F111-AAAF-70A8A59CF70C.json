@@ -1,0 +1,321 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_113c0"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_salesforce": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "mfd_sharedsalesforce_1d711"
+        },
+        "api": {
+          "name": "shared_salesforce"
+        }
+      },
+      "shared_salesforce_1": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "mfd_sharedsalesforce_1bc4d"
+        },
+        "api": {
+          "name": "shared_salesforce"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "When_a_record_is_modified": {
+          "recurrence": {
+            "interval": 1,
+            "frequency": "Minute"
+          },
+          "splitOn": "@triggerOutputs()?['body/value']",
+          "metadata": {
+            "operationMetadataId": "c8747e41-c010-4e82-aa67-e99eb69fccae"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_salesforce_1",
+              "operationId": "GetOnUpdatedItems",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_salesforce"
+            },
+            "parameters": {
+              "table": "ServiceAppointment"
+            },
+            "authentication": "@parameters('$authentication')"
+          },
+          "conditions": [
+            {
+              "expression": "@and(startsWith(triggerOutputs()?['body/Subject'], 'IT-'), contains(createArray('Completed','Canceled','Duplicate'), triggerOutputs()?['body/Status']))"
+            }
+          ]
+        }
+      },
+      "actions": {
+        "CodigoIT": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "bb25ecf4-4419-42c1-9636-7d62ed55fa8e"
+          },
+          "type": "Compose",
+          "inputs": "@first(split(trim(triggerOutputs()?['body/Subject']), ' '))"
+        },
+        "LogItemActual": {
+          "runAfter": {
+            "CodigoIT": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "ce12ff83-000b-47d4-9e17-d9afdcd838fc"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "mfd_oym_logitems",
+              "$select": "mfd_oym_logitemid,_mfd_customer_value,_mfd_itemid_value,mfd_name",
+              "$filter": "mfd_logitemincremental eq '@{outputs('CodigoIT')}'"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "TieneClienteEItem": {
+          "actions": {
+            "LogItemsConOT": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "d95221d5-0cbe-47c5-8730-69b42d54e1ba"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "mfd_oym_logitems",
+                  "$select": "mfd_logitemincremental",
+                  "$filter": "@concat('_mfd_customer_value eq ', first(outputs('LogItemActual')?['body/value'])?['_mfd_customer_value'], ' and _mfd_itemid_value eq ', first(outputs('LogItemActual')?['body/value'])?['_mfd_itemid_value'], ' and mfd_shouldcreateworkorder eq true')"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "FiltrosSubject": {
+              "runAfter": {
+                "LogItemsConOT": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "ff4ad8d4-a03e-4568-9f3d-6faef4ebc200"
+              },
+              "type": "Select",
+              "inputs": {
+                "from": "@outputs('LogItemsConOT')?['body/value']",
+                "select": "@concat('Subject LIKE ''', item()?['mfd_logitemincremental'], ' %''')"
+              }
+            },
+            "CondicionSOQL": {
+              "runAfter": {
+                "FiltrosSubject": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "e279b5cb-2d91-4f4f-a0f4-4d6aa16a3ec5"
+              },
+              "type": "Compose",
+              "inputs": "@concat('Subject LIKE ''', outputs('CodigoIT'), ' %''', if(empty(body('FiltrosSubject')), '', concat(' OR ', join(body('FiltrosSubject'), ' OR '))))"
+            },
+            "SOQLSAAbiertas": {
+              "runAfter": {
+                "CondicionSOQL": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "f5668be7-b9b9-4464-9658-f9512930f630"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_salesforce",
+                  "operationId": "ExecuteSoqlQuery",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_salesforce"
+                },
+                "parameters": {
+                  "queryParameters/query": "SELECT Id, Subject, Status FROM ServiceAppointment WHERE Status NOT IN ('Completed','Canceled','Duplicate','ClosedOutFinance') AND (@{outputs('CondicionSOQL')})"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "UltimoRegistro": {
+              "runAfter": {
+                "SOQLSAAbiertas": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "d56d1131-d442-4d59-8b45-f3fc40e76198"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "mfd_oym_logitems",
+                  "$select": "mfd_condition",
+                  "$filter": "@concat('_mfd_customer_value eq ', first(outputs('LogItemActual')?['body/value'])?['_mfd_customer_value'], ' and _mfd_itemid_value eq ', first(outputs('LogItemActual')?['body/value'])?['_mfd_itemid_value'])",
+                  "$orderby": "createdon desc",
+                  "$top": 1
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "CrearOptimo": {
+              "actions": {
+                "SOQLTecnicoSA": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "d75fe0a5-d639-4c68-a369-0a29867ecf00"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_salesforce",
+                      "operationId": "ExecuteSoqlQuery",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_salesforce"
+                    },
+                    "parameters": {
+                      "queryParameters/query": "SELECT ServiceResource.Name FROM AssignedResource WHERE ServiceAppointmentId = '@{triggerOutputs()?['body/Id']}'"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                },
+                "Add_a_new_row": {
+                  "runAfter": {
+                    "TecnicosSA": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "c8c32fb4-21cb-452a-832b-1a6453961804"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "CreateRecord",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "entityName": "mfd_oym_logitems",
+                      "item/mfd_name": "@first(outputs('LogItemActual')?['body/value'])?['mfd_name']",
+                      "item/mfd_comments": "@concat('Cambiado a Óptimo porque el trabajo fue realizado en Salesforce (cierre de ', outputs('CodigoIT'), '). Cerrado por: ', if(empty(body('TecnicosSA')), 'sin técnico asignado', join(body('TecnicosSA'), ', ')), '.')",
+                      "item/mfd_condition": 576530001,
+                      "item/mfd_Customer@odata.bind": "mfd_oym_customers(@{first(outputs('LogItemActual')?['body/value'])?['_mfd_customer_value']})",
+                      "item/mfd_ItemID@odata.bind": "mfd_oym_items(@{first(outputs('LogItemActual')?['body/value'])?['_mfd_itemid_value']})",
+                      "item/mfd_shouldcreateworkorder": false,
+                      "item/mfd_suggestforannualplan": false
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                },
+                "TecnicosSA": {
+                  "runAfter": {
+                    "SOQLTecnicoSA": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "3c136301-db6c-4543-8cba-887c9330ce6f"
+                  },
+                  "type": "Select",
+                  "inputs": {
+                    "from": "@outputs('SOQLTecnicoSA')?['body/records']",
+                    "select": "@item()?['ServiceResource']?['Name']"
+                  }
+                }
+              },
+              "runAfter": {
+                "UltimoRegistro": [
+                  "Succeeded"
+                ]
+              },
+              "expression": {
+                "equals": [
+                  "@and(equals(outputs('SOQLSAAbiertas')?['body/totalSize'], 0), contains(createArray(576530000, 862350001), first(outputs('UltimoRegistro')?['body/value'])?['mfd_condition']))",
+                  "@true"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "331b73d9-3367-4975-87cf-3dee444c04d7"
+              },
+              "type": "If"
+            }
+          },
+          "runAfter": {
+            "LogItemActual": [
+              "Succeeded"
+            ]
+          },
+          "else": {
+            "actions": {
+              "Terminate": {
+                "runAfter": {},
+                "metadata": {
+                  "operationMetadataId": "f958bf84-271e-46fa-9e78-0a6b34477f16"
+                },
+                "type": "Terminate",
+                "inputs": {
+                  "runStatus": "Succeeded"
+                }
+              }
+            }
+          },
+          "expression": {
+            "equals": [
+              "@and(greater(length(outputs('LogItemActual')?['body/value']), 0), not(empty(first(outputs('LogItemActual')?['body/value'])?['_mfd_customer_value'])), not(empty(first(outputs('LogItemActual')?['body/value'])?['_mfd_itemid_value'])))",
+              "@true"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "e5134755-4fdd-40f0-be2c-2036d27c4439"
+          },
+          "type": "If"
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

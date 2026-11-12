@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{795100d6-919e-4af5-8343-349a6165e208}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab verticallayout="true" id="{c4bab2e0-c478-4a2c-840e-1590c67842fb}" IsUserDefined="1">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{dbc533f3-43fa-4c52-8d1f-3ca87c5c5d31}">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{4fbdfac5-ee27-4549-9b72-4f43cb4e8860}">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="mfd_name" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{2931a0ce-21a6-4c85-931d-860a655dcb14}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{35577364-5aa5-4c1b-a864-56026c984f62}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="Created On" languagecode="1033" />
+                        </labels>
+                        <control id="createdon" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="createdon" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{d4a7c4f7-ca02-4e4e-93d2-0fb42efdd2d7}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="Created By" languagecode="1033" />
+                        </labels>
+                        <control id="createdby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="createdby" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{313332d8-154e-492d-a4c1-0587c82bdc69}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="Customer" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_customer" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="mfd_customer" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{5190f3db-0036-4c5d-bea8-4331ea3129bf}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="Condition" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_condition" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="mfd_condition" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{eb29c748-1da9-424a-a0ff-596e15859a73}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="Comments" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_comments" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="mfd_comments" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{3d0e0f7c-6bcc-4d18-9cdd-891581f735b2}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="Image" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_image" classid="{7E548B0D-209C-477B-9DCD-F0F44472381D}" datafieldname="mfd_image" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{248e1019-f8f1-4e48-a6e6-81f9442be263}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="File" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_file" classid="{0A7FF475-B016-4687-9CE5-042BFDBD6519}" datafieldname="mfd_file" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{3f70cda9-c5fc-45d5-a5ea-a39fde84c8a7}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="ItemID" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_itemid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="mfd_itemid" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6fccecf4-8a22-4005-9762-ca07219290cc}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="ShouldCreateWorkOrder" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_shouldcreateworkorder" classid="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}" datafieldname="mfd_shouldcreateworkorder" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c6ab6623-16f7-4370-acd2-8923ee01f423}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="LogItemIncremental" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_logitemincremental" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="mfd_logitemincremental" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{21946630-31af-4493-ab6f-52efdabee014}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="InspectionID" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_inspectionid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="mfd_inspectionid" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{5f487f14-4b75-4e32-bad8-c0f34d309cf5}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="SFSType" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_sfstype" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="mfd_sfstype" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{3e2024a4-fe23-4fa1-bf9e-365119d1341c}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="IdDeTipoDeTrabajo" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_iddetipodetrabajo" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="mfd_iddetipodetrabajo" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{19e0db55-496e-47f6-8c1c-c7d2ec3b059f}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="CreatedByServiceResource" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_createdbyserviceresource" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="mfd_createdbyserviceresource" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{65ee08ad-7872-4673-9b56-9989d65e4457}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="Created By (Delegate)" languagecode="1033" />
+                        </labels>
+                        <control id="createdonbehalfby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="createdonbehalfby" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{694c3758-b716-48df-94c9-8648d3d3d262}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{135baeea-3c8f-475e-ae30-e1e0b0ffa98e}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{f16d87cf-1ae3-4e51-bb02-0711a76b7a8e}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{4dd6e8cf-92e4-4f17-aafb-f25de9bf14ae}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{6822c2cf-b1c7-4d94-9ba9-f2c902acea9d}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{24c954ca-d264-40c8-bda1-643994d406de}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{ad02c385-6583-4e23-86b2-3525a6dac5f8}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{1bd6954c-f242-4c2c-accf-787241d0b124}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

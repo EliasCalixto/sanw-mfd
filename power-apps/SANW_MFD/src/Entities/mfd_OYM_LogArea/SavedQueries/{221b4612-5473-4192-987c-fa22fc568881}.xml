@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{221b4612-5473-4192-987c-fa22fc568881}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="mfd_name" select="1" icon="1" preview="1">
+        <row name="result" id="mfd_oym_logareaid">
+          <cell name="mfd_name" width="300" />
+          <cell name="createdon" width="125" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="mfd_oym_logarea">
+          <attribute name="mfd_oym_logareaid" />
+          <attribute name="mfd_name" />
+          <attribute name="createdon" />
+          <order attribute="mfd_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active OYM_LogAreas" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

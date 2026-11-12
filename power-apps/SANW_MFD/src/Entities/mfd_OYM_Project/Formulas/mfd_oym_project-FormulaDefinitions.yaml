@@ -1,0 +1,10 @@
+mfd_iscurrentyear: =Value(mfd_planyear) = Year(UTCToday())
+mfd_projectstatus: |-
+    =If(
+        Not(IsBlank(mfd_closedate)), global_mfd_projectstatuschoices.'5',
+        mfd_statusoverride = global_mfd_projectstatuschoices.'2', global_mfd_projectstatuschoices.'2',
+        mfd_statusoverride = global_mfd_projectstatuschoices.'3', global_mfd_projectstatuschoices.'3',
+        Not(IsBlank(mfd_actualcompletiondate)), global_mfd_projectstatuschoices.'4',
+        global_mfd_projectstatuschoices.'1'
+    )
+mfd_propertynumber: =Left(mfd_project, 7)

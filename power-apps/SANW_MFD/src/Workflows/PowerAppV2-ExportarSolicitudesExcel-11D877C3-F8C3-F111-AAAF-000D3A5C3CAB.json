@@ -1,0 +1,213 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_sharepointonline": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedsharepointonline_ac759"
+        },
+        "api": {
+          "name": "shared_sharepointonline"
+        }
+      },
+      "shared_excelonlinebusiness": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "mfd_sharedexcelonlinebusiness_b1882"
+        },
+        "api": {
+          "name": "shared_excelonlinebusiness"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "f217772b-a175-4271-9f64-34f974279e99"
+          },
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "datos",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "nombreArchivo",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_2": {
+                  "title": "encabezado",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1",
+                "text_2"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Get_file_content_using_path": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "61ac522a-f2d2-45a6-985c-5c3efdaa29ba"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "https://churchofjesuschrist.sharepoint.com/sites/DATAOMSANW",
+              "path": "/Implementacin Iniciativa/Tecnologia OyM/PowerApps/App de Compras/Plantilla_Solicitudes.xlsx",
+              "inferContentType": true
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "GetFileContentByPath",
+              "connectionName": "shared_sharepointonline"
+            }
+          }
+        },
+        "Create_file": {
+          "runAfter": {
+            "Get_file_content_using_path": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "d9c4e026-2e30-4b5f-9480-730b145ab19a"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "https://churchofjesuschrist.sharepoint.com/sites/DATAOMSANW",
+              "folderPath": "/Implementacin Iniciativa/Tecnologia OyM/PowerApps/App de Compras/Exports",
+              "name": "@triggerBody()['text_1']",
+              "body": "@body('Get_file_content_using_path')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "CreateFile",
+              "connectionName": "shared_sharepointonline"
+            }
+          },
+          "runtimeConfiguration": {
+            "contentTransfer": {
+              "transferMode": "Chunked"
+            }
+          }
+        },
+        "Run_script": {
+          "runAfter": {
+            "Create_file": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "79d7f491-2c7d-4f33-aa7d-bb19d9078ca3",
+            "tableId": null
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "source": "groups/d27211b0-f1af-4dfd-88aa-29e69109e18d",
+              "drive": "b!ujUUxicLBUOkw5K2MGblk9oln8jkDD9Fl4deTZSix9oZf3kWqrCDSbBFaOTcDKYv",
+              "file": "@concat('/', join(skip(split(outputs('Create_file')?['body/Path'], '/'), 2), '/'))",
+              "scriptId": "ms-officescript%3A%2F%2Fonedrive_business_itemlink%2F01FN66TVZCATYDNYOUCRE2PXJDQ6CZHZ4W",
+              "ScriptParameters/datos": "@triggerBody()['text']",
+              "ScriptParameters/encabezado": "@triggerBody()['text_2']"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_excelonlinebusiness",
+              "operationId": "RunScriptProd",
+              "connectionName": "shared_excelonlinebusiness"
+            }
+          }
+        },
+        "Create_sharing_link_for_a_file_or_folder": {
+          "runAfter": {
+            "Run_script": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "20deccda-3ce8-4f5d-8c2a-adaccbd5a74b"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "https://churchofjesuschrist.sharepoint.com/sites/DATAOMSANW",
+              "table": "16797f19-b0aa-4983-b045-68e4dc0ca62f",
+              "id": "@outputs('Create_file')?['body/ItemId']",
+              "permission/type": "view",
+              "permission/scope": "organization"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "CreateSharingLink",
+              "connectionName": "shared_sharepointonline"
+            }
+          }
+        },
+        "Respond_to_a_Power_App_or_flow": {
+          "runAfter": {
+            "Create_sharing_link_for_a_file_or_folder": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "202fa482-998c-448b-bd9b-c55f1164477e"
+          },
+          "type": "Response",
+          "kind": "PowerApp",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "link": {
+                  "title": "link",
+                  "x-ms-dynamically-added": true,
+                  "type": "string"
+                }
+              },
+              "additionalProperties": {}
+            },
+            "statusCode": 200,
+            "body": {
+              "link": "@outputs('Create_sharing_link_for_a_file_or_folder')?['body/link/webUrl']"
+            }
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

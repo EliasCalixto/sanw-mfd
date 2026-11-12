@@ -1,0 +1,11 @@
+<environmentvariabledefinition schemaname="mfd_shared_commondataservice_726c0b985ec04e1db97f7e73b2bcee9d">
+  <apiid>/providers/microsoft.powerapps/apis/shared_commondataservice</apiid>
+  <displayname default="04 SANW - Area Office SANW - NonProd">
+    <label description="04 SANW - Area Office SANW - NonProd" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000004</type>
+</environmentvariabledefinition>

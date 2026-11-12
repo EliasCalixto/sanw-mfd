@@ -1,0 +1,153 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_salesforce": {
+        "runtimeSource": "invoker",
+        "connection": {
+          "connectionReferenceLogicalName": "mfd_sharedsalesforce_47718"
+        },
+        "api": {
+          "name": "shared_salesforce"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "c4cf9bb3-49d9-40e2-959b-de3f90337331"
+          },
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "Asunto",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Asunto",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "Descripcion",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Descripción",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_2": {
+                  "title": "SFSType",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "SFSType",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_3": {
+                  "title": "IdDeUbicacion",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Id de Ubicación",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_4": {
+                  "title": "IdDeTipoDeTrabajo",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Id de Tipo de Trabajo",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_5": {
+                  "title": "Area",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Área del cliente",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1",
+                "text_2",
+                "text_3",
+                "text_4",
+                "text_5"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Create_record": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "8d44df38-3b49-47f9-be7c-b4d1cb48e8ba"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "table": "WorkOrder",
+              "item/Description": "@triggerBody()['text_1']",
+              "item/Subject": "@triggerBody()['text']",
+              "item/WorkTypeId": "@triggerBody()['text_4']",
+              "item/LocationId": "@triggerBody()['text_3']",
+              "item/Location__c": "@triggerBody()['text_5']",
+              "item/Type__c": "@triggerBody()['text_2']"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_salesforce",
+              "operationId": "PostItem_V2",
+              "connectionName": "shared_salesforce"
+            }
+          }
+        },
+        "Respond_to_a_Power_App_or_flow_2": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "cabaf70c-66a3-415a-9740-f92def9dca84"
+          },
+          "type": "Response",
+          "kind": "PowerApp",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": {}
+            },
+            "statusCode": 200,
+            "body": {}
+          }
+        },
+        "Terminate": {
+          "runAfter": {
+            "Create_record": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "bc8230c2-2fbf-44d3-a25e-37fdb4fa8158"
+          },
+          "type": "Terminate",
+          "inputs": {
+            "runStatus": "Succeeded"
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{d1de6dd0-f5c0-f111-aaaf-000d3a5b9a5b}</formid>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form headerdensity="HighWithControls">
+      <tabs>
+        <tab verticallayout="true" id="{6df29f27-a76e-4923-8fac-71ffba4834d2}" IsUserDefined="1" name="Hitos" visible="true" labelid="{762dfed3-b404-4ffe-a9bc-10f6cdda97e8}">
+          <labels>
+            <label description="Hitos" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{2d322e72-541d-4970-9aef-1e136b2d45a8}" name="Identificación" labelid="{39815c9e-3e1b-41e4-bdd0-388295a0a04e}">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{c9c042d4-1dea-4a30-b02b-2c6acd4d505d}" labelid="{901f0510-ab07-468c-909b-f50d8a15af08}">
+                        <labels>
+                          <label description="Project" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_project" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="mfd_project" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{b99437ae-d9de-42e8-80f4-43bb568d00b2}" labelid="{7676406e-659a-4a82-a8b3-4431b79597a7}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{d0e141e8-1d3b-40e0-ab7e-0e8b2c1298a2}" labelid="{a2f4eac2-9225-4f39-b9b9-5d1e83e921d7}">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_name" classid="{4273edbd-ac1d-40d3-9fb2-095c621b552d}" datafieldname="mfd_name" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{a8c4fba0-7566-4b58-826b-5471f5c265ae}" locklevel="0" colspan="1" rowspan="1" labelid="{8b86b291-2fce-46a5-a505-3fd36df9cd09}">
+                        <labels>
+                          <label description="ProjectType" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_projecttype" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="mfd_projecttype" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{80fcfbd8-da7c-438a-9038-4ac76c15499a}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="FMGroup" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_fmgroupchoices" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="mfd_fmgroupchoices" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{3054b314-6f50-4964-bc85-a02ea81ede3f}" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Región" languagecode="1033" />
+                        </labels>
+                        <control id="QuickviewControl1791295494167" classid="{5C5600E0-1D6E-4205-A272-BE80DA87FD42}" datafieldname="mfd_fmgroupchoices">
+                          <parameters>
+                            <DisplayAsCustomer360Tile>false</DisplayAsCustomer360Tile>
+                            <QuickForms>&lt;QuickFormIds&gt;&lt;QuickFormId entityname="mfd_oym_fmgroup"&gt;7be874cc-8ec1-f111-aaaf-000d3a5b9a99&lt;/QuickFormId&gt;&lt;/QuickFormIds&gt;</QuickForms>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{d97da769-6c9f-45c1-933c-e95831b4017f}" locklevel="0" colspan="1" rowspan="1" labelid="{4efd239a-e741-4ef9-ac81-e94d89e72024}">
+                        <labels>
+                          <label description="ProjectOwner" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_projectowner" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="mfd_projectowner" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="Hitos_section_3" id="e7a2302e-0718-4356-93f3-913dccc1c297" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115" labelid="{b7c54ca0-2f0c-45b7-8ff7-54c362c11b9d}">
+                  <labels>
+                    <label description="Hitos" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{c45282dd-a285-465d-b84d-6690204482c8}" locklevel="0" colspan="1" rowspan="1" labelid="{0b01aae5-64b4-467b-b6eb-df7e84403c17}">
+                        <labels>
+                          <label description="PlannedStartDate" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_plannedstartdate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="mfd_plannedstartdate" disabled="false" />
+                      </cell>
+                      <cell id="{e14ff4bc-f50e-4282-8a24-bc4b7e1938d1}" locklevel="0" colspan="1" rowspan="1" labelid="{c41b15fc-7f57-4252-aabd-6e25bf3f510b}">
+                        <labels>
+                          <label description="ApprovalDate" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_approvaldate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="mfd_approvaldate" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{09c20f5b-9027-448f-9553-1f79942745ec}" locklevel="0" colspan="1" rowspan="1" labelid="{d9354a35-d1ae-4fcb-876d-c87070aaa75a}">
+                        <labels>
+                          <label description="PlannedCompletionDate" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_plannedcompletiondate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="mfd_plannedcompletiondate" disabled="false" />
+                      </cell>
+                      <cell id="{aa561643-9b04-446e-b91a-72d407ddb8cb}" locklevel="0" colspan="1" rowspan="1" labelid="{18d065ca-197b-40cf-b704-1639d7fd18f5}">
+                        <labels>
+                          <label description="ActualStartDate" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_actualstartdate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="mfd_actualstartdate" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{4f73da9c-b429-451a-a088-ec724707de97}" labelid="{1c4b2c0c-4f30-42f7-a7d8-f61e92779d8c}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell id="{f01f77f1-5e86-47e7-9454-c2e213264bc9}" locklevel="0" colspan="1" rowspan="1" labelid="{389a2c3f-d2ae-4081-be04-67e1ba3cef5a}">
+                        <labels>
+                          <label description="ActualCompletionDate" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_actualcompletiondate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="mfd_actualcompletiondate" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{60e1ea68-f088-4f5f-90e4-7a574a6c55f7}" labelid="{99ae45aa-6150-4857-b4dc-76a4753fb3b1}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell id="{798f802b-8275-40b3-939e-8ffdb6b2835b}" locklevel="0" colspan="1" rowspan="1" labelid="{d252565f-14c2-46b1-bda2-6c87e7a76253}">
+                        <labels>
+                          <label description="CloseDate" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_closedate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="mfd_closedate" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="Hitos_section_4" id="7b2d7e05-74ba-40ba-bc19-46e38e5f5607" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" labelid="{1c47e0ce-23e5-495a-9018-dd831278923d}">
+                  <labels>
+                    <label description="Seguimiento" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{11d28a0f-eeaa-404e-b60a-4e6019026e1f}" locklevel="0" colspan="1" rowspan="1" labelid="{dc079003-b047-426c-8734-dcb24fd95261}">
+                        <labels>
+                          <label description="ProjectStatus" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_projectstatus" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="mfd_projectstatus" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c8498a09-b5ec-4b94-9752-62021aef5167}" locklevel="0" colspan="1" rowspan="1" labelid="{3112aaf8-b729-425e-ae13-deda5d3860e4}">
+                        <labels>
+                          <label description="Cancelar / Pausar proyecto" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_statusoverride" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="mfd_statusoverride" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{555e3837-4c67-4dc1-ba1d-b4c3b5be74c4}" locklevel="0" colspan="1" rowspan="1" labelid="{dcdce893-ffb1-4ef6-ba74-bd2f1c8dc751}">
+                        <labels>
+                          <label description="Comments" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_comments" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="mfd_comments" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+          <events>
+            <event name="tabstatechange" application="false" active="false">
+              <Handlers>
+                <Handler functionName="Hitos.onLoad" libraryName="cr4d3_hitos_bloquearfechas" handlerUniqueId="{899ad769-7532-4d6b-a9ff-7fd7be61b50a}" enabled="true" parameters="" passExecutionContext="true" />
+              </Handlers>
+            </event>
+          </events>
+        </tab>
+      </tabs>
+      <header id="{f35ad575-83d2-446a-93f6-d0af5a32867b}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{cf714556-1edc-4b9c-b4f7-feaaa6e4c882}" showlabel="false" labelid="{4a1ea7e0-e887-408f-8561-4cb32eec3e3d}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{4de89c64-78eb-4c1f-a824-5734f641eb45}" showlabel="false" labelid="{c8c7070e-df7f-4045-a8e3-c99b8c1fc0b0}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{80ed83d3-b28a-4826-9b99-98494c83ae4a}" showlabel="false" labelid="{99d49f80-fe40-4eb9-982f-047cb68e12b0}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{c2c3bab3-8c03-4c8b-9fbf-1c46b6d84152}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{451f4ec1-e99f-488b-9dc8-3417cd81263c}" showlabel="false" labelid="{4061d422-ac83-4221-9b23-11dacf9765b6}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{8ef272e7-4350-424c-82c4-ce9e487dc2fe}" showlabel="false" labelid="{1bf7a98e-29a5-41e4-bbc5-394316599c32}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{9ac505fd-5db8-491a-bbbc-4d30e5779694}" showlabel="false" labelid="{971b0ffb-1112-4a35-b61e-1e791e65a52d}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="1" FallbackForm="true">
+        <Role Id="{2FD35489-B26E-EF11-A671-000D3A3AF715}" />
+        <Role Id="{2DCF5E8C-0EFF-ED11-8F6E-000D3A341E8F}" />
+        <Role Id="{7BB913E3-BD94-F111-8076-000D3A5B96EA}" />
+      </DisplayConditions>
+      <formLibraries>
+        <Library name="cr4d3_hitos_bloquearfechas" libraryUniqueId="{84e1adb3-569e-4e69-afcf-9ef7be811993}" />
+      </formLibraries>
+      <events>
+        <event name="onload" application="false" active="false">
+          <Handlers>
+            <Handler functionName="Hitos.onLoad" libraryName="cr4d3_hitos_bloquearfechas" handlerUniqueId="{f93488ad-03cf-4d84-ac5d-4e8998124174}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+      </events>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Hitos" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

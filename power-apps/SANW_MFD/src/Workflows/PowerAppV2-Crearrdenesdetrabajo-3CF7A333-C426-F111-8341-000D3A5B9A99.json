@@ -1,0 +1,145 @@
+{
+  "properties": {
+    "connectionReferences": {},
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "64943389-f431-4dce-a48f-6619d6bb47e7"
+          },
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "gblJsonWorkOrders",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Parse_JSON": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "e2cefa25-2f7b-411d-ae0b-cc01815c2cf5"
+          },
+          "type": "ParseJson",
+          "inputs": {
+            "content": "@triggerBody()['text']",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "WOSubject": {
+                    "type": "string"
+                  },
+                  "WODescription": {
+                    "type": "string"
+                  },
+                  "WOType": {
+                    "type": "string"
+                  },
+                  "LocationId": {
+                    "type": "string"
+                  },
+                  "WOTypeWO": {
+                    "type": "string"
+                  },
+                  "AreaName": {
+                    "type": "string"
+                  },
+                  "LogItemId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "WOSubject",
+                  "WODescription",
+                  "WOType",
+                  "LocationId",
+                  "WOTypeWO",
+                  "AreaName",
+                  "LogItemId"
+                ]
+              }
+            }
+          }
+        },
+        "Apply_to_each": {
+          "foreach": "@body('Parse_JSON')",
+          "actions": {
+            "Run_a_Child_Flow": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "e86cd373-76a8-43d7-9d29-8fb6a258a686"
+              },
+              "type": "Workflow",
+              "inputs": {
+                "host": {
+                  "workflowReferenceName": "2e3013b0-6918-ef11-9f89-00224803e74a"
+                },
+                "body": {
+                  "text": "@items('Apply_to_each')['WOSubject']",
+                  "text_1": "@items('Apply_to_each')['WODescription']",
+                  "text_2": "@items('Apply_to_each')['WOType']",
+                  "text_3": "@items('Apply_to_each')['LocationId']",
+                  "text_4": "@items('Apply_to_each')['WOTypeWO']",
+                  "text_5": "@items('Apply_to_each')['AreaName']"
+                }
+              }
+            },
+            "Delay": {
+              "runAfter": {
+                "Run_a_Child_Flow": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "609ceb3b-4792-49b2-99d2-929a4a6bc140"
+              },
+              "type": "Wait",
+              "inputs": {
+                "interval": {
+                  "count": 2,
+                  "unit": "Second"
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Parse_JSON": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "2aee46b8-3a73-43b4-9cf0-1b0d99a6b348"
+          },
+          "type": "Foreach"
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

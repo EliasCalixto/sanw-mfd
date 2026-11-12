@@ -1,0 +1,636 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml version="9.2.26101.184" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26101.184" OrganizationSchemaType="Full" CRMServerServiceabilityVersion="9.2.26101.00184">
+  <SolutionManifest>
+    <UniqueName>SANW_MFD</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="SANW-MFD" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions />
+    <Version>1.0.0.0</Version>
+    <Managed>2</Managed>
+    <Publisher>
+      <UniqueName>SANW_MFD</UniqueName>
+      <LocalizedNames />
+      <Descriptions />
+      <EMailAddress xsi:nil="true"></EMailAddress>
+      <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
+      <CustomizationPrefix>mfd</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>86235</CustomizationOptionValuePrefix>
+      <Addresses>
+        <Address>
+          <AddressNumber>1</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode>1</ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+        <Address>
+          <AddressNumber>2</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode>1</ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+      </Addresses>
+    </Publisher>
+    <RootComponents>
+      <RootComponent type="1" schemaName="account" behavior="1" />
+      <RootComponent type="1" schemaName="contact" behavior="1" />
+      <RootComponent type="1" schemaName="cr4d3_consolidado" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_cpd_item" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_cpd_logitem" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_cpd_reserva" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_cpd_user" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_fls_employee" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_fls_fm" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_fls_rfm" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_logpurchaserequest" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_accountcategory" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_admins" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_area" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_bid" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_certdoc" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_certdocstemplate" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_certification" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_completedfir" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_customer" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_customersdeletionlist" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_employeerole" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_endpointfls" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_fmgroup" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_inactivearea" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_inactiveitem" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_inspection" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_isadmin" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_item" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_itemprueba" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_logappsuse" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_logarea" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_logcertdoc" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_logitem" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_logitemfile" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_logrequestedproduct" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_logvariable" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_logvehicleitem" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_position" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_preferredlocationbytechnician" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_product" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_project" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_property" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_propertytechnician" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_proposal" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_purchaserequest" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_purchaserequestitem" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_quote" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_requestedproduct" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_requisition" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_reviewer" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_role" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_sfslocation" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_sfsresourcepreference" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_sfsserviceresource" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_sfstype" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_sfsworktype" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_space" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_structure" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_test_property" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_userslocations" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_vardocmapping" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_variable" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_variabletemplate" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_vehicle" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_vehicleinspection" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_vehicleitem" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_vehiclereservation" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_vendor" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_oym_vendorlocation" behavior="0" />
+      <RootComponent type="1" schemaName="mfd_sanw_employee" behavior="0" />
+      <RootComponent type="1" schemaName="systemuser" behavior="1" />
+      <RootComponent type="1" schemaName="transactioncurrency" behavior="1" />
+      <RootComponent type="29" id="{060a67f1-f58f-f011-b4cc-6045bd02b4cc}" behavior="0" />
+      <RootComponent type="29" id="{11d877c3-f8c3-f111-aaaf-000d3a5c3cab}" behavior="0" />
+      <RootComponent type="29" id="{18e08199-790b-f111-8406-000d3a5b9f7f}" behavior="0" />
+      <RootComponent type="29" id="{1cf53814-d39a-f011-b4cc-000d3a597ddf}" behavior="0" />
+      <RootComponent type="29" id="{217676a0-d4d5-f011-8544-0022480a817b}" behavior="0" />
+      <RootComponent type="29" id="{24f68c12-97f0-f011-8406-000d3a5cfefb}" behavior="0" />
+      <RootComponent type="29" id="{2e3013b0-6918-ef11-9f89-00224803e74a}" behavior="0" />
+      <RootComponent type="29" id="{3cd5ef4f-b2ec-f011-8544-000d3a330200}" behavior="0" />
+      <RootComponent type="29" id="{3cf7a333-c426-f111-8341-000d3a5b9a99}" behavior="0" />
+      <RootComponent type="29" id="{41393a82-a45a-f111-bec7-000d3a5b9920}" behavior="0" />
+      <RootComponent type="29" id="{42ddceb5-d30c-f111-8406-000d3a5b9920}" behavior="0" />
+      <RootComponent type="29" id="{45929677-86d7-f011-8544-000d3a3260a6}" behavior="0" />
+      <RootComponent type="29" id="{47708b44-65ed-f011-8406-000d3a5cfefb}" behavior="0" />
+      <RootComponent type="29" id="{4ca92a7a-f313-f111-8406-000d3a5b93c5}" behavior="0" />
+      <RootComponent type="29" id="{4dcbd5c1-4b45-f011-8779-000d3a308b24}" behavior="0" />
+      <RootComponent type="29" id="{59fe96bc-6c50-f011-8779-000d3a5d1fca}" behavior="0" />
+      <RootComponent type="29" id="{5bb7106c-86c6-f111-aaaf-000d3a5b9a99}" behavior="0" />
+      <RootComponent type="29" id="{5d1a457a-2113-f111-8406-000d3a5b9920}" behavior="0" />
+      <RootComponent type="29" id="{6cbdc834-6f66-f011-bec2-6045bd00a4c7}" behavior="0" />
+      <RootComponent type="29" id="{7c720722-735b-f011-bec1-6045bd00a4c7}" behavior="0" />
+      <RootComponent type="29" id="{85508dff-04d6-f011-8544-000d3a3260a6}" behavior="0" />
+      <RootComponent type="29" id="{8b145b58-82c6-f111-aaaf-000d3a5b9f7f}" behavior="0" />
+      <RootComponent type="29" id="{8d8d69ad-8040-f011-b4ca-6045bd00a4c7}" behavior="0" />
+      <RootComponent type="29" id="{9866837f-78c6-f111-aaaf-000d3a5b93c5}" behavior="0" />
+      <RootComponent type="29" id="{9a71a86b-13cc-ee11-9079-000d3a341fff}" behavior="0" />
+      <RootComponent type="29" id="{a28e34f0-4c5b-f011-bec2-000d3a5b3604}" behavior="0" />
+      <RootComponent type="29" id="{a2a16ea4-31ce-f111-a05a-7ced8d3d5b83}" behavior="0" />
+      <RootComponent type="29" id="{a8ca5b9e-71ea-f011-8544-00224804917d}" behavior="0" />
+      <RootComponent type="29" id="{b11c8f65-0c0d-f111-8406-000d3a5b93c5}" behavior="0" />
+      <RootComponent type="29" id="{b1df6d4d-a7c1-f111-aaaf-000d3a5b9f7f}" behavior="0" />
+      <RootComponent type="29" id="{b55535f0-00b2-f111-aaac-70a8a59cf70c}" behavior="0" />
+      <RootComponent type="29" id="{c4062220-17cc-ee11-9079-000d3a341fff}" behavior="0" />
+      <RootComponent type="29" id="{d0ac3afe-e7eb-f011-8406-6045bd048e4a}" behavior="0" />
+      <RootComponent type="29" id="{dc149a6e-14c7-f111-aaaf-70a8a59cf70c}" behavior="0" />
+      <RootComponent type="29" id="{e6b2cb17-2bce-f111-a05a-7ced8d3d5706}" behavior="0" />
+      <RootComponent type="29" id="{e84d10b1-c4eb-f011-8544-00224809c665}" behavior="0" />
+      <RootComponent type="300" schemaName="mfd_creacindesolicitudesdecompras_ce095" behavior="0" />
+      <RootComponent type="300" schemaName="mfd_especialistadesoportealideres_0b89c" behavior="0" />
+      <RootComponent type="300" schemaName="mfd_gestindesolicitudesdecompras_d8fbb" behavior="0" />
+      <RootComponent type="300" schemaName="mfd_jobshadowingom_001a2" behavior="0" />
+      <RootComponent type="300" schemaName="mfd_oymasistentedelogistica_a870a" behavior="0" />
+      <RootComponent type="300" schemaName="mfd_oymcertificaciones_bbccc" behavior="0" />
+      <RootComponent type="300" schemaName="mfd_oyminventariodepropiedades_4dd53" behavior="0" />
+      <RootComponent type="300" schemaName="mfd_oyminventariodepropiedades_6ea54" behavior="0" />
+      <RootComponent type="300" schemaName="mfd_oymlicitaciones_110dc" behavior="0" />
+      <RootComponent type="300" schemaName="mfd_oymrelevamientodepropiedades_7eff0" behavior="0" />
+      <RootComponent type="300" schemaName="mfd_relevamientodepropiedadessanw_c7124" behavior="0" />
+      <RootComponent type="300" schemaName="mfd_sanwreservaeinventariodevehculos_9dc1b" behavior="0" />
+      <RootComponent type="300" schemaName="mfd_sistemadecontroldeinventariocpd_8afd2" behavior="0" />
+      <RootComponent type="300" schemaName="mfd_sistemainventariomobiliariosequipos_fa528" behavior="0" />
+      <RootComponent type="431" schemaName="mfd_oym_area mfd_image" behavior="0" />
+      <RootComponent type="431" schemaName="mfd_oym_item mfd_image" behavior="0" />
+      <RootComponent type="431" schemaName="mfd_oym_logitem mfd_image" behavior="0" />
+      <RootComponent type="431" schemaName="mfd_oym_purchaserequestitem mfd_image" behavior="0" />
+      <RootComponent type="431" schemaName="mfd_oym_vehiclereservation mfd_finalimagekm" behavior="0" />
+      <RootComponent type="431" schemaName="mfd_oym_vehiclereservation mfd_initialimagenkm" behavior="0" />
+      <RootComponent type="432" schemaName="mfd_oym_area" behavior="0" />
+      <RootComponent type="432" schemaName="mfd_oym_item" behavior="0" />
+      <RootComponent type="432" schemaName="mfd_oym_logitem" behavior="0" />
+      <RootComponent type="432" schemaName="mfd_oym_purchaserequestitem" behavior="0" />
+      <RootComponent type="432" schemaName="mfd_oym_vehiclereservation" behavior="0" />
+      <RootComponent type="62" schemaName="mfd_HitosProyectos" behavior="0" />
+      <RootComponent type="80" schemaName="mfd_HitosProyectos" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_appnamechoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_approvaldecisionchoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_bidstatechoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_certdocsgroupchoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_certdocstatechoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_certificactiontypechoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_certificationstatechoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_cpditemstate" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_cpdreservationstatus" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_customertypechoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_filetypechoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_inspectionstatechoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_productcategorychoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_projectstatuschoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_projecttypechoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_prueba" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_quotestatechoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_regionchoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_requestedproductstatechoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_requestedproductstatuschoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_requisitionstatechoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_riskfactorchoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_rolechoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_sfscustomertypechoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_sfsprogramchoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_shippingmethodchoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_toolconditionchoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_ubicacionbase" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_urgencychoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_variablestatechoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_vehicleinspectionstatuschoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_vehicleinspectiontypechoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_vehicleitemcategorychoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_vehicleitemchoice" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_vehiclereservationchoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_vehiclestatechoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_vendorcategorychoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_vendortypechoices" behavior="0" />
+      <RootComponent type="9" schemaName="mfd_verifieddocschoices" behavior="0" />
+    </RootComponents>
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="1" schemaName="antj_mfd_oym_product" displayName="MFD_OYM_Product" solution="Active" />
+        <Dependent type="1" schemaName="mfd_oym_accountcategory" displayName="OYM_AccountCategory" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="cr4d3_mfd_actividad" displayName="MFD_Actividad" solution="Active" />
+        <Dependent type="300" schemaName="mfd_jobshadowingom_001a2" displayName="Job Shadowing O&amp;M" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="cr4d3_mfd_jobshadowing" displayName="MFD_JobShadowing" solution="Active" />
+        <Dependent type="300" schemaName="mfd_jobshadowingom_001a2" displayName="Job Shadowing O&amp;M" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="cr4d3_mfd_property" displayName="MFD_Property" solution="Active" />
+        <Dependent type="29" displayName="Button -&gt; List rows from selected environment - Properties,Apply to..." id="{c4062220-17cc-ee11-9079-000d3a341fff}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="cr4d3_mfd_property" displayName="MFD_Property" solution="Active" />
+        <Dependent type="300" schemaName="mfd_oymrelevamientodepropiedades_7eff0" displayName="OYM - Relevamiento de Propiedades" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="cr4d3_mfd_property" displayName="MFD_Property" solution="Active" />
+        <Dependent type="300" schemaName="mfd_relevamientodepropiedadessanw_c7124" displayName="Relevamiento de propiedades - SANW" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="cr4d3_mfd_spaceuse" displayName="MFD_SpaceUse" solution="Active" />
+        <Dependent type="300" schemaName="mfd_oymrelevamientodepropiedades_7eff0" displayName="OYM - Relevamiento de Propiedades" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="cr4d3_mfd_spaceuse" displayName="MFD_SpaceUse" solution="Active" />
+        <Dependent type="300" schemaName="mfd_relevamientodepropiedadessanw_c7124" displayName="Relevamiento de propiedades - SANW" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="mfd_oym_task" displayName="OYM_Task" solution="Active" />
+        <Dependent type="300" schemaName="mfd_sanwreservaeinventariodevehculos_9dc1b" displayName="Reserva e Inventario de Vehículos" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="mfd_oym_taskassignment" displayName="OYM_TaskAssignment" solution="Active" />
+        <Dependent type="1" schemaName="mfd_oym_position" displayName="OYM_Position" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="mfd_oym_taskassignment" displayName="OYM_TaskAssignment" solution="Active" />
+        <Dependent type="300" schemaName="mfd_sanwreservaeinventariodevehculos_9dc1b" displayName="Reserva e Inventario de Vehículos" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="mfd_oym_taskchecklistitem" displayName="OYM_TaskChecklistItem" solution="Active" />
+        <Dependent type="300" schemaName="mfd_sanwreservaeinventariodevehculos_9dc1b" displayName="Reserva e Inventario de Vehículos" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="mfd_oym_taskstatushistory" displayName="OYM_TaskStatusHistory" solution="Active" />
+        <Dependent type="300" schemaName="mfd_sanwreservaeinventariodevehculos_9dc1b" displayName="Reserva e Inventario de Vehículos" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="20" displayName="MFD-Users" solution="Active" id="{2dcf5e8c-0eff-ed11-8f6e-000d3a341e8f}" />
+        <Dependent type="60" displayName="Hitos" parentDisplayName="OYM_Project" id="{d1de6dd0-f5c0-f111-aaaf-000d3a5b9a5b}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="20" displayName="MFD_OYM_FM" solution="Active" id="{2fd35489-b26e-ef11-a671-000d3a3af715}" />
+        <Dependent type="60" displayName="Hitos" parentDisplayName="OYM_Project" id="{d1de6dd0-f5c0-f111-aaaf-000d3a5b9a5b}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="20" displayName="SANW-ROLE-AllUsers" solution="Active" id="{7bb913e3-bd94-f111-8076-000d3a5b96ea}" />
+        <Dependent type="60" displayName="Hitos" parentDisplayName="OYM_Project" id="{d1de6dd0-f5c0-f111-aaaf-000d3a5b9a5b}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="29" displayName="Parent Flow - Crear Inspecciones" solution="Active" id="{03ae7a07-ccac-ee11-a569-000d3a341fff}" />
+        <Dependent type="300" schemaName="mfd_oymrelevamientodepropiedades_7eff0" displayName="OYM - Relevamiento de Propiedades" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="29" displayName="Parent Flow - Crear Inspecciones" solution="Active" id="{03ae7a07-ccac-ee11-a569-000d3a341fff}" />
+        <Dependent type="300" schemaName="mfd_relevamientodepropiedadessanw_c7124" displayName="Relevamiento de propiedades - SANW" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="61" schemaName="cr4d3_hitos_bloquearfechas" displayName="cr4d3_hitos_bloquearfechas" solution="Active" />
+        <Dependent type="60" displayName="Hitos" parentDisplayName="OYM_Project" id="{d1de6dd0-f5c0-f111-aaaf-000d3a5b9a5b}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)" />
+        <Dependent type="80" schemaName="mfd_HitosProyectos" displayName="Hitos Proyectos" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="cr4d3_countrychoices" displayName="CountryChoices" solution="Active" />
+        <Dependent type="2" schemaName="mfd_countrychoice" displayName="CountryChoice" parentSchemaName="mfd_fls_employee" parentDisplayName="FLS_Employee" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="cr4d3_countrychoices" displayName="CountryChoices" solution="Active" />
+        <Dependent type="2" schemaName="mfd_countrychoice" displayName="CountryChoice" parentSchemaName="mfd_fls_fm" parentDisplayName="FLS_FM" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="cr4d3_countrychoices" displayName="CountryChoices" solution="Active" />
+        <Dependent type="2" schemaName="mfd_countrychoice" displayName="CountryChoice" parentSchemaName="mfd_fls_rfm" parentDisplayName="FLS_RFM" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="cr4d3_countrychoices" displayName="CountryChoices" solution="Active" />
+        <Dependent type="2" schemaName="mfd_countrychoice" displayName="CountryChoice" parentSchemaName="mfd_oym_bid" parentDisplayName="OYM_Bid" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="cr4d3_countrychoices" displayName="CountryChoices" solution="Active" />
+        <Dependent type="2" schemaName="mfd_countrychoice" displayName="CountryChoice" parentSchemaName="mfd_oym_employeerole" parentDisplayName="OYM_EmployeeRole" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="cr4d3_countrychoices" displayName="CountryChoices" solution="Active" />
+        <Dependent type="2" schemaName="mfd_country" displayName="Country" parentSchemaName="mfd_oym_product" parentDisplayName="OYM_Product" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="cr4d3_countrychoices" displayName="CountryChoices" solution="Active" />
+        <Dependent type="2" schemaName="mfd_country" displayName="Country" parentSchemaName="mfd_oym_reviewer" parentDisplayName="OYM_Reviewer" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="cr4d3_countrychoices" displayName="CountryChoices" solution="Active" />
+        <Dependent type="2" schemaName="mfd_countrychoice" displayName="CountryChoice" parentSchemaName="mfd_oym_vehicle" parentDisplayName="OYM_Vehicle" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="cr4d3_countrychoices" displayName="CountryChoices" solution="Active" />
+        <Dependent type="2" schemaName="mfd_countrychoice" displayName="CountryChoice" parentSchemaName="mfd_oym_vendor" parentDisplayName="OYM_Vendor" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="cr4d3_countrychoices" displayName="CountryChoices" solution="Active" />
+        <Dependent type="2" schemaName="mfd_countrychoice" displayName="CountryChoice" parentSchemaName="mfd_sanw_employee" parentDisplayName="SANW_Employee" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="cr4d3_inspectiontypechoices" displayName="InspectionTypeChoices" solution="Active" />
+        <Dependent type="2" schemaName="mfd_type" displayName="Type" parentSchemaName="mfd_oym_inspection" parentDisplayName="OYM_Inspection" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="cr4d3_itemconditionchoices" displayName="ItemConditionChoices" solution="Active" />
+        <Dependent type="2" schemaName="mfd_condition" displayName="Condition" parentSchemaName="mfd_oym_logitem" parentDisplayName="OYM_LogItem" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="antj_sharedsalesforce_55ddd" solution="Active" id.connectionreferencelogicalname="antj_sharedsalesforce_55ddd" />
+        <Dependent type="29" displayName="Testing PowerAppV2 -&gt; Crear una orden de trabajo" id="{4ca92a7a-f313-f111-8406-000d3a5b93c5}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="crf93_sharedcommondataserviceforapps_ca08a" solution="Active" id.connectionreferencelogicalname="crf93_sharedcommondataserviceforapps_ca08a" />
+        <Dependent type="29" displayName="CPD - Notificar retorno de equipo" id="{5bb7106c-86c6-f111-aaaf-000d3a5b9a99}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="crf93_sharedcommondataserviceforapps_ca08a" solution="Active" id.connectionreferencelogicalname="crf93_sharedcommondataserviceforapps_ca08a" />
+        <Dependent type="29" displayName="CPD - Notificar inicio de uso" id="{8b145b58-82c6-f111-aaaf-000d3a5b9f7f}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="crf93_sharedcommondataserviceforapps_ca08a" solution="Active" id.connectionreferencelogicalname="crf93_sharedcommondataserviceforapps_ca08a" />
+        <Dependent type="29" displayName="CPD - Notificar nueva reserva" id="{9866837f-78c6-f111-aaaf-000d3a5b93c5}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="crf93_sharedcommondataserviceforapps_ca08a" solution="Active" id.connectionreferencelogicalname="crf93_sharedcommondataserviceforapps_ca08a" />
+        <Dependent type="29" displayName="CPD - Alerta de prestamos vencidos" id="{a2a16ea4-31ce-f111-a05a-7ced8d3d5b83}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="crf93_sharedcommondataserviceforapps_ca08a" solution="Active" id.connectionreferencelogicalname="crf93_sharedcommondataserviceforapps_ca08a" />
+        <Dependent type="29" displayName="CPD - Notificar cambio de estado de item" id="{e6b2cb17-2bce-f111-a05a-7ced8d3d5706}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="crf93_sharedoffice365_f3666" solution="Active" id.connectionreferencelogicalname="crf93_sharedoffice365_f3666" />
+        <Dependent type="29" displayName="CPD - Notificar retorno de equipo" id="{5bb7106c-86c6-f111-aaaf-000d3a5b9a99}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="crf93_sharedoffice365_f3666" solution="Active" id.connectionreferencelogicalname="crf93_sharedoffice365_f3666" />
+        <Dependent type="29" displayName="CPD - Notificar inicio de uso" id="{8b145b58-82c6-f111-aaaf-000d3a5b9f7f}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="crf93_sharedoffice365_f3666" solution="Active" id.connectionreferencelogicalname="crf93_sharedoffice365_f3666" />
+        <Dependent type="29" displayName="CPD - Notificar nueva reserva" id="{9866837f-78c6-f111-aaaf-000d3a5b93c5}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="crf93_sharedoffice365_f3666" solution="Active" id.connectionreferencelogicalname="crf93_sharedoffice365_f3666" />
+        <Dependent type="29" displayName="CPD - Alerta de prestamos vencidos" id="{a2a16ea4-31ce-f111-a05a-7ced8d3d5b83}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="crf93_sharedoffice365_f3666" solution="Active" id.connectionreferencelogicalname="crf93_sharedoffice365_f3666" />
+        <Dependent type="29" displayName="CPD - Notificar cambio de estado de item" id="{e6b2cb17-2bce-f111-a05a-7ced8d3d5706}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="lms_sharedoffice365groups_faccb" solution="Active" id.connectionreferencelogicalname="lms_sharedoffice365groups_faccb" />
+        <Dependent type="29" displayName="Update SANW Employees Table - Step 1 Every Midnight" id="{a28e34f0-4c5b-f011-bec2-000d3a5b3604}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="mfd_sharedapprovals_bda57" solution="Active" id.connectionreferencelogicalname="mfd_sharedapprovals_bda57" />
+        <Dependent type="29" displayName="PowerAppV2 -&gt; Crear Acta de Reunión de Licitación" id="{1cf53814-d39a-f011-b4cc-000d3a597ddf}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="mfd_sharedoffice365_19920" solution="Active" id.connectionreferencelogicalname="mfd_sharedoffice365_19920" />
+        <Dependent type="29" displayName="Licitaciones - Recepcionar documentos por correo" id="{24f68c12-97f0-f011-8406-000d3a5cfefb}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="mfd_sharedoffice365_19920" solution="Active" id.connectionreferencelogicalname="mfd_sharedoffice365_19920" />
+        <Dependent type="29" displayName="SFS SOQL" id="{a8ca5b9e-71ea-f011-8544-00224804917d}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="mfd_sharedoffice365_19920" solution="Active" id.connectionreferencelogicalname="mfd_sharedoffice365_19920" />
+        <Dependent type="29" displayName="Licitaciones - Recepcionar formulario con propuesta económica" id="{d0ac3afe-e7eb-f011-8406-6045bd048e4a}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="mfd_sharedoffice365_19920" solution="Active" id.connectionreferencelogicalname="mfd_sharedoffice365_19920" />
+        <Dependent type="29" displayName="PowerAppV2 -&gt; Enviar formulario de licitación a proveedores" id="{e84d10b1-c4eb-f011-8544-00224809c665}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_113c0" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_113c0" />
+        <Dependent type="29" displayName="PowerAppV2 -&gt; Crear Requisición" id="{217676a0-d4d5-f011-8544-0022480a817b}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_113c0" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_113c0" />
+        <Dependent type="29" displayName="PowerAppV2 -&gt; Crear Acta de Conformidad" id="{41393a82-a45a-f111-bec7-000d3a5b9920}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_113c0" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_113c0" />
+        <Dependent type="29" displayName="PowerAppV2 -&gt; Crear Orden de Compra" id="{45929677-86d7-f011-8544-000d3a3260a6}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_113c0" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_113c0" />
+        <Dependent type="29" displayName="SFS → Item Óptimo al cerrar OTs" id="{dc149a6e-14c7-f111-aaaf-70a8a59cf70c}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_d0098" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_d0098" />
+        <Dependent type="29" displayName="SP Envío de Certificado Completado a Calificación" id="{060a67f1-f58f-f011-b4cc-6045bd02b4cc}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_d0098" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_d0098" />
+        <Dependent type="29" displayName="PowerAppV2 -&gt; UploadImageToSharepoint" id="{18e08199-790b-f111-8406-000d3a5b9f7f}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_d0098" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_d0098" />
+        <Dependent type="29" displayName="PowerAppV2 -&gt; Crear Acta de Reunión de Licitación" id="{1cf53814-d39a-f011-b4cc-000d3a597ddf}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_d0098" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_d0098" />
+        <Dependent type="29" displayName="Licitaciones - Recepcionar documentos por correo" id="{24f68c12-97f0-f011-8406-000d3a5cfefb}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_d0098" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_d0098" />
+        <Dependent type="29" displayName="FLW - Assign Owner By Region - Daily" id="{42ddceb5-d30c-f111-8406-000d3a5b9920}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_d0098" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_d0098" />
+        <Dependent type="29" displayName="PowerAppV2 -&gt; Cambiar estado de licitación a Apertura de sobres" id="{47708b44-65ed-f011-8406-000d3a5cfefb}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_d0098" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_d0098" />
+        <Dependent type="29" displayName="Certificaciones - Salesforce a Dataverse" id="{4dcbd5c1-4b45-f011-8779-000d3a308b24}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_d0098" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_d0098" />
+        <Dependent type="29" displayName="Crear Documentos para Certificación" id="{59fe96bc-6c50-f011-8779-000d3a5d1fca}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_d0098" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_d0098" />
+        <Dependent type="29" displayName="PowerAppV2 -&gt; DeleteImageFromSharepoint" id="{5d1a457a-2113-f111-8406-000d3a5b9920}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_d0098" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_d0098" />
+        <Dependent type="29" displayName="Update FLS Employees Table in Dataverse - Step 3 (No usar porque se usa un dataflow)" id="{6cbdc834-6f66-f011-bec2-6045bd00a4c7}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_d0098" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_d0098" />
+        <Dependent type="29" displayName="Update FLS Employees Table in Excel - Step 2" id="{7c720722-735b-f011-bec1-6045bd00a4c7}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_d0098" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_d0098" />
+        <Dependent type="29" displayName="Delete - Crear Acta de Reunión de Licitación" id="{8d8d69ad-8040-f011-b4ca-6045bd00a4c7}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_d0098" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_d0098" />
+        <Dependent type="29" displayName="Update SANW Employees Table - Step 1 Every Midnight" id="{a28e34f0-4c5b-f011-bec2-000d3a5b3604}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_d0098" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_d0098" />
+        <Dependent type="29" displayName="FLW - Assign Owner By Region OYM_CUSTOMERS - Daily" id="{b11c8f65-0c0d-f111-8406-000d3a5b93c5}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_d0098" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_d0098" />
+        <Dependent type="29" displayName="Button -&gt; List rows from selected environment - Properties,Apply to..." id="{c4062220-17cc-ee11-9079-000d3a341fff}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_d0098" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_d0098" />
+        <Dependent type="29" displayName="Licitaciones - Recepcionar formulario con propuesta económica" id="{d0ac3afe-e7eb-f011-8406-6045bd048e4a}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedoffice365_582a6" solution="Active" id.connectionreferencelogicalname="new_sharedoffice365_582a6" />
+        <Dependent type="29" displayName="PowerAppV2 -&gt; Crear Acta de Reunión de Licitación" id="{1cf53814-d39a-f011-b4cc-000d3a597ddf}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedsharepointonline_ac759" solution="Active" id.connectionreferencelogicalname="new_sharedsharepointonline_ac759" />
+        <Dependent type="29" displayName="PowerAppV2 -&gt; ExportarSolicitudesExcel" id="{11d877c3-f8c3-f111-aaaf-000d3a5c3cab}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedsharepointonline_ac759" solution="Active" id.connectionreferencelogicalname="new_sharedsharepointonline_ac759" />
+        <Dependent type="29" displayName="PowerAppV2 -&gt; Crear Requisición" id="{217676a0-d4d5-f011-8544-0022480a817b}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedsharepointonline_ac759" solution="Active" id.connectionreferencelogicalname="new_sharedsharepointonline_ac759" />
+        <Dependent type="29" displayName="PowerAppV2 -&gt; Crear Acta de Conformidad" id="{41393a82-a45a-f111-bec7-000d3a5b9920}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedsharepointonline_ac759" solution="Active" id.connectionreferencelogicalname="new_sharedsharepointonline_ac759" />
+        <Dependent type="29" displayName="PowerAppV2 -&gt; Crear Orden de Compra" id="{45929677-86d7-f011-8544-000d3a3260a6}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedwordonlinebusiness_f8c6e" solution="Active" id.connectionreferencelogicalname="new_sharedwordonlinebusiness_f8c6e" />
+        <Dependent type="29" displayName="PowerAppV2 -&gt; Crear Requisición" id="{217676a0-d4d5-f011-8544-0022480a817b}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedwordonlinebusiness_f8c6e" solution="Active" id.connectionreferencelogicalname="new_sharedwordonlinebusiness_f8c6e" />
+        <Dependent type="29" displayName="PowerAppV2 -&gt; Crear Acta de Conformidad" id="{41393a82-a45a-f111-bec7-000d3a5b9920}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedwordonlinebusiness_f8c6e" solution="Active" id.connectionreferencelogicalname="new_sharedwordonlinebusiness_f8c6e" />
+        <Dependent type="29" displayName="PowerAppV2 -&gt; Crear Orden de Compra" id="{45929677-86d7-f011-8544-000d3a3260a6}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="sanwhrd_sharedexcelonlinebusiness_6a552" solution="Active" id.connectionreferencelogicalname="sanwhrd_sharedexcelonlinebusiness_6a552" />
+        <Dependent type="29" displayName="Certificaciones - Salesforce a Dataverse" id="{4dcbd5c1-4b45-f011-8779-000d3a308b24}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="sanwhrd_sharedexcelonlinebusiness_6a552" solution="Active" id.connectionreferencelogicalname="sanwhrd_sharedexcelonlinebusiness_6a552" />
+        <Dependent type="29" displayName="Update FLS Employees Table in Excel - Step 2" id="{7c720722-735b-f011-bec1-6045bd00a4c7}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="sanwhrd_sharedexcelonlinebusiness_6a552" solution="Active" id.connectionreferencelogicalname="sanwhrd_sharedexcelonlinebusiness_6a552" />
+        <Dependent type="29" displayName="Button -&gt; List rows present in a table" id="{9a71a86b-13cc-ee11-9079-000d3a341fff}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="sanwhrd_sharedexcelonlinebusiness_6a552" solution="Active" id.connectionreferencelogicalname="sanwhrd_sharedexcelonlinebusiness_6a552" />
+        <Dependent type="29" displayName="Button -&gt; List rows from selected environment - Properties,Apply to..." id="{c4062220-17cc-ee11-9079-000d3a341fff}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="sanwhrd_sharedoffice365users_4aa87" solution="Active" id.connectionreferencelogicalname="sanwhrd_sharedoffice365users_4aa87" />
+        <Dependent type="29" displayName="PowerAppV2 -&gt; Crear Acta de Reunión de Licitación" id="{1cf53814-d39a-f011-b4cc-000d3a597ddf}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="sanwhrd_sharedoffice365users_4aa87" solution="Active" id.connectionreferencelogicalname="sanwhrd_sharedoffice365users_4aa87" />
+        <Dependent type="29" displayName="Delete - Crear Acta de Reunión de Licitación" id="{8d8d69ad-8040-f011-b4ca-6045bd00a4c7}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="sanwhrd_sharedoffice365users_4aa87" solution="Active" id.connectionreferencelogicalname="sanwhrd_sharedoffice365users_4aa87" />
+        <Dependent type="29" displayName="Button -&gt; List rows present in a table" id="{9a71a86b-13cc-ee11-9079-000d3a341fff}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="sanwhrd_sharedoffice365users_4aa87" solution="Active" id.connectionreferencelogicalname="sanwhrd_sharedoffice365users_4aa87" />
+        <Dependent type="29" displayName="Update SANW Employees Table - Step 1 Every Midnight" id="{a28e34f0-4c5b-f011-bec2-000d3a5b3604}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="sanwhrd_sharedwordonlinebusiness_e421f" solution="Active" id.connectionreferencelogicalname="sanwhrd_sharedwordonlinebusiness_e421f" />
+        <Dependent type="29" displayName="PowerAppV2 -&gt; Crear Acta de Reunión de Licitación" id="{1cf53814-d39a-f011-b4cc-000d3a597ddf}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="sanwhrd_sharedwordonlinebusiness_e421f" solution="Active" id.connectionreferencelogicalname="sanwhrd_sharedwordonlinebusiness_e421f" />
+        <Dependent type="29" displayName="Delete - Crear Acta de Reunión de Licitación" id="{8d8d69ad-8040-f011-b4ca-6045bd00a4c7}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="sanwlms_sharedsharepointonline_d1c09" solution="Active" id.connectionreferencelogicalname="sanwlms_sharedsharepointonline_d1c09" />
+        <Dependent type="29" displayName="PowerAppV2 -&gt; UploadImageToSharepoint" id="{18e08199-790b-f111-8406-000d3a5b9f7f}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="sanwlms_sharedsharepointonline_d1c09" solution="Active" id.connectionreferencelogicalname="sanwlms_sharedsharepointonline_d1c09" />
+        <Dependent type="29" displayName="PowerAppV2 -&gt; Crear Acta de Reunión de Licitación" id="{1cf53814-d39a-f011-b4cc-000d3a597ddf}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="sanwlms_sharedsharepointonline_d1c09" solution="Active" id.connectionreferencelogicalname="sanwlms_sharedsharepointonline_d1c09" />
+        <Dependent type="29" displayName="Licitaciones - Recepcionar documentos por correo" id="{24f68c12-97f0-f011-8406-000d3a5cfefb}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="sanwlms_sharedsharepointonline_d1c09" solution="Active" id.connectionreferencelogicalname="sanwlms_sharedsharepointonline_d1c09" />
+        <Dependent type="29" displayName="PowerAppV2 -&gt; Crear carpeta al crear una licitación" id="{3cd5ef4f-b2ec-f011-8544-000d3a330200}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="sanwlms_sharedsharepointonline_d1c09" solution="Active" id.connectionreferencelogicalname="sanwlms_sharedsharepointonline_d1c09" />
+        <Dependent type="29" displayName="PowerAppV2 -&gt; DeleteImageFromSharepoint" id="{5d1a457a-2113-f111-8406-000d3a5b9920}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="sanwlms_sharedsharepointonline_d1c09" solution="Active" id.connectionreferencelogicalname="sanwlms_sharedsharepointonline_d1c09" />
+        <Dependent type="29" displayName="Delete - Crear Acta de Reunión de Licitación" id="{8d8d69ad-8040-f011-b4ca-6045bd00a4c7}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.27)" id.uniquename="AppChannel">
+          <package appName="PowerAppsAppFramework Package" version="1.0.0.27">PowerAppsAppFramework_Anchor (1.0.0.27)</package>
+        </Required>
+        <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=mfd_HitosProyectos,settingdefinitionid.uniquename=AppChannel" id.parentappmoduleid.uniquename="mfd_HitosProyectos" id.settingdefinitionid.uniquename="AppChannel" />
+      </MissingDependency>
+    </MissingDependencies>
+  </SolutionManifest>
+</ImportExportXml>

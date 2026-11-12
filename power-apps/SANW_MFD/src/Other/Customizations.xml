@@ -1,0 +1,506 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26101.184" OrganizationSchemaType="Full" CRMServerServiceabilityVersion="9.2.26101.00184">
+  <Entities />
+  <Roles />
+  <Workflows />
+  <FieldSecurityProfiles />
+  <Templates />
+  <EntityImageConfigs>
+    <EntityImageConfig>
+      <parententitylogicalname>mfd_oym_area</parententitylogicalname>
+      <primaryimageattribute>mfd_image</primaryimageattribute>
+    </EntityImageConfig>
+    <EntityImageConfig>
+      <parententitylogicalname>mfd_oym_item</parententitylogicalname>
+      <primaryimageattribute>mfd_image</primaryimageattribute>
+    </EntityImageConfig>
+    <EntityImageConfig>
+      <parententitylogicalname>mfd_oym_logitem</parententitylogicalname>
+      <primaryimageattribute>mfd_image</primaryimageattribute>
+    </EntityImageConfig>
+    <EntityImageConfig>
+      <parententitylogicalname>mfd_oym_purchaserequestitem</parententitylogicalname>
+      <primaryimageattribute>mfd_image</primaryimageattribute>
+    </EntityImageConfig>
+    <EntityImageConfig>
+      <parententitylogicalname>mfd_oym_vehiclereservation</parententitylogicalname>
+      <primaryimageattribute>mfd_initialimagenkm</primaryimageattribute>
+    </EntityImageConfig>
+  </EntityImageConfigs>
+  <AttributeImageConfigs>
+    <AttributeImageConfig>
+      <attributelogicalname>mfd_image</attributelogicalname>
+      <parententitylogicalname>mfd_oym_area</parententitylogicalname>
+      <canstorefullimage>1</canstorefullimage>
+    </AttributeImageConfig>
+    <AttributeImageConfig>
+      <attributelogicalname>mfd_image</attributelogicalname>
+      <parententitylogicalname>mfd_oym_item</parententitylogicalname>
+      <canstorefullimage>1</canstorefullimage>
+    </AttributeImageConfig>
+    <AttributeImageConfig>
+      <attributelogicalname>mfd_image</attributelogicalname>
+      <parententitylogicalname>mfd_oym_logitem</parententitylogicalname>
+      <canstorefullimage>1</canstorefullimage>
+    </AttributeImageConfig>
+    <AttributeImageConfig>
+      <attributelogicalname>mfd_image</attributelogicalname>
+      <parententitylogicalname>mfd_oym_purchaserequestitem</parententitylogicalname>
+      <canstorefullimage>1</canstorefullimage>
+    </AttributeImageConfig>
+    <AttributeImageConfig>
+      <attributelogicalname>mfd_initialimagenkm</attributelogicalname>
+      <parententitylogicalname>mfd_oym_vehiclereservation</parententitylogicalname>
+      <canstorefullimage>1</canstorefullimage>
+    </AttributeImageConfig>
+    <AttributeImageConfig>
+      <attributelogicalname>mfd_finalimagekm</attributelogicalname>
+      <parententitylogicalname>mfd_oym_vehiclereservation</parententitylogicalname>
+      <canstorefullimage>1</canstorefullimage>
+    </AttributeImageConfig>
+  </AttributeImageConfigs>
+  <EntityMaps />
+  <EntityRelationships />
+  <OrganizationSettings />
+  <optionsets />
+  <CustomControls />
+  <AppModuleSiteMaps />
+  <AppModules />
+  <EntityDataProviders />
+  <CanvasApps />
+  <connectionreferences>
+    <connectionreference connectionreferencelogicalname="mfd_sharedapprovals_bba7a">
+      <connectionreferencedisplayname>Standard approvals SANW_MFD-bba7a</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_approvals</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedapprovals_c64ba">
+      <connectionreferencedisplayname>Standard approvals SANW_MFD-c64ba</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_approvals</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedcommondataserviceforapps_46b54">
+      <connectionreferencedisplayname>Microsoft Dataverse SANW_MFD-46b54</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedcommondataserviceforapps_a5c7b">
+      <connectionreferencedisplayname>Microsoft Dataverse SANW_MFD-a5c7b</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedcommondataserviceforapps_c16dd">
+      <connectionreferencedisplayname>Microsoft Dataverse SANW_MFD-c16dd</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedcommondataserviceforapps_e068a">
+      <connectionreferencedisplayname>Microsoft Dataverse SANW_MFD-e068a</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_shareddataflows_59a99">
+      <connectionreferencedisplayname>Power Query Dataflows SANW_MFD-59a99</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_dataflows</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedexcelonlinebusiness_60a3c">
+      <connectionreferencedisplayname>Excel Online (Business) SANW_MFD-60a3c</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_excelonlinebusiness</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedexcelonlinebusiness_a8934">
+      <connectionreferencedisplayname>Excel Online (Business) SANW_MFD-a8934</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_excelonlinebusiness</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedexcelonlinebusiness_b1882">
+      <connectionreferencedisplayname>Excel Online (Business) SANW_MFD-b1882</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_excelonlinebusiness</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedmicrosoftforms_e15db">
+      <connectionreferencedisplayname>Microsoft Forms SANW_MFD-e15db</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_microsoftforms</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedoffice365_59339">
+      <connectionreferencedisplayname>Office 365 Outlook SANW_MFD-59339</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_office365</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedoffice365_66158">
+      <connectionreferencedisplayname>Office 365 Outlook SANW_MFD-66158</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_office365</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedoffice365_c948b">
+      <connectionreferencedisplayname>Office 365 Outlook SANW_MFD-c948b</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_office365</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedoffice365_ceeff">
+      <connectionreferencedisplayname>Office 365 Outlook SANW_MFD-ceeff</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_office365</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedoffice365users_26934">
+      <connectionreferencedisplayname>Office 365 Users SANW_MFD-26934</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_office365users</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedoffice365users_6a1bd">
+      <connectionreferencedisplayname>Office 365 Users SANW_MFD-6a1bd</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_office365users</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedonedriveforbusiness_0a2d0">
+      <connectionreferencedisplayname>OneDrive for Business SANW_MFD-0a2d0</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedonedriveforbusiness_c3928">
+      <connectionreferencedisplayname>OneDrive for Business SANW_MFD-c3928</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedsalesforce_1bc4d">
+      <connectionreferencedisplayname>Salesforce SANW_MFD-1bc4d</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_salesforce</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedsalesforce_1d711">
+      <connectionreferencedisplayname>Salesforce SANW_MFD-1d711</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_salesforce</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedsalesforce_31296">
+      <connectionreferencedisplayname>Salesforce SANW_MFD-31296</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_salesforce</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedsalesforce_47718">
+      <connectionreferencedisplayname>Salesforce SANW_MFD-47718</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_salesforce</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedsalesforce_b6057">
+      <connectionreferencedisplayname>Salesforce SANW_MFD-b6057</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_salesforce</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedsharepointonline_a9a7e">
+      <connectionreferencedisplayname>SharePoint SANW_MFD-a9a7e</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_sharepointonline</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedwordonlinebusiness_03fe9">
+      <connectionreferencedisplayname>Word Online (Business) SANW_MFD-03fe9</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_wordonlinebusiness</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedwordonlinebusiness_2c039">
+      <connectionreferencedisplayname>Word Online (Business) SANW_MFD-2c039</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_wordonlinebusiness</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedwordonlinebusiness_2f7a5">
+      <connectionreferencedisplayname>Word Online (Business) SANW_MFD-2f7a5</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_wordonlinebusiness</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedwordonlinebusiness_401ab">
+      <connectionreferencedisplayname>Word Online (Business) SANW_MFD-401ab</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_wordonlinebusiness</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedwordonlinebusiness_4df5e">
+      <connectionreferencedisplayname>Word Online (Business) SANW_MFD-4df5e</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_wordonlinebusiness</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedwordonlinebusiness_98d7b">
+      <connectionreferencedisplayname>Word Online (Business) SANW_MFD-98d7b</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_wordonlinebusiness</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedwordonlinebusiness_b6a76">
+      <connectionreferencedisplayname>Word Online (Business) SANW_MFD-b6a76</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_wordonlinebusiness</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedwordonlinebusiness_c6997">
+      <connectionreferencedisplayname>Word Online (Business) SANW_MFD-c6997</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_wordonlinebusiness</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedwordonlinebusiness_cd368">
+      <connectionreferencedisplayname>Word Online (Business) SANW_MFD-cd368</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_wordonlinebusiness</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="mfd_sharedwordonlinebusiness_dcebe">
+      <connectionreferencedisplayname>Word Online (Business) SANW_MFD-dcebe</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_wordonlinebusiness</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+  </connectionreferences>
+  <msdyn_dataflows>
+    <msdyn_dataflow msdyn_dataflowid="50f6bada-285c-f011-bec1-6045bd00a4c7">
+      <iscustomizable>1</iscustomizable>
+      <msdyn_internalversion>2c92b229-8b08-4690-a1a3-b30c875a8e38</msdyn_internalversion>
+      <msdyn_mashupdocument>section Section1;
+shared mfd_sanw_employee = let
+  Source = CommonDataService.Database("sanw-np.crm.dynamics.com"),
+  #"Navigation 1" = Source{[Schema = "dbo", Item = "mfd_sanw_employee"]}[Data]
+in
+  #"Navigation 1";
+shared #"AllUsers (Excel)" = let
+  Source = SharePoint.Files("https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD", [ApiVersion = 15]),
+  #"Navigation 2" = Source{[Name = "FLSEmployees.xlsx", #"Folder Path" = "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD/DocumentosParaAutomatizaciones/FLSEmployees/Excels/"]}[Content],
+  #"Imported Excel workbook" = Excel.Workbook(Web.Contents("https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD/DocumentosParaAutomatizaciones/FLSEmployees/Excels/FLSEmployees.xlsx"), null, true),
+  #"Navigation 1" = #"Imported Excel workbook"{[Item = "Table1", Kind = "Table"]}[Data],
+  #"Changed column type" = Table.TransformColumnTypes(#"Navigation 1", {{"Order", Int64.Type}, {"Name", type text}, {"Country", type text}, {"Organization", type text}, {"Position", type text}, {"UserPrincipalName", type text}, {"Key", type text}})
+in
+  #"Changed column type";
+shared AllUsersWithUPN = let
+  Source = #"AllUsers (Excel)",
+  #"Merged queries" = Table.NestedJoin(Source, {"Name"}, mfd_sanw_employee, {"mfd_name"}, "mfd_sanw_employee", JoinKind.LeftOuter),
+  #"Expanded mfd_sanw_employee" = Table.ExpandTableColumn(#"Merged queries", "mfd_sanw_employee", {"mfd_userprincipalname"}, {"mfd_userprincipalname"}),
+  #"Removed columns" = Table.RemoveColumns(#"Expanded mfd_sanw_employee", {"UserPrincipalName"}),
+  #"Added custom" = Table.TransformColumnTypes(Table.AddColumn(#"Removed columns", "UserPrincipalName", each [mfd_userprincipalname]), {{"UserPrincipalName", type text}}),
+  #"Reordered columns" = Table.ReorderColumns(#"Added custom", {"Order", "Name", "Country", "Organization", "Position", "UserPrincipalName", "Key", "mfd_userprincipalname"}),
+  #"Merged queries 1" = Table.NestedJoin(#"Reordered columns", {"Organization"}, mfd_oym_fmgroup, {"mfd_name"}, "mfd_oym_fmgroup", JoinKind.LeftOuter),
+  #"Expanded mfd_oym_fmgroup" = Table.ExpandTableColumn(#"Merged queries 1", "mfd_oym_fmgroup", {"mfd_region"}, {"mfd_region"})
+in
+  #"Expanded mfd_oym_fmgroup";
+shared #"mfd_fls_employee (Dataverse)" = let
+  Source = CommonDataService.Database("sanw-np.crm.dynamics.com"),
+  #"Navigation 1" = Source{[Schema = "dbo", Item = "mfd_fls_employee"]}[Data]
+in
+  #"Navigation 1";
+shared mfd_oym_fmgroup = let
+  Source = CommonDataService.Database("sanw-np.crm.dynamics.com"),
+  #"Navigation 1" = Source{[Schema = "dbo", Item = "mfd_oym_fmgroup"]}[Data]
+in
+  #"Navigation 1";
+shared NewEmployees = let
+  Source = #"AllUsersWithUPN",
+  #"Merged queries" = Table.NestedJoin(Source, {"Key"}, #"mfd_fls_employee (Dataverse)", {"mfd_key"}, "mfd_fls_employee (Dataverse)", JoinKind.LeftAnti),
+  #"Added custom 1" = Table.TransformColumnTypes(Table.AddColumn(#"Merged queries", "mfd_countrychoice", each if [Country] = "BOLIVIA" then 576530000
+else if [Country] = "COLOMBIA" then 576530001
+else if [Country] = "ECUADOR" then 576530002
+else if [Country] = "PERU" then 576530003
+else if [Country] = "SANW" then 440510001
+else null), {{"mfd_countrychoice", Int64.Type}}),
+  #"Added custom 2" = Table.TransformColumnTypes(Table.AddColumn(#"Added custom 1", "mfd_countrychoicename", each if [Country] = "BOLIVIA" then "Bolivia"
+else if [Country] = "COLOMBIA" then "Colombia"
+else if [Country] = "ECUADOR" then "Ecuador"
+else if [Country] = "PERU" then "Perú"
+else if [Country] = "SANW" then "SANW"
+else null), {{"mfd_countrychoicename", type text}}),
+  #"Added custom" = Table.TransformColumnTypes(Table.AddColumn(#"Added custom 2", "UpdateActive", each true), {{"UpdateActive", type logical}}),
+  #"Removed columns" = Table.RemoveColumns(#"Added custom", {"mfd_userprincipalname", "mfd_fls_employee (Dataverse)"})
+in
+  #"Removed columns";
+shared InactiveEmployees = let
+  Source = #"AllUsersWithUPN",
+  #"Merged queries" = Table.NestedJoin(Source, {"Key"}, #"mfd_fls_employee (Dataverse)", {"mfd_key"}, "mfd_fls_employee (Dataverse)", JoinKind.RightAnti),
+  #"Removed columns" = Table.RemoveColumns(#"Merged queries", {"Order", "Name", "Country", "Organization", "Position", "UserPrincipalName", "Key", "mfd_userprincipalname"}),
+  #"Expanded mfd_fls_employee (Dataverse) 1" = Table.ExpandTableColumn(#"Removed columns", "mfd_fls_employee (Dataverse)", {"mfd_userprincipalname","mfd_name", "mfd_organization", "mfd_position", "mfd_order", "mfd_key", "mfd_country", "mfd_countrychoice", "mfd_countrychoicename"}),
+  #"Added custom 1" = Table.TransformColumnTypes(Table.AddColumn(#"Expanded mfd_fls_employee (Dataverse) 1", "Order", each [mfd_order]), {{"Order", Int64.Type}}),
+  #"Added custom 2" = Table.TransformColumnTypes(Table.AddColumn(#"Added custom 1", "Name", each [mfd_name]), {{"Name", type text}}),
+  #"Added custom 3" = Table.TransformColumnTypes(Table.AddColumn(#"Added custom 2", "Country", each [mfd_country]), {{"Country", type text}}),
+  #"Added custom 4" = Table.TransformColumnTypes(Table.AddColumn(#"Added custom 3", "Organization", each [mfd_organization]), {{"Organization", type text}}),
+  #"Added custom 5" = Table.TransformColumnTypes(Table.AddColumn(#"Added custom 4", "Position", each [mfd_position]), {{"Position", type text}}),
+  #"Added custom 6" = Table.TransformColumnTypes(Table.AddColumn(#"Added custom 5", "UserPrincipalName", each [mfd_userprincipalname]), {{"UserPrincipalName", type text}}),
+  #"Added custom 7" = Table.TransformColumnTypes(Table.AddColumn(#"Added custom 6", "Key", each [mfd_key]), {{"Key", type text}}),
+  #"Added custom" = Table.TransformColumnTypes(Table.AddColumn(#"Added custom 7", "UpdateActive", each false), {{"UpdateActive", type logical}}),
+  #"Removed columns 1" = Table.RemoveColumns(#"Added custom", {"mfd_userprincipalname", "mfd_name", "mfd_organization", "mfd_position", "mfd_order", "mfd_country", "mfd_key"}),
+  #"Reordered columns" = Table.ReorderColumns(#"Removed columns 1", {"Order", "Name", "Country", "Organization", "Position", "UserPrincipalName", "Key", "mfd_countrychoice", "mfd_countrychoicename", "UpdateActive"})
+in
+  #"Reordered columns";
+shared ReactiveEmployees = let
+  Source = #"AllUsersWithUPN",
+  #"Merged queries" = Table.NestedJoin(Source, {"Key"}, #"mfd_fls_employee (Dataverse)", {"mfd_key"}, "mfd_fls_employee (Dataverse)", JoinKind.Inner),
+  #"Expanded mfd_fls_employee (Dataverse)" = Table.ExpandTableColumn(#"Merged queries", "mfd_fls_employee (Dataverse)", {"mfd_countrychoice", "mfd_countrychoicename", "mfd_active"}, {"mfd_countrychoice", "mfd_countrychoicename", "mfd_active"}),
+  #"Filtered rows" = Table.SelectRows(#"Expanded mfd_fls_employee (Dataverse)", each ([mfd_active] = false)),
+  #"Added custom" = Table.TransformColumnTypes(Table.AddColumn(#"Filtered rows", "UpdateActive", each true), {{"UpdateActive", type logical}}),
+  #"Removed columns" = Table.RemoveColumns(#"Added custom", {"mfd_userprincipalname", "mfd_active"})
+in
+  #"Removed columns";
+shared FinalEmployees = let
+  Source = Table.Combine({NewEmployees, ReactiveEmployees, InactiveEmployees}),
+  #"Changed column type" = Table.TransformColumnTypes(Source, {{"mfd_countrychoice", Int64.Type}})
+in
+  #"Changed column type";
+</msdyn_mashupdocument>
+      <msdyn_mashupsettings>{"QueryGroups":[],"DocumentLocale":"en-US","QueriesMetadata":{"mfd_sanw_employee":{"QueryId":"341f7b95-32d0-45d4-890b-75287eec295e","QueryName":"mfd_sanw_employee","QueryGroupId":null,"EntityName":null,"LastKnownIsCalculatedEntity":false,"LastKnownIsLinkedEntity":false,"LastKnownIsParameter":false,"IsHidden":null,"LastKnownResultTypeName":"table","LoadEnabled":false,"DeleteExistingDataOnLoad":false,"FieldsMetadata":{},"HostProperties":{"MappingEditorProperties":"{}"},"JsonOutputDestinations":null,"BindToDefaultOutputDestination":null,"JsonIncrementalRefreshSettings":null,"JsonStagingDefinition":null},"AllUsers (Excel)":{"QueryId":"b91c0e42-6246-4c8b-b167-a1510d23463b","QueryName":"AllUsers (Excel)","QueryGroupId":null,"EntityName":"mfd_FLS_Employee","LastKnownIsCalculatedEntity":false,"LastKnownIsLinkedEntity":false,"LastKnownIsParameter":false,"IsHidden":null,"LastKnownResultTypeName":"table","LoadEnabled":false,"DeleteExistingDataOnLoad":true,"FieldsMetadata":{},"HostProperties":{"MappingEditorProperties":"{}"},"JsonOutputDestinations":null,"BindToDefaultOutputDestination":null,"JsonIncrementalRefreshSettings":null,"JsonStagingDefinition":null},"AllUsersWithUPN":{"QueryId":"45516b02-5ca4-4235-bcdc-5302af3a4e5d","QueryName":"AllUsersWithUPN","QueryGroupId":null,"EntityName":null,"LastKnownIsCalculatedEntity":false,"LastKnownIsLinkedEntity":false,"LastKnownIsParameter":false,"IsHidden":null,"LastKnownResultTypeName":"table","LoadEnabled":false,"DeleteExistingDataOnLoad":false,"FieldsMetadata":{},"HostProperties":{"MappingEditorProperties":"{}"},"JsonOutputDestinations":null,"BindToDefaultOutputDestination":null,"JsonIncrementalRefreshSettings":null,"JsonStagingDefinition":null},"mfd_fls_employee (Dataverse)":{"QueryId":"ba18defd-c702-4d2a-a1be-4671730d3141","QueryName":"mfd_fls_employee (Dataverse)","QueryGroupId":null,"EntityName":null,"LastKnownIsCalculatedEntity":false,"LastKnownIsLinkedEntity":false,"LastKnownIsParameter":false,"IsHidden":null,"LastKnownResultTypeName":"table","LoadEnabled":false,"DeleteExistingDataOnLoad":false,"FieldsMetadata":{},"HostProperties":{"MappingEditorProperties":"{}"},"JsonOutputDestinations":null,"BindToDefaultOutputDestination":null,"JsonIncrementalRefreshSettings":null,"JsonStagingDefinition":null},"mfd_oym_fmgroup":{"QueryId":"cf9da22d-23a0-45e1-91b4-c87d3fa3ded5","QueryName":"mfd_oym_fmgroup","QueryGroupId":null,"EntityName":null,"LastKnownIsCalculatedEntity":false,"LastKnownIsLinkedEntity":false,"LastKnownIsParameter":false,"IsHidden":null,"LastKnownResultTypeName":"table","LoadEnabled":false,"DeleteExistingDataOnLoad":false,"FieldsMetadata":{},"HostProperties":{"MappingEditorProperties":"{}"},"JsonOutputDestinations":null,"BindToDefaultOutputDestination":null,"JsonIncrementalRefreshSettings":null,"JsonStagingDefinition":null},"NewEmployees":{"QueryId":"5ffe82cc-2b9c-4de3-acad-e1110c8d56f0","QueryName":"NewEmployees","QueryGroupId":null,"EntityName":"cr4d3_NewEmployees","LastKnownIsCalculatedEntity":false,"LastKnownIsLinkedEntity":false,"LastKnownIsParameter":false,"IsHidden":null,"LastKnownResultTypeName":"table","LoadEnabled":false,"DeleteExistingDataOnLoad":false,"FieldsMetadata":{},"HostProperties":{"NewEntityPrimaryNameField":"cr4d3_Name","MappingEditorProperties":"{}"},"JsonOutputDestinations":null,"BindToDefaultOutputDestination":null,"JsonIncrementalRefreshSettings":null,"JsonStagingDefinition":null},"InactiveEmployees":{"QueryId":"7938d8c8-f2ec-4f8b-9f5c-862ad9d648ae","QueryName":"InactiveEmployees","QueryGroupId":null,"EntityName":"cr4d3_InactiveEmployees","LastKnownIsCalculatedEntity":false,"LastKnownIsLinkedEntity":false,"LastKnownIsParameter":false,"IsHidden":null,"LastKnownResultTypeName":"table","LoadEnabled":false,"DeleteExistingDataOnLoad":false,"FieldsMetadata":{},"HostProperties":{"NewEntityPrimaryNameField":"cr4d3_Name","MappingEditorProperties":"{}"},"JsonOutputDestinations":null,"BindToDefaultOutputDestination":null,"JsonIncrementalRefreshSettings":null,"JsonStagingDefinition":null},"ReactiveEmployees":{"QueryId":"375bf380-b237-4c56-bc75-0d6789c23bc2","QueryName":"ReactiveEmployees","QueryGroupId":null,"EntityName":"cr4d3_ReactiveEmployees","LastKnownIsCalculatedEntity":false,"LastKnownIsLinkedEntity":false,"LastKnownIsParameter":false,"IsHidden":null,"LastKnownResultTypeName":"table","LoadEnabled":false,"DeleteExistingDataOnLoad":false,"FieldsMetadata":{},"HostProperties":{"NewEntityPrimaryNameField":"cr4d3_Name","MappingEditorProperties":"{}"},"JsonOutputDestinations":null,"BindToDefaultOutputDestination":null,"JsonIncrementalRefreshSettings":null,"JsonStagingDefinition":null},"FinalEmployees":{"QueryId":"800ba495-1584-47fc-82f2-640d473fc489","QueryName":"FinalEmployees","QueryGroupId":null,"EntityName":"mfd_FLS_Employee","LastKnownIsCalculatedEntity":false,"LastKnownIsLinkedEntity":false,"LastKnownIsParameter":false,"IsHidden":null,"LastKnownResultTypeName":"table","LoadEnabled":true,"DeleteExistingDataOnLoad":false,"FieldsMetadata":{"mfd_Active":{"SourceColumnName":"UpdateActive","DestinationFieldType":"Boolean","AutoNumberSettings":null},"mfd_Country":{"SourceColumnName":"Country","DestinationFieldType":"Memo","AutoNumberSettings":null},"mfd_CountryChoice":{"SourceColumnName":"mfd_countrychoice","DestinationFieldType":"Integer","AutoNumberSettings":null},"mfd_Key":{"SourceColumnName":"Key","DestinationFieldType":"Memo","AutoNumberSettings":null},"mfd_Name":{"SourceColumnName":"Name","DestinationFieldType":"Memo","AutoNumberSettings":null},"mfd_Order":{"SourceColumnName":"Order","DestinationFieldType":"Integer","AutoNumberSettings":null},"mfd_Organization":{"SourceColumnName":"Organization","DestinationFieldType":"Memo","AutoNumberSettings":null},"mfd_Position":{"SourceColumnName":"Position","DestinationFieldType":"Memo","AutoNumberSettings":null},"mfd_Region":{"SourceColumnName":"mfd_region","DestinationFieldType":"Memo","AutoNumberSettings":null},"mfd_UserPrincipalName":{"SourceColumnName":"UserPrincipalName","DestinationFieldType":"Memo","AutoNumberSettings":null}},"HostProperties":{"MappingEditorProperties":"{\"primaryKeyLogicalName\":\"mfd_flsemployeekey\"}"},"JsonOutputDestinations":null,"BindToDefaultOutputDestination":null,"JsonIncrementalRefreshSettings":null,"JsonStagingDefinition":null}},"FastCombine":true,"AllowNativeQueries":false,"HostContext":{"Type":"CdsT","Details":{"EnvironmentId":"0b1e63d8-aeb0-4c2a-8808-93ee84094d46"}},"HostProperties":null,"SkipAutomaticTypeAndHeaderDetection":false,"DisableAutoAnonymousConnectionUpsert":false,"AllowedModules":null,"DataflowMetadata":"{\"DataflowType\":\"Cdst\",\"DataflowId\":\"74caa26a-d850-448b-8f65-5b93e2ef52ed\",\"OwnerUserId\":\"8d87fbb1-c7a1-47bb-a7cf-d4da7033de56\",\"OwnerName\":\"Alfredo Torres\",\"OwnerTenantId\":\"61e6eeb3-5fd7-4aaa-ae3c-61e8deb09b79\",\"GatewayObjectId\":null,\"ModelSnapshotUri\":\"\",\"GroupId\":\"0b1e63d8-aeb0-4c2a-8808-93ee84094d46\",\"DataflowState\":\"Source\",\"LastUpdateTime\":\"2026-11-12T00:01:39.316997+00:00\",\"LastStateChangedTime\":\"2026-11-12T00:01:39.316997+00:00\",\"CreatedTime\":\"2025-07-08T18:16:12.5936327+00:00\",\"ExpiresAfter\":\"2025-07-10T17:21:12.9142712+00:00\",\"AllowedModules\":null,\"UseHostConnectionProvider\":null,\"SkipAutomaticTypeAndHeaderDetection\":null,\"EditingSessionId\":null,\"HostInformation\":null,\"HostContext\":{\"Type\":\"CdsT\",\"Details\":{\"EnvironmentId\":\"0b1e63d8-aeb0-4c2a-8808-93ee84094d46\"}},\"HostProperties\":{\"ServiceFeatureFlag_EnableNewCdstDataflowOrchestration\":\"true\",\"CdsUploadExecutorKey\":\"Dms\",\"DmsVersionKey\":\"0\"},\"DisableAutoAnonymousConnectionUpsert\":null,\"RelatedDataflowId\":\"a76b3776-d853-41af-b915-2ef4448ae18b\",\"NotificationSettings\":{\"RefreshEmailSettings\":{\"SendMailEnabled\":true,\"EmailsList\":[\"torresaj@churchofjesuschrist.org\"]},\"DataflowWebhooks\":{}},\"DataflowPublishMetadata\":{\"PublishStatus\":\"Published\",\"ErrorInfo\":null,\"PublishVersion\":\"2025-10-29T20:13:52.6555208+00:00\",\"LastUpdateTime\":\"2025-10-29T20:14:05.6371785+00:00\",\"LastPublishedTime\":\"2025-10-29T20:14:05.6371785+00:00\",\"SessionId\":null,\"RequestId\":null},\"TrustedConnections\":null,\"DataflowStorageId\":\"CD000000-0000-0000-0000-0000000000CD\",\"DataflowCreatedByPQInGroupId\":null,\"OriginContext\":{\"PQOrigin\":\"0b1e63d8-aeb0-4c2a-8808-93ee84094d46\",\"GroupMigrationVersion\":\"6\"},\"ConnectionOverrides\":[{\"Path\":\"https://churchofjesuschrist-my.sharepoint.com\",\"Kind\":\"Web\",\"Provider\":\"PowerApps\",\"EnvironmentName\":\"0b1e63d8-aeb0-4c2a-8808-93ee84094d46\",\"ApiName\":\"webcontents\",\"ConnectionName\":\"28b870c8104945df89ff7b8ba2452d98\",\"ExtensionData\":{},\"CredentialDetails\":{},\"ConnectionParameters\":{},\"PrivacyGroup\":\"None\"},{\"Path\":\"https://churchofjesuschrist.sharepoint.com\",\"Kind\":\"SharePoint\",\"Provider\":\"PowerApps\",\"EnvironmentName\":\"0b1e63d8-aeb0-4c2a-8808-93ee84094d46\",\"ApiName\":\"webcontents\",\"ConnectionName\":\"fe876dbdcd6c43f786744b92eb9be8f9\",\"ExtensionData\":{},\"CredentialDetails\":{},\"ConnectionParameters\":{},\"PrivacyGroup\":\"None\"},{\"Path\":\"https://churchofjesuschrist.sharepoint.com\",\"Kind\":\"Web\",\"Provider\":\"PowerApps\",\"EnvironmentName\":\"0b1e63d8-aeb0-4c2a-8808-93ee84094d46\",\"ApiName\":\"webcontents\",\"ConnectionName\":\"97071d48f4f740cebfd303c85d682e64\",\"ExtensionData\":{},\"CredentialDetails\":{},\"ConnectionParameters\":{}},{\"Path\":\"Dataverse\",\"Kind\":\"CommonDataService\",\"Provider\":\"PowerApps\",\"EnvironmentName\":\"0b1e63d8-aeb0-4c2a-8808-93ee84094d46\",\"ApiName\":\"dataverse\",\"ConnectionName\":\"d4833243a6b14e5fa77985aa4308156a\",\"ExtensionData\":{},\"CredentialDetails\":{},\"ConnectionParameters\":{},\"PrivacyGroup\":\"None\"},{\"Path\":\"sanw-np.crm.dynamics.com\",\"Kind\":\"CommonDataService\",\"Provider\":\"PowerApps\",\"EnvironmentName\":\"0b1e63d8-aeb0-4c2a-8808-93ee84094d46\",\"ApiName\":\"dataverse\",\"ConnectionName\":\"100ac78f6234451ebb1ca84e4305eca9\",\"ExtensionData\":{},\"CredentialDetails\":{},\"ConnectionParameters\":{},\"PrivacyGroup\":\"None\"}]}","Dataflow":"{\"name\":\"Dataflow-FLS-Employees\",\"ppdf:dataflowId\":\"74caa26a-d850-448b-8f65-5b93e2ef52ed\",\"ppdf:owner\":{\"tenantId\":\"61e6eeb3-5fd7-4aaa-ae3c-61e8deb09b79\",\"userId\":\"8d87fbb1-c7a1-47bb-a7cf-d4da7033de56\"},\"ppdf:fastCopy\":false,\"ppdf:parametric\":false,\"ppdf:trackDataEnabled\":false,\"ppdf:partitionedCompute\":false,\"ppdf:enableVorder\":true,\"ppdf:enableOptimizedCopyToLakehouse\":false,\"ppdf:allowModernEvaluationEngine\":false,\"ppdf:allowModernRefreshService\":false,\"ppdf:allowModernDataflowOrchestrator\":false,\"version\":\"6\",\"culture\":\"en-US\",\"ppdf:outputFileFormat\":\"Csv\",\"pbi:mashup\":{\"fastCombine\":true,\"allowNativeQueries\":false,\"queriesMetadata\":{\"mfd_sanw_employee\":{\"queryId\":\"341f7b95-32d0-45d4-890b-75287eec295e\",\"queryName\":\"mfd_sanw_employee\",\"lastKnownResultTypeName\":\"table\",\"lastKnownIsCalculatedEntity\":false,\"lastKnownIsLinkedEntity\":false,\"lastKnownIsParameter\":false,\"deleteExistingDataOnLoad\":false,\"hostProperties\":{\"MappingEditorProperties\":\"{}\"}},\"AllUsers (Excel)\":{\"queryId\":\"b91c0e42-6246-4c8b-b167-a1510d23463b\",\"queryName\":\"AllUsers (Excel)\",\"entityName\":\"mfd_FLS_Employee\",\"lastKnownResultTypeName\":\"table\",\"lastKnownIsCalculatedEntity\":false,\"lastKnownIsLinkedEntity\":false,\"lastKnownIsParameter\":false,\"deleteExistingDataOnLoad\":true,\"hostProperties\":{\"MappingEditorProperties\":\"{}\"}},\"AllUsersWithUPN\":{\"queryId\":\"45516b02-5ca4-4235-bcdc-5302af3a4e5d\",\"queryName\":\"AllUsersWithUPN\",\"lastKnownResultTypeName\":\"table\",\"lastKnownIsCalculatedEntity\":false,\"lastKnownIsLinkedEntity\":false,\"lastKnownIsParameter\":false,\"deleteExistingDataOnLoad\":false,\"hostProperties\":{\"MappingEditorProperties\":\"{}\"}},\"mfd_fls_employee (Dataverse)\":{\"queryId\":\"ba18defd-c702-4d2a-a1be-4671730d3141\",\"queryName\":\"mfd_fls_employee (Dataverse)\",\"lastKnownResultTypeName\":\"table\",\"lastKnownIsCalculatedEntity\":false,\"lastKnownIsLinkedEntity\":false,\"lastKnownIsParameter\":false,\"deleteExistingDataOnLoad\":false,\"hostProperties\":{\"MappingEditorProperties\":\"{}\"}},\"mfd_oym_fmgroup\":{\"queryId\":\"cf9da22d-23a0-45e1-91b4-c87d3fa3ded5\",\"queryName\":\"mfd_oym_fmgroup\",\"lastKnownResultTypeName\":\"table\",\"lastKnownIsCalculatedEntity\":false,\"lastKnownIsLinkedEntity\":false,\"lastKnownIsParameter\":false,\"deleteExistingDataOnLoad\":false,\"hostProperties\":{\"MappingEditorProperties\":\"{}\"}},\"NewEmployees\":{\"queryId\":\"5ffe82cc-2b9c-4de3-acad-e1110c8d56f0\",\"queryName\":\"NewEmployees\",\"entityName\":\"cr4d3_NewEmployees\",\"lastKnownResultTypeName\":\"table\",\"lastKnownIsCalculatedEntity\":false,\"lastKnownIsLinkedEntity\":false,\"lastKnownIsParameter\":false,\"deleteExistingDataOnLoad\":false,\"hostProperties\":{\"NewEntityPrimaryNameField\":\"cr4d3_Name\",\"MappingEditorProperties\":\"{}\"}},\"InactiveEmployees\":{\"queryId\":\"7938d8c8-f2ec-4f8b-9f5c-862ad9d648ae\",\"queryName\":\"InactiveEmployees\",\"entityName\":\"cr4d3_InactiveEmployees\",\"lastKnownResultTypeName\":\"table\",\"lastKnownIsCalculatedEntity\":false,\"lastKnownIsLinkedEntity\":false,\"lastKnownIsParameter\":false,\"deleteExistingDataOnLoad\":false,\"hostProperties\":{\"NewEntityPrimaryNameField\":\"cr4d3_Name\",\"MappingEditorProperties\":\"{}\"}},\"ReactiveEmployees\":{\"queryId\":\"375bf380-b237-4c56-bc75-0d6789c23bc2\",\"queryName\":\"ReactiveEmployees\",\"entityName\":\"cr4d3_ReactiveEmployees\",\"lastKnownResultTypeName\":\"table\",\"lastKnownIsCalculatedEntity\":false,\"lastKnownIsLinkedEntity\":false,\"lastKnownIsParameter\":false,\"deleteExistingDataOnLoad\":false,\"hostProperties\":{\"NewEntityPrimaryNameField\":\"cr4d3_Name\",\"MappingEditorProperties\":\"{}\"}},\"FinalEmployees\":{\"queryId\":\"800ba495-1584-47fc-82f2-640d473fc489\",\"queryName\":\"FinalEmployees\",\"entityName\":\"mfd_FLS_Employee\",\"loadEnabled\":true,\"lastKnownResultTypeName\":\"table\",\"lastKnownIsCalculatedEntity\":false,\"lastKnownIsLinkedEntity\":false,\"lastKnownIsParameter\":false,\"deleteExistingDataOnLoad\":false,\"hostProperties\":{\"MappingEditorProperties\":\"{\\\"primaryKeyLogicalName\\\":\\\"mfd_flsemployeekey\\\"}\"},\"fieldsMetadata\":{\"mfd_Active\":{\"sourceColumnName\":\"UpdateActive\",\"destinationFieldType\":\"Boolean\"},\"mfd_Country\":{\"sourceColumnName\":\"Country\",\"destinationFieldType\":\"Memo\"},\"mfd_CountryChoice\":{\"sourceColumnName\":\"mfd_countrychoice\",\"destinationFieldType\":\"Integer\"},\"mfd_Key\":{\"sourceColumnName\":\"Key\",\"destinationFieldType\":\"Memo\"},\"mfd_Name\":{\"sourceColumnName\":\"Name\",\"destinationFieldType\":\"Memo\"},\"mfd_Order\":{\"sourceColumnName\":\"Order\",\"destinationFieldType\":\"Integer\"},\"mfd_Organization\":{\"sourceColumnName\":\"Organization\",\"destinationFieldType\":\"Memo\"},\"mfd_Position\":{\"sourceColumnName\":\"Position\",\"destinationFieldType\":\"Memo\"},\"mfd_Region\":{\"sourceColumnName\":\"mfd_region\",\"destinationFieldType\":\"Memo\"},\"mfd_UserPrincipalName\":{\"sourceColumnName\":\"UserPrincipalName\",\"destinationFieldType\":\"Memo\"}}}},\"document\":\"section Section1;\\r\\nshared mfd_sanw_employee = let\\r\\n  Source = CommonDataService.Database(\\\"sanw-np.crm.dynamics.com\\\"),\\r\\n  #\\\"Navigation 1\\\" = Source{[Schema = \\\"dbo\\\", Item = \\\"mfd_sanw_employee\\\"]}[Data]\\r\\nin\\r\\n  #\\\"Navigation 1\\\";\\r\\nshared #\\\"AllUsers (Excel)\\\" = let\\r\\n  Source = SharePoint.Files(\\\"https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD\\\", [ApiVersion = 15]),\\r\\n  #\\\"Navigation 2\\\" = Source{[Name = \\\"FLSEmployees.xlsx\\\", #\\\"Folder Path\\\" = \\\"https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD/DocumentosParaAutomatizaciones/FLSEmployees/Excels/\\\"]}[Content],\\r\\n  #\\\"Imported Excel workbook\\\" = Excel.Workbook(Web.Contents(\\\"https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD/DocumentosParaAutomatizaciones/FLSEmployees/Excels/FLSEmployees.xlsx\\\"), null, true),\\r\\n  #\\\"Navigation 1\\\" = #\\\"Imported Excel workbook\\\"{[Item = \\\"Table1\\\", Kind = \\\"Table\\\"]}[Data],\\r\\n  #\\\"Changed column type\\\" = Table.TransformColumnTypes(#\\\"Navigation 1\\\", {{\\\"Order\\\", Int64.Type}, {\\\"Name\\\", type text}, {\\\"Country\\\", type text}, {\\\"Organization\\\", type text}, {\\\"Position\\\", type text}, {\\\"UserPrincipalName\\\", type text}, {\\\"Key\\\", type text}})\\r\\nin\\r\\n  #\\\"Changed column type\\\";\\r\\nshared AllUsersWithUPN = let\\r\\n  Source = #\\\"AllUsers (Excel)\\\",\\r\\n  #\\\"Merged queries\\\" = Table.NestedJoin(Source, {\\\"Name\\\"}, mfd_sanw_employee, {\\\"mfd_name\\\"}, \\\"mfd_sanw_employee\\\", JoinKind.LeftOuter),\\r\\n  #\\\"Expanded mfd_sanw_employee\\\" = Table.ExpandTableColumn(#\\\"Merged queries\\\", \\\"mfd_sanw_employee\\\", {\\\"mfd_userprincipalname\\\"}, {\\\"mfd_userprincipalname\\\"}),\\r\\n  #\\\"Removed columns\\\" = Table.RemoveColumns(#\\\"Expanded mfd_sanw_employee\\\", {\\\"UserPrincipalName\\\"}),\\r\\n  #\\\"Added custom\\\" = Table.TransformColumnTypes(Table.AddColumn(#\\\"Removed columns\\\", \\\"UserPrincipalName\\\", each [mfd_userprincipalname]), {{\\\"UserPrincipalName\\\", type text}}),\\r\\n  #\\\"Reordered columns\\\" = Table.ReorderColumns(#\\\"Added custom\\\", {\\\"Order\\\", \\\"Name\\\", \\\"Country\\\", \\\"Organization\\\", \\\"Position\\\", \\\"UserPrincipalName\\\", \\\"Key\\\", \\\"mfd_userprincipalname\\\"}),\\r\\n  #\\\"Merged queries 1\\\" = Table.NestedJoin(#\\\"Reordered columns\\\", {\\\"Organization\\\"}, mfd_oym_fmgroup, {\\\"mfd_name\\\"}, \\\"mfd_oym_fmgroup\\\", JoinKind.LeftOuter),\\r\\n  #\\\"Expanded mfd_oym_fmgroup\\\" = Table.ExpandTableColumn(#\\\"Merged queries 1\\\", \\\"mfd_oym_fmgroup\\\", {\\\"mfd_region\\\"}, {\\\"mfd_region\\\"})\\r\\nin\\r\\n  #\\\"Expanded mfd_oym_fmgroup\\\";\\r\\nshared #\\\"mfd_fls_employee (Dataverse)\\\" = let\\r\\n  Source = CommonDataService.Database(\\\"sanw-np.crm.dynamics.com\\\"),\\r\\n  #\\\"Navigation 1\\\" = Source{[Schema = \\\"dbo\\\", Item = \\\"mfd_fls_employee\\\"]}[Data]\\r\\nin\\r\\n  #\\\"Navigation 1\\\";\\r\\nshared mfd_oym_fmgroup = let\\r\\n  Source = CommonDataService.Database(\\\"sanw-np.crm.dynamics.com\\\"),\\r\\n  #\\\"Navigation 1\\\" = Source{[Schema = \\\"dbo\\\", Item = \\\"mfd_oym_fmgroup\\\"]}[Data]\\r\\nin\\r\\n  #\\\"Navigation 1\\\";\\r\\nshared NewEmployees = let\\r\\n  Source = #\\\"AllUsersWithUPN\\\",\\r\\n  #\\\"Merged queries\\\" = Table.NestedJoin(Source, {\\\"Key\\\"}, #\\\"mfd_fls_employee (Dataverse)\\\", {\\\"mfd_key\\\"}, \\\"mfd_fls_employee (Dataverse)\\\", JoinKind.LeftAnti),\\r\\n  #\\\"Added custom 1\\\" = Table.TransformColumnTypes(Table.AddColumn(#\\\"Merged queries\\\", \\\"mfd_countrychoice\\\", each if [Country] = \\\"BOLIVIA\\\" then 576530000\\nelse if [Country] = \\\"COLOMBIA\\\" then 576530001\\nelse if [Country] = \\\"ECUADOR\\\" then 576530002\\nelse if [Country] = \\\"PERU\\\" then 576530003\\nelse if [Country] = \\\"SANW\\\" then 440510001\\nelse null), {{\\\"mfd_countrychoice\\\", Int64.Type}}),\\r\\n  #\\\"Added custom 2\\\" = Table.TransformColumnTypes(Table.AddColumn(#\\\"Added custom 1\\\", \\\"mfd_countrychoicename\\\", each if [Country] = \\\"BOLIVIA\\\" then \\\"Bolivia\\\"\\nelse if [Country] = \\\"COLOMBIA\\\" then \\\"Colombia\\\"\\nelse if [Country] = \\\"ECUADOR\\\" then \\\"Ecuador\\\"\\nelse if [Country] = \\\"PERU\\\" then \\\"Perú\\\"\\nelse if [Country] = \\\"SANW\\\" then \\\"SANW\\\"\\nelse null), {{\\\"mfd_countrychoicename\\\", type text}}),\\r\\n  #\\\"Added custom\\\" = Table.TransformColumnTypes(Table.AddColumn(#\\\"Added custom 2\\\", \\\"UpdateActive\\\", each true), {{\\\"UpdateActive\\\", type logical}}),\\r\\n  #\\\"Removed columns\\\" = Table.RemoveColumns(#\\\"Added custom\\\", {\\\"mfd_userprincipalname\\\", \\\"mfd_fls_employee (Dataverse)\\\"})\\r\\nin\\r\\n  #\\\"Removed columns\\\";\\r\\nshared InactiveEmployees = let\\r\\n  Source = #\\\"AllUsersWithUPN\\\",\\r\\n  #\\\"Merged queries\\\" = Table.NestedJoin(Source, {\\\"Key\\\"}, #\\\"mfd_fls_employee (Dataverse)\\\", {\\\"mfd_key\\\"}, \\\"mfd_fls_employee (Dataverse)\\\", JoinKind.RightAnti),\\r\\n  #\\\"Removed columns\\\" = Table.RemoveColumns(#\\\"Merged queries\\\", {\\\"Order\\\", \\\"Name\\\", \\\"Country\\\", \\\"Organization\\\", \\\"Position\\\", \\\"UserPrincipalName\\\", \\\"Key\\\", \\\"mfd_userprincipalname\\\"}),\\r\\n  #\\\"Expanded mfd_fls_employee (Dataverse) 1\\\" = Table.ExpandTableColumn(#\\\"Removed columns\\\", \\\"mfd_fls_employee (Dataverse)\\\", {\\\"mfd_userprincipalname\\\",\\\"mfd_name\\\", \\\"mfd_organization\\\", \\\"mfd_position\\\", \\\"mfd_order\\\", \\\"mfd_key\\\", \\\"mfd_country\\\", \\\"mfd_countrychoice\\\", \\\"mfd_countrychoicename\\\"}),\\r\\n  #\\\"Added custom 1\\\" = Table.TransformColumnTypes(Table.AddColumn(#\\\"Expanded mfd_fls_employee (Dataverse) 1\\\", \\\"Order\\\", each [mfd_order]), {{\\\"Order\\\", Int64.Type}}),\\r\\n  #\\\"Added custom 2\\\" = Table.TransformColumnTypes(Table.AddColumn(#\\\"Added custom 1\\\", \\\"Name\\\", each [mfd_name]), {{\\\"Name\\\", type text}}),\\r\\n  #\\\"Added custom 3\\\" = Table.TransformColumnTypes(Table.AddColumn(#\\\"Added custom 2\\\", \\\"Country\\\", each [mfd_country]), {{\\\"Country\\\", type text}}),\\r\\n  #\\\"Added custom 4\\\" = Table.TransformColumnTypes(Table.AddColumn(#\\\"Added custom 3\\\", \\\"Organization\\\", each [mfd_organization]), {{\\\"Organization\\\", type text}}),\\r\\n  #\\\"Added custom 5\\\" = Table.TransformColumnTypes(Table.AddColumn(#\\\"Added custom 4\\\", \\\"Position\\\", each [mfd_position]), {{\\\"Position\\\", type text}}),\\r\\n  #\\\"Added custom 6\\\" = Table.TransformColumnTypes(Table.AddColumn(#\\\"Added custom 5\\\", \\\"UserPrincipalName\\\", each [mfd_userprincipalname]), {{\\\"UserPrincipalName\\\", type text}}),\\r\\n  #\\\"Added custom 7\\\" = Table.TransformColumnTypes(Table.AddColumn(#\\\"Added custom 6\\\", \\\"Key\\\", each [mfd_key]), {{\\\"Key\\\", type text}}),\\r\\n  #\\\"Added custom\\\" = Table.TransformColumnTypes(Table.AddColumn(#\\\"Added custom 7\\\", \\\"UpdateActive\\\", each false), {{\\\"UpdateActive\\\", type logical}}),\\r\\n  #\\\"Removed columns 1\\\" = Table.RemoveColumns(#\\\"Added custom\\\", {\\\"mfd_userprincipalname\\\", \\\"mfd_name\\\", \\\"mfd_organization\\\", \\\"mfd_position\\\", \\\"mfd_order\\\", \\\"mfd_country\\\", \\\"mfd_key\\\"}),\\r\\n  #\\\"Reordered columns\\\" = Table.ReorderColumns(#\\\"Removed columns 1\\\", {\\\"Order\\\", \\\"Name\\\", \\\"Country\\\", \\\"Organization\\\", \\\"Position\\\", \\\"UserPrincipalName\\\", \\\"Key\\\", \\\"mfd_countrychoice\\\", \\\"mfd_countrychoicename\\\", \\\"UpdateActive\\\"})\\r\\nin\\r\\n  #\\\"Reordered columns\\\";\\r\\nshared ReactiveEmployees = let\\r\\n  Source = #\\\"AllUsersWithUPN\\\",\\r\\n  #\\\"Merged queries\\\" = Table.NestedJoin(Source, {\\\"Key\\\"}, #\\\"mfd_fls_employee (Dataverse)\\\", {\\\"mfd_key\\\"}, \\\"mfd_fls_employee (Dataverse)\\\", JoinKind.Inner),\\r\\n  #\\\"Expanded mfd_fls_employee (Dataverse)\\\" = Table.ExpandTableColumn(#\\\"Merged queries\\\", \\\"mfd_fls_employee (Dataverse)\\\", {\\\"mfd_countrychoice\\\", \\\"mfd_countrychoicename\\\", \\\"mfd_active\\\"}, {\\\"mfd_countrychoice\\\", \\\"mfd_countrychoicename\\\", \\\"mfd_active\\\"}),\\r\\n  #\\\"Filtered rows\\\" = Table.SelectRows(#\\\"Expanded mfd_fls_employee (Dataverse)\\\", each ([mfd_active] = false)),\\r\\n  #\\\"Added custom\\\" = Table.TransformColumnTypes(Table.AddColumn(#\\\"Filtered rows\\\", \\\"UpdateActive\\\", each true), {{\\\"UpdateActive\\\", type logical}}),\\r\\n  #\\\"Removed columns\\\" = Table.RemoveColumns(#\\\"Added custom\\\", {\\\"mfd_userprincipalname\\\", \\\"mfd_active\\\"})\\r\\nin\\r\\n  #\\\"Removed columns\\\";\\r\\nshared FinalEmployees = let\\r\\n  Source = Table.Combine({NewEmployees, ReactiveEmployees, InactiveEmployees}),\\r\\n  #\\\"Changed column type\\\" = Table.TransformColumnTypes(Source, {{\\\"mfd_countrychoice\\\", Int64.Type}})\\r\\nin\\r\\n  #\\\"Changed column type\\\";\\r\\n\"},\"annotations\":[{\"name\":\"pbi:QueryGroups\",\"value\":\"[]\"}]}"}</msdyn_mashupsettings>
+      <msdyn_name>Dataflow-FLS-Employees</msdyn_name>
+      <msdyn_originaldataflowid>74caa26a-d850-448b-8f65-5b93e2ef52ed</msdyn_originaldataflowid>
+      <msdyn_refreshsettings>{"RefreshPeriod":null,"ScheduleRefreshType":null,"StartDateTime":"0001-01-01T00:00:00+00:00","TimeBasedRefreshPeriod":null,"TimeZoneId":null}</msdyn_refreshsettings>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </msdyn_dataflow>
+    <msdyn_dataflow msdyn_dataflowid="80e488d1-4f66-f011-bec2-000d3a3684f6">
+      <iscustomizable>1</iscustomizable>
+      <msdyn_internalversion>1845974b-4de1-4776-b2e3-60b9b0da61f7</msdyn_internalversion>
+      <msdyn_mashupdocument>section Section1;
+shared mfd_oym_vendor = let
+  Source = CommonDataService.Database("sanw-np.crm.dynamics.com"),
+  #"Navigation 1" = Source{[Schema = "dbo", Item = "mfd_oym_vendor"]}[Data]
+in
+  #"Navigation 1";
+shared mfd_oym_certification_last = let
+  Source = CommonDataService.Database("sanw-np.crm.dynamics.com"),
+  #"Navigation 1" = Source{[Schema = "dbo", Item = "mfd_oym_certification"]}[Data],
+  #"Filtered rows" = Table.SelectRows(#"Navigation 1", each ([mfd_statename] = "Finalizada")),
+  #"Sorted rows" = Table.Sort(#"Filtered rows", {{"mfd_statename", Order.Descending}}),
+  #"Grouped rows" = Table.Group(#"Sorted rows", {"mfd_vendorid"}, {{"AllRows", each _, type nullable table[mfd_oym_certificationid = text, createdon = nullable datetime, createdby = nullable text, modifiedon = nullable datetime, modifiedby = nullable text, createdonbehalfby = nullable text, modifiedonbehalfby = nullable text, createdbyname = nullable text, createdbyyominame = text, createdonbehalfbyname = nullable text, createdonbehalfbyyominame = text, modifiedbyname = nullable text, modifiedbyyominame = text, modifiedonbehalfbyname = nullable text, modifiedonbehalfbyyominame = text, ownerid = text, owneridname = text, owneridyominame = text, owningbusinessunit = text, owninguser = nullable text, owningteam = nullable text, owningbusinessunitname = text, statecode = Int64.Type, statecodename = nullable text, statuscode = nullable Int64.Type, statuscodename = nullable text, importsequencenumber = nullable Int64.Type, overriddencreatedon = nullable datetime, timezoneruleversionnumber = nullable Int64.Type, utcconversiontimezonecode = nullable Int64.Type, mfd_name = nullable text, mfd_type = nullable Int64.Type, mfd_typename = nullable text, mfd_enddate = nullable datetime, mfd_state = nullable Int64.Type, mfd_statename = nullable text, mfd_vendorid = nullable text, mfd_vendoridname = nullable text, asyncoperation = table, businessunit = nullable record, mfd_oym_certdoc = table, mfd_oym_vendor = nullable record, processsession = table, #"systemuser(createdby)" = nullable record, #"systemuser(createdonbehalfby)" = nullable record, #"systemuser(modifiedby)" = nullable record, #"systemuser(modifiedonbehalfby)" = nullable record, #"systemuser(owninguser)" = nullable record, team = nullable record]}}),
+  #"Added custom" = Table.AddColumn(#"Grouped rows", "LastEndDate", each Table.Max([AllRows],"mfd_enddate")[mfd_enddate]),
+  #"Added custom 1" = Table.AddColumn(#"Added custom", "LastType", each Table.Max([AllRows],"mfd_enddate")[mfd_type]),
+  #"Added custom 3" = Table.AddColumn(#"Added custom 1", "LastTypeName", each Table.Max([AllRows],"mfd_enddate")[mfd_typename]),
+  #"Added custom 2" = Table.AddColumn(#"Added custom 3", "LastState", each Table.Max([AllRows],"mfd_enddate")[mfd_state]),
+  #"Added custom 4" = Table.AddColumn(#"Added custom 2", "LastStateName", each Table.Max([AllRows],"mfd_enddate")[mfd_statename]),
+  #"Removed columns" = Table.RemoveColumns(#"Added custom 4", {"AllRows"})
+in
+  #"Removed columns";
+shared mfd_oym_certification_inprogress = let
+  Source = CommonDataService.Database("sanw-np.crm.dynamics.com"),
+  #"Navigation 1" = Source{[Schema = "dbo", Item = "mfd_oym_certification"]}[Data],
+  #"Filtered rows" = Table.SelectRows(#"Navigation 1", each ([mfd_statename] = "En proceso")),
+  #"Sorted rows" = Table.Sort(#"Filtered rows", {{"createdon", Order.Descending}}),
+  #"Grouped rows" = Table.Group(#"Sorted rows", {"mfd_vendorid"}, {{"AllRows", each _, type nullable table[mfd_oym_certificationid = text, createdon = nullable datetime, createdby = nullable text, modifiedon = nullable datetime, modifiedby = nullable text, createdonbehalfby = nullable text, modifiedonbehalfby = nullable text, createdbyname = nullable text, createdbyyominame = text, createdonbehalfbyname = nullable text, createdonbehalfbyyominame = text, modifiedbyname = nullable text, modifiedbyyominame = text, modifiedonbehalfbyname = nullable text, modifiedonbehalfbyyominame = text, ownerid = text, owneridname = text, owneridyominame = text, owningbusinessunit = text, owninguser = nullable text, owningteam = nullable text, owningbusinessunitname = text, statecode = Int64.Type, statecodename = nullable text, statuscode = nullable Int64.Type, statuscodename = nullable text, importsequencenumber = nullable Int64.Type, overriddencreatedon = nullable datetime, timezoneruleversionnumber = nullable Int64.Type, utcconversiontimezonecode = nullable Int64.Type, mfd_name = nullable text, mfd_type = nullable Int64.Type, mfd_typename = nullable text, mfd_enddate = nullable datetime, mfd_state = nullable Int64.Type, mfd_statename = nullable text, mfd_vendorid = nullable text, mfd_vendoridname = nullable text, asyncoperation = table, businessunit = nullable record, mfd_oym_certdoc = table, mfd_oym_vendor = nullable record, processsession = table, #"systemuser(createdby)" = nullable record, #"systemuser(createdonbehalfby)" = nullable record, #"systemuser(modifiedby)" = nullable record, #"systemuser(modifiedonbehalfby)" = nullable record, #"systemuser(owninguser)" = nullable record, team = nullable record]}}),
+  #"Expanded AllRows 1" = Table.ExpandTableColumn(#"Grouped rows", "AllRows", {"createdon", "mfd_type", "mfd_typename", "mfd_state", "mfd_statename"}, {"createdon", "mfd_type", "mfd_typename", "mfd_state", "mfd_statename"}),
+  #"Renamed columns" = Table.RenameColumns(#"Expanded AllRows 1", {{"createdon", "InprogressCreatedOn"}, {"mfd_type", "InprogressType"}, {"mfd_state", "InprogressState"}, {"mfd_typename", "InprogressTypeName"}, {"mfd_statename", "InprogressStateName"}})
+in
+  #"Renamed columns";
+shared mfd_oym_vendor_last = let
+  Source = Table.NestedJoin(mfd_oym_vendor, {"mfd_oym_vendorid"}, mfd_oym_certification_last, {"mfd_vendorid"}, "mfd_oym_certification_last", JoinKind.LeftOuter)
+in
+  Source;
+shared mfd_oym_vendor_certification = let
+  Source = Table.NestedJoin(mfd_oym_vendor_last, {"mfd_oym_vendorid"}, mfd_oym_certification_inprogress, {"mfd_vendorid"}, "mfd_oym_certification_inprogress", JoinKind.LeftOuter),
+  #"Expanded mfd_oym_certification_last" = Table.ExpandTableColumn(Source, "mfd_oym_certification_last", {"LastEndDate", "LastType", "LastTypeName", "LastState", "LastStateName"}, {"LastEndDate", "LastType", "LastTypeName", "LastState", "LastStateName"}),
+  #"Expanded mfd_oym_certification_inprogress 1" = Table.ExpandTableColumn(#"Expanded mfd_oym_certification_last", "mfd_oym_certification_inprogress", {"InprogressCreatedOn", "InprogressType", "InprogressTypeName", "InprogressState", "InprogressStateName"}, {"InprogressCreatedOn", "InprogressType", "InprogressTypeName", "InprogressState", "InprogressStateName"}),
+  #"Choose columns" = Table.SelectColumns(#"Expanded mfd_oym_certification_inprogress 1", {"mfd_oym_vendorid", "mfd_name", "mfd_taxidentificationnumber", "mfd_legalrepresentative", "mfd_countryname", "mfd_activename", "LastEndDate", "LastTypeName", "LastStateName", "InprogressCreatedOn", "InprogressTypeName", "InprogressStateName"}),
+  #"Changed column type" = Table.TransformColumnTypes(#"Choose columns", {{"LastEndDate", type date}, {"LastTypeName", type text}, {"LastStateName", type text}, {"InprogressCreatedOn", type date}})
+in
+  #"Changed column type";
+</msdyn_mashupdocument>
+      <msdyn_mashupsettings>{"QueryGroups":[],"DocumentLocale":"en-US","QueriesMetadata":{"mfd_oym_vendor":{"QueryId":"1570fb88-eda9-425f-bbc5-764323380538","QueryName":"mfd_oym_vendor","QueryGroupId":null,"EntityName":null,"LastKnownIsCalculatedEntity":false,"LastKnownIsLinkedEntity":false,"LastKnownIsParameter":false,"IsHidden":null,"LastKnownResultTypeName":"table","LoadEnabled":false,"DeleteExistingDataOnLoad":false,"FieldsMetadata":{},"HostProperties":{"MappingEditorProperties":"{}"},"JsonOutputDestinations":null,"BindToDefaultOutputDestination":null,"JsonIncrementalRefreshSettings":null,"JsonStagingDefinition":null},"mfd_oym_certification_last":{"QueryId":"fdf0bea2-22af-40bd-bb03-ac9f326abfec","QueryName":"mfd_oym_certification_last","QueryGroupId":null,"EntityName":null,"LastKnownIsCalculatedEntity":false,"LastKnownIsLinkedEntity":false,"LastKnownIsParameter":false,"IsHidden":null,"LastKnownResultTypeName":"table","LoadEnabled":false,"DeleteExistingDataOnLoad":false,"FieldsMetadata":{},"HostProperties":{"MappingEditorProperties":"{}"},"JsonOutputDestinations":null,"BindToDefaultOutputDestination":null,"JsonIncrementalRefreshSettings":null,"JsonStagingDefinition":null},"mfd_oym_certification_inprogress":{"QueryId":"a20949a3-393c-4b24-8e18-72a7e38a84b3","QueryName":"mfd_oym_certification_inprogress","QueryGroupId":null,"EntityName":null,"LastKnownIsCalculatedEntity":false,"LastKnownIsLinkedEntity":false,"LastKnownIsParameter":false,"IsHidden":null,"LastKnownResultTypeName":"table","LoadEnabled":false,"DeleteExistingDataOnLoad":false,"FieldsMetadata":{},"HostProperties":{"MappingEditorProperties":"{}"},"JsonOutputDestinations":null,"BindToDefaultOutputDestination":null,"JsonIncrementalRefreshSettings":null,"JsonStagingDefinition":null},"mfd_oym_vendor_last":{"QueryId":"b5a5ef5c-df45-4d0c-89a2-e41453f7ac5a","QueryName":"mfd_oym_vendor_last","QueryGroupId":null,"EntityName":null,"LastKnownIsCalculatedEntity":false,"LastKnownIsLinkedEntity":false,"LastKnownIsParameter":false,"IsHidden":null,"LastKnownResultTypeName":"table","LoadEnabled":false,"DeleteExistingDataOnLoad":false,"FieldsMetadata":{},"HostProperties":{"MappingEditorProperties":"{}"},"JsonOutputDestinations":null,"BindToDefaultOutputDestination":null,"JsonIncrementalRefreshSettings":null,"JsonStagingDefinition":null},"mfd_oym_vendor_certification":{"QueryId":"721361de-0a6f-4e4d-9eab-e9404240883b","QueryName":"mfd_oym_vendor_certification","QueryGroupId":null,"EntityName":"cr4d3_mfd_oym_vendor_certification","LastKnownIsCalculatedEntity":false,"LastKnownIsLinkedEntity":false,"LastKnownIsParameter":false,"IsHidden":null,"LastKnownResultTypeName":"table","LoadEnabled":true,"DeleteExistingDataOnLoad":false,"FieldsMetadata":{"cr4d3_InprogressCreatedOn":{"SourceColumnName":"InprogressCreatedOn","DestinationFieldType":"DateOnly","AutoNumberSettings":null},"cr4d3_InprogressStateName":{"SourceColumnName":"InprogressStateName","DestinationFieldType":"String","AutoNumberSettings":null},"cr4d3_InprogressTypeName":{"SourceColumnName":"InprogressTypeName","DestinationFieldType":"String","AutoNumberSettings":null},"cr4d3_LastEndDate":{"SourceColumnName":"LastEndDate","DestinationFieldType":"DateOnly","AutoNumberSettings":null},"cr4d3_LastStateName":{"SourceColumnName":"LastStateName","DestinationFieldType":"String","AutoNumberSettings":null},"cr4d3_LastTypeName":{"SourceColumnName":"LastTypeName","DestinationFieldType":"String","AutoNumberSettings":null},"cr4d3_mfd_activename":{"SourceColumnName":"mfd_activename","DestinationFieldType":"String","AutoNumberSettings":null},"cr4d3_mfd_countryname":{"SourceColumnName":"mfd_countryname","DestinationFieldType":"String","AutoNumberSettings":null},"cr4d3_mfd_legalrepresentative":{"SourceColumnName":"mfd_legalrepresentative","DestinationFieldType":"String","AutoNumberSettings":null},"cr4d3_mfd_name":{"SourceColumnName":"mfd_name","DestinationFieldType":"String","AutoNumberSettings":null},"cr4d3_mfd_oym_vendorid":{"SourceColumnName":"mfd_oym_vendorid","DestinationFieldType":"String","AutoNumberSettings":null},"cr4d3_mfd_taxidentificationnumber":{"SourceColumnName":"mfd_taxidentificationnumber","DestinationFieldType":"String","AutoNumberSettings":null}},"HostProperties":{"NewEntityPrimaryNameField":"cr4d3_mfd_oym_vendorid","MappingEditorProperties":"{}"},"JsonOutputDestinations":null,"BindToDefaultOutputDestination":null,"JsonIncrementalRefreshSettings":null,"JsonStagingDefinition":null}},"FastCombine":false,"AllowNativeQueries":false,"HostContext":{"Type":"CdsT","Details":{"EnvironmentId":"0b1e63d8-aeb0-4c2a-8808-93ee84094d46"}},"HostProperties":null,"SkipAutomaticTypeAndHeaderDetection":false,"DisableAutoAnonymousConnectionUpsert":false,"AllowedModules":null,"DataflowMetadata":"{\"DataflowType\":\"Cdst\",\"DataflowId\":\"39066a85-1ea0-4be8-9f86-4dca7afb188d\",\"OwnerUserId\":\"8d87fbb1-c7a1-47bb-a7cf-d4da7033de56\",\"OwnerName\":\"Unknown\",\"OwnerTenantId\":\"61e6eeb3-5fd7-4aaa-ae3c-61e8deb09b79\",\"GatewayObjectId\":null,\"ModelSnapshotUri\":\"\",\"GroupId\":\"0b1e63d8-aeb0-4c2a-8808-93ee84094d46\",\"DataflowState\":\"Source\",\"LastUpdateTime\":\"2025-07-21T20:43:14.798234+00:00\",\"LastStateChangedTime\":\"2025-07-21T20:43:14.798234+00:00\",\"CreatedTime\":\"2025-07-21T16:28:56.3739369+00:00\",\"ExpiresAfter\":\"2025-07-23T15:28:56.3727399+00:00\",\"AllowedModules\":null,\"UseHostConnectionProvider\":null,\"SkipAutomaticTypeAndHeaderDetection\":null,\"EditingSessionId\":null,\"HostInformation\":null,\"HostContext\":{\"Type\":\"CdsT\",\"Details\":{\"EnvironmentId\":\"0b1e63d8-aeb0-4c2a-8808-93ee84094d46\"}},\"HostProperties\":{\"ServiceFeatureFlag_EnableNewCdstDataflowOrchestration\":\"true\"},\"DisableAutoAnonymousConnectionUpsert\":null,\"RelatedDataflowId\":\"9915f1f0-51f7-40cf-9397-8c77cc2f321e\",\"NotificationSettings\":{\"RefreshEmailSettings\":{\"SendMailEnabled\":true,\"EmailsList\":[\"torresaj@churchofjesuschrist.org\"]},\"DataflowWebhooks\":{}},\"DataflowPublishMetadata\":{\"PublishStatus\":\"Published\",\"ErrorInfo\":null,\"PublishVersion\":\"2025-07-21T19:50:30.1112584+00:00\",\"LastUpdateTime\":\"2025-07-21T19:51:58.222043+00:00\",\"LastPublishedTime\":\"2025-07-21T19:51:58.222043+00:00\",\"SessionId\":null,\"RequestId\":null},\"TrustedConnections\":null,\"DataflowStorageId\":\"CD000000-0000-0000-0000-0000000000CD\",\"DataflowCreatedByPQInGroupId\":null,\"OriginContext\":{\"PQOrigin\":\"0b1e63d8-aeb0-4c2a-8808-93ee84094d46\",\"GroupMigrationVersion\":\"6\"},\"ConnectionOverrides\":[{\"Path\":\"Dataverse\",\"Kind\":\"CommonDataService\",\"Provider\":\"PowerApps\",\"EnvironmentName\":\"0b1e63d8-aeb0-4c2a-8808-93ee84094d46\",\"ApiName\":\"dataverse\",\"ConnectionName\":\"d4833243a6b14e5fa77985aa4308156a\",\"CredentialDetails\":{},\"ConnectionParameters\":{},\"PrivacyGroup\":\"None\"},{\"Path\":\"sanw-np.crm.dynamics.com\",\"Kind\":\"CommonDataService\",\"Provider\":\"PowerApps\",\"EnvironmentName\":\"0b1e63d8-aeb0-4c2a-8808-93ee84094d46\",\"ApiName\":\"dataverse\",\"ConnectionName\":\"c6084cb516794cbaaf065b693ed1e1f1\",\"CredentialDetails\":{},\"ConnectionParameters\":{}}]}","Dataflow":"{\"name\":\"Dataflow-MFD-Vendors_Certifications\",\"ppdf:dataflowId\":\"39066a85-1ea0-4be8-9f86-4dca7afb188d\",\"ppdf:owner\":{\"tenantId\":\"61e6eeb3-5fd7-4aaa-ae3c-61e8deb09b79\",\"userId\":\"8d87fbb1-c7a1-47bb-a7cf-d4da7033de56\"},\"ppdf:fastCopy\":false,\"ppdf:parametric\":false,\"ppdf:trackDataEnabled\":false,\"ppdf:partitionedCompute\":false,\"ppdf:enableVorder\":true,\"ppdf:enableOptimizedCopyToLakehouse\":false,\"ppdf:allowModernEvaluationEngine\":false,\"ppdf:allowModernRefreshService\":false,\"ppdf:allowModernDataflowOrchestrator\":false,\"version\":\"78\",\"culture\":\"en-US\",\"ppdf:outputFileFormat\":\"Csv\",\"pbi:mashup\":{\"fastCombine\":false,\"allowNativeQueries\":false,\"queriesMetadata\":{\"mfd_oym_vendor\":{\"queryId\":\"1570fb88-eda9-425f-bbc5-764323380538\",\"queryName\":\"mfd_oym_vendor\",\"lastKnownResultTypeName\":\"table\",\"lastKnownIsCalculatedEntity\":false,\"lastKnownIsLinkedEntity\":false,\"lastKnownIsParameter\":false,\"deleteExistingDataOnLoad\":false,\"hostProperties\":{\"MappingEditorProperties\":\"{}\"}},\"mfd_oym_certification_last\":{\"queryId\":\"fdf0bea2-22af-40bd-bb03-ac9f326abfec\",\"queryName\":\"mfd_oym_certification_last\",\"lastKnownResultTypeName\":\"table\",\"lastKnownIsCalculatedEntity\":false,\"lastKnownIsLinkedEntity\":false,\"lastKnownIsParameter\":false,\"deleteExistingDataOnLoad\":false,\"hostProperties\":{\"MappingEditorProperties\":\"{}\"}},\"mfd_oym_certification_inprogress\":{\"queryId\":\"a20949a3-393c-4b24-8e18-72a7e38a84b3\",\"queryName\":\"mfd_oym_certification_inprogress\",\"lastKnownResultTypeName\":\"table\",\"lastKnownIsCalculatedEntity\":false,\"lastKnownIsLinkedEntity\":false,\"lastKnownIsParameter\":false,\"deleteExistingDataOnLoad\":false,\"hostProperties\":{\"MappingEditorProperties\":\"{}\"}},\"mfd_oym_vendor_last\":{\"queryId\":\"b5a5ef5c-df45-4d0c-89a2-e41453f7ac5a\",\"queryName\":\"mfd_oym_vendor_last\",\"lastKnownResultTypeName\":\"table\",\"lastKnownIsCalculatedEntity\":false,\"lastKnownIsLinkedEntity\":false,\"lastKnownIsParameter\":false,\"deleteExistingDataOnLoad\":false,\"hostProperties\":{\"MappingEditorProperties\":\"{}\"}},\"mfd_oym_vendor_certification\":{\"queryId\":\"721361de-0a6f-4e4d-9eab-e9404240883b\",\"queryName\":\"mfd_oym_vendor_certification\",\"entityName\":\"cr4d3_mfd_oym_vendor_certification\",\"loadEnabled\":true,\"lastKnownResultTypeName\":\"table\",\"lastKnownIsCalculatedEntity\":false,\"lastKnownIsLinkedEntity\":false,\"lastKnownIsParameter\":false,\"deleteExistingDataOnLoad\":false,\"hostProperties\":{\"NewEntityPrimaryNameField\":\"cr4d3_mfd_oym_vendorid\",\"MappingEditorProperties\":\"{}\"},\"fieldsMetadata\":{\"cr4d3_InprogressCreatedOn\":{\"sourceColumnName\":\"InprogressCreatedOn\",\"destinationFieldType\":\"DateOnly\"},\"cr4d3_InprogressStateName\":{\"sourceColumnName\":\"InprogressStateName\",\"destinationFieldType\":\"String\"},\"cr4d3_InprogressTypeName\":{\"sourceColumnName\":\"InprogressTypeName\",\"destinationFieldType\":\"String\"},\"cr4d3_LastEndDate\":{\"sourceColumnName\":\"LastEndDate\",\"destinationFieldType\":\"DateOnly\"},\"cr4d3_LastStateName\":{\"sourceColumnName\":\"LastStateName\",\"destinationFieldType\":\"String\"},\"cr4d3_LastTypeName\":{\"sourceColumnName\":\"LastTypeName\",\"destinationFieldType\":\"String\"},\"cr4d3_mfd_activename\":{\"sourceColumnName\":\"mfd_activename\",\"destinationFieldType\":\"String\"},\"cr4d3_mfd_countryname\":{\"sourceColumnName\":\"mfd_countryname\",\"destinationFieldType\":\"String\"},\"cr4d3_mfd_legalrepresentative\":{\"sourceColumnName\":\"mfd_legalrepresentative\",\"destinationFieldType\":\"String\"},\"cr4d3_mfd_name\":{\"sourceColumnName\":\"mfd_name\",\"destinationFieldType\":\"String\"},\"cr4d3_mfd_oym_vendorid\":{\"sourceColumnName\":\"mfd_oym_vendorid\",\"destinationFieldType\":\"String\"},\"cr4d3_mfd_taxidentificationnumber\":{\"sourceColumnName\":\"mfd_taxidentificationnumber\",\"destinationFieldType\":\"String\"}}}},\"document\":\"section Section1;\\r\\nshared mfd_oym_vendor = let\\r\\n  Source = CommonDataService.Database(\\\"sanw-np.crm.dynamics.com\\\"),\\r\\n  #\\\"Navigation 1\\\" = Source{[Schema = \\\"dbo\\\", Item = \\\"mfd_oym_vendor\\\"]}[Data]\\r\\nin\\r\\n  #\\\"Navigation 1\\\";\\r\\nshared mfd_oym_certification_last = let\\r\\n  Source = CommonDataService.Database(\\\"sanw-np.crm.dynamics.com\\\"),\\r\\n  #\\\"Navigation 1\\\" = Source{[Schema = \\\"dbo\\\", Item = \\\"mfd_oym_certification\\\"]}[Data],\\r\\n  #\\\"Filtered rows\\\" = Table.SelectRows(#\\\"Navigation 1\\\", each ([mfd_statename] = \\\"Finalizada\\\")),\\r\\n  #\\\"Sorted rows\\\" = Table.Sort(#\\\"Filtered rows\\\", {{\\\"mfd_statename\\\", Order.Descending}}),\\r\\n  #\\\"Grouped rows\\\" = Table.Group(#\\\"Sorted rows\\\", {\\\"mfd_vendorid\\\"}, {{\\\"AllRows\\\", each _, type nullable table[mfd_oym_certificationid = text, createdon = nullable datetime, createdby = nullable text, modifiedon = nullable datetime, modifiedby = nullable text, createdonbehalfby = nullable text, modifiedonbehalfby = nullable text, createdbyname = nullable text, createdbyyominame = text, createdonbehalfbyname = nullable text, createdonbehalfbyyominame = text, modifiedbyname = nullable text, modifiedbyyominame = text, modifiedonbehalfbyname = nullable text, modifiedonbehalfbyyominame = text, ownerid = text, owneridname = text, owneridyominame = text, owningbusinessunit = text, owninguser = nullable text, owningteam = nullable text, owningbusinessunitname = text, statecode = Int64.Type, statecodename = nullable text, statuscode = nullable Int64.Type, statuscodename = nullable text, importsequencenumber = nullable Int64.Type, overriddencreatedon = nullable datetime, timezoneruleversionnumber = nullable Int64.Type, utcconversiontimezonecode = nullable Int64.Type, mfd_name = nullable text, mfd_type = nullable Int64.Type, mfd_typename = nullable text, mfd_enddate = nullable datetime, mfd_state = nullable Int64.Type, mfd_statename = nullable text, mfd_vendorid = nullable text, mfd_vendoridname = nullable text, asyncoperation = table, businessunit = nullable record, mfd_oym_certdoc = table, mfd_oym_vendor = nullable record, processsession = table, #\\\"systemuser(createdby)\\\" = nullable record, #\\\"systemuser(createdonbehalfby)\\\" = nullable record, #\\\"systemuser(modifiedby)\\\" = nullable record, #\\\"systemuser(modifiedonbehalfby)\\\" = nullable record, #\\\"systemuser(owninguser)\\\" = nullable record, team = nullable record]}}),\\r\\n  #\\\"Added custom\\\" = Table.AddColumn(#\\\"Grouped rows\\\", \\\"LastEndDate\\\", each Table.Max([AllRows],\\\"mfd_enddate\\\")[mfd_enddate]),\\r\\n  #\\\"Added custom 1\\\" = Table.AddColumn(#\\\"Added custom\\\", \\\"LastType\\\", each Table.Max([AllRows],\\\"mfd_enddate\\\")[mfd_type]),\\r\\n  #\\\"Added custom 3\\\" = Table.AddColumn(#\\\"Added custom 1\\\", \\\"LastTypeName\\\", each Table.Max([AllRows],\\\"mfd_enddate\\\")[mfd_typename]),\\r\\n  #\\\"Added custom 2\\\" = Table.AddColumn(#\\\"Added custom 3\\\", \\\"LastState\\\", each Table.Max([AllRows],\\\"mfd_enddate\\\")[mfd_state]),\\r\\n  #\\\"Added custom 4\\\" = Table.AddColumn(#\\\"Added custom 2\\\", \\\"LastStateName\\\", each Table.Max([AllRows],\\\"mfd_enddate\\\")[mfd_statename]),\\r\\n  #\\\"Removed columns\\\" = Table.RemoveColumns(#\\\"Added custom 4\\\", {\\\"AllRows\\\"})\\r\\nin\\r\\n  #\\\"Removed columns\\\";\\r\\nshared mfd_oym_certification_inprogress = let\\r\\n  Source = CommonDataService.Database(\\\"sanw-np.crm.dynamics.com\\\"),\\r\\n  #\\\"Navigation 1\\\" = Source{[Schema = \\\"dbo\\\", Item = \\\"mfd_oym_certification\\\"]}[Data],\\r\\n  #\\\"Filtered rows\\\" = Table.SelectRows(#\\\"Navigation 1\\\", each ([mfd_statename] = \\\"En proceso\\\")),\\r\\n  #\\\"Sorted rows\\\" = Table.Sort(#\\\"Filtered rows\\\", {{\\\"createdon\\\", Order.Descending}}),\\r\\n  #\\\"Grouped rows\\\" = Table.Group(#\\\"Sorted rows\\\", {\\\"mfd_vendorid\\\"}, {{\\\"AllRows\\\", each _, type nullable table[mfd_oym_certificationid = text, createdon = nullable datetime, createdby = nullable text, modifiedon = nullable datetime, modifiedby = nullable text, createdonbehalfby = nullable text, modifiedonbehalfby = nullable text, createdbyname = nullable text, createdbyyominame = text, createdonbehalfbyname = nullable text, createdonbehalfbyyominame = text, modifiedbyname = nullable text, modifiedbyyominame = text, modifiedonbehalfbyname = nullable text, modifiedonbehalfbyyominame = text, ownerid = text, owneridname = text, owneridyominame = text, owningbusinessunit = text, owninguser = nullable text, owningteam = nullable text, owningbusinessunitname = text, statecode = Int64.Type, statecodename = nullable text, statuscode = nullable Int64.Type, statuscodename = nullable text, importsequencenumber = nullable Int64.Type, overriddencreatedon = nullable datetime, timezoneruleversionnumber = nullable Int64.Type, utcconversiontimezonecode = nullable Int64.Type, mfd_name = nullable text, mfd_type = nullable Int64.Type, mfd_typename = nullable text, mfd_enddate = nullable datetime, mfd_state = nullable Int64.Type, mfd_statename = nullable text, mfd_vendorid = nullable text, mfd_vendoridname = nullable text, asyncoperation = table, businessunit = nullable record, mfd_oym_certdoc = table, mfd_oym_vendor = nullable record, processsession = table, #\\\"systemuser(createdby)\\\" = nullable record, #\\\"systemuser(createdonbehalfby)\\\" = nullable record, #\\\"systemuser(modifiedby)\\\" = nullable record, #\\\"systemuser(modifiedonbehalfby)\\\" = nullable record, #\\\"systemuser(owninguser)\\\" = nullable record, team = nullable record]}}),\\r\\n  #\\\"Expanded AllRows 1\\\" = Table.ExpandTableColumn(#\\\"Grouped rows\\\", \\\"AllRows\\\", {\\\"createdon\\\", \\\"mfd_type\\\", \\\"mfd_typename\\\", \\\"mfd_state\\\", \\\"mfd_statename\\\"}, {\\\"createdon\\\", \\\"mfd_type\\\", \\\"mfd_typename\\\", \\\"mfd_state\\\", \\\"mfd_statename\\\"}),\\r\\n  #\\\"Renamed columns\\\" = Table.RenameColumns(#\\\"Expanded AllRows 1\\\", {{\\\"createdon\\\", \\\"InprogressCreatedOn\\\"}, {\\\"mfd_type\\\", \\\"InprogressType\\\"}, {\\\"mfd_state\\\", \\\"InprogressState\\\"}, {\\\"mfd_typename\\\", \\\"InprogressTypeName\\\"}, {\\\"mfd_statename\\\", \\\"InprogressStateName\\\"}})\\r\\nin\\r\\n  #\\\"Renamed columns\\\";\\r\\nshared mfd_oym_vendor_last = let\\r\\n  Source = Table.NestedJoin(mfd_oym_vendor, {\\\"mfd_oym_vendorid\\\"}, mfd_oym_certification_last, {\\\"mfd_vendorid\\\"}, \\\"mfd_oym_certification_last\\\", JoinKind.LeftOuter)\\r\\nin\\r\\n  Source;\\r\\nshared mfd_oym_vendor_certification = let\\r\\n  Source = Table.NestedJoin(mfd_oym_vendor_last, {\\\"mfd_oym_vendorid\\\"}, mfd_oym_certification_inprogress, {\\\"mfd_vendorid\\\"}, \\\"mfd_oym_certification_inprogress\\\", JoinKind.LeftOuter),\\r\\n  #\\\"Expanded mfd_oym_certification_last\\\" = Table.ExpandTableColumn(Source, \\\"mfd_oym_certification_last\\\", {\\\"LastEndDate\\\", \\\"LastType\\\", \\\"LastTypeName\\\", \\\"LastState\\\", \\\"LastStateName\\\"}, {\\\"LastEndDate\\\", \\\"LastType\\\", \\\"LastTypeName\\\", \\\"LastState\\\", \\\"LastStateName\\\"}),\\r\\n  #\\\"Expanded mfd_oym_certification_inprogress 1\\\" = Table.ExpandTableColumn(#\\\"Expanded mfd_oym_certification_last\\\", \\\"mfd_oym_certification_inprogress\\\", {\\\"InprogressCreatedOn\\\", \\\"InprogressType\\\", \\\"InprogressTypeName\\\", \\\"InprogressState\\\", \\\"InprogressStateName\\\"}, {\\\"InprogressCreatedOn\\\", \\\"InprogressType\\\", \\\"InprogressTypeName\\\", \\\"InprogressState\\\", \\\"InprogressStateName\\\"}),\\r\\n  #\\\"Choose columns\\\" = Table.SelectColumns(#\\\"Expanded mfd_oym_certification_inprogress 1\\\", {\\\"mfd_oym_vendorid\\\", \\\"mfd_name\\\", \\\"mfd_taxidentificationnumber\\\", \\\"mfd_legalrepresentative\\\", \\\"mfd_countryname\\\", \\\"mfd_activename\\\", \\\"LastEndDate\\\", \\\"LastTypeName\\\", \\\"LastStateName\\\", \\\"InprogressCreatedOn\\\", \\\"InprogressTypeName\\\", \\\"InprogressStateName\\\"}),\\r\\n  #\\\"Changed column type\\\" = Table.TransformColumnTypes(#\\\"Choose columns\\\", {{\\\"LastEndDate\\\", type date}, {\\\"LastTypeName\\\", type text}, {\\\"LastStateName\\\", type text}, {\\\"InprogressCreatedOn\\\", type date}})\\r\\nin\\r\\n  #\\\"Changed column type\\\";\\r\\n\"},\"annotations\":[{\"name\":\"pbi:QueryGroups\",\"value\":\"[]\"}]}"}</msdyn_mashupsettings>
+      <msdyn_name>Dataflow-MFD-Vendors_Certifications</msdyn_name>
+      <msdyn_originaldataflowid>39066a85-1ea0-4be8-9f86-4dca7afb188d</msdyn_originaldataflowid>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </msdyn_dataflow>
+  </msdyn_dataflows>
+  <Languages>
+    <Language>1033</Language>
+  </Languages>
+</ImportExportXml>

@@ -1,0 +1,795 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_salesforce": {
+        "runtimeSource": "invoker",
+        "connection": {
+          "connectionReferenceLogicalName": "mfd_sharedsalesforce_1d711"
+        },
+        "api": {
+          "name": "shared_salesforce"
+        }
+      },
+      "shared_commondataserviceforapps_1": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "mfd_sharedcommondataserviceforapps_c16dd"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "mfd_sharedcommondataserviceforapps_e068a"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_office365": {
+        "runtimeSource": "invoker",
+        "connection": {
+          "connectionReferenceLogicalName": "mfd_sharedoffice365_19920"
+        },
+        "api": {
+          "name": "shared_office365"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "9f01f3ab-c124-4234-8dca-583f4e60b9e8"
+          },
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {},
+              "required": []
+            }
+          }
+        }
+      },
+      "actions": {
+        "Execute_a_SOQL_query_-_Locations": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "0da537a2-efd4-4a3f-b530-3c5bfae5cae2"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_salesforce",
+              "operationId": "ExecuteSoqlQuery",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_salesforce"
+            },
+            "parameters": {
+              "queryParameters/query": "SELECT\n  Id,\n  Name,\n  FIR_Structure_Number__c,\n  (SELECT Id, Street, City, State, Country, PostalCode, AddressType FROM Addresses),\n  FM_Group__r.Name,\n  Region__r.Name,\n  Owner.Email,\n  Owner.Phone,\n  Owner.Name,\n  Customer_Type__c,\n  Program__c\nFROM Location"
+            },
+            "authentication": {
+              "type": "Raw",
+              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+            }
+          }
+        },
+        "Apply_to_each_-_SFS_Location": {
+          "foreach": "@body('Execute_a_SOQL_query_-_Locations')?['records']",
+          "actions": {
+            "Condition_-_SFS_Location": {
+              "actions": {},
+              "runAfter": {
+                "Switch": [
+                  "Succeeded"
+                ]
+              },
+              "expression": {
+                "greater": [
+                  "@length(body('Filter_array_-_SFS_Location'))",
+                  0
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "e140d0c5-cd3c-4a6b-ad6c-22471156fecc"
+              },
+              "type": "If"
+            },
+            "Filter_array_-_SFS_Location": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "97f9b0f5-82f6-4062-9512-0b4f44a7f758"
+              },
+              "type": "Query",
+              "inputs": {
+                "from": "@body('Select_-_Dataverse_Locations')",
+                "where": "@equals(item()?['IdDeUbicacion'], items('Apply_to_each_-_SFS_Location')?['Id'])"
+              }
+            },
+            "Switch": {
+              "runAfter": {
+                "Filter_array_-_SFS_Location": [
+                  "Succeeded"
+                ]
+              },
+              "cases": {
+                "Case": {
+                  "case": 0,
+                  "actions": {
+                    "Add_a_new_row_to_selected_environment": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "84533402-805c-49b4-8934-b63f6a61bace"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps_1",
+                          "operationId": "CreateRecordWithOrganization",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "organization": "https://sanw-np.crm.dynamics.com",
+                          "entityName": "mfd_oym_sfslocations",
+                          "item/mfd_name": "@items('Apply_to_each_-_SFS_Location')?['Name']",
+                          "item/cr4d3_address": "@if(\n  empty(items('Apply_to_each_-_SFS_Location')?['Addresses']?['records']),\n  null,\n  first(items('Apply_to_each_-_SFS_Location')?['Addresses']?['records'])?['Street']\n)\n",
+                          "item/mfd_contactemail": "@items('Apply_to_each_-_SFS_Location')?['Owner']?['Email']",
+                          "item/mfd_contactname": "@items('Apply_to_each_-_SFS_Location')?['Owner']?['Name']",
+                          "item/mfd_contactphone": "@items('Apply_to_each_-_SFS_Location')?['Owner']?['Phone']",
+                          "item/mfd_fmgroupname": "@items('Apply_to_each_-_SFS_Location')?['FM_Group__r']?['Name']",
+                          "item/mfd_iddeubicacion": "@items('Apply_to_each_-_SFS_Location')?['Id']",
+                          "item/mfd_region": "@items('Apply_to_each_-_SFS_Location')?['Region__r']?['Name']",
+                          "item/mfd_sfscustomertype": "@items('Apply_to_each_-_SFS_Location')?['Customer_Type__c']",
+                          "item/mfd_sfsprogram": "@items('Apply_to_each_-_SFS_Location')?['Program__c']",
+                          "item/mfd_structurenumber": "@items('Apply_to_each_-_SFS_Location')?['FIR_Structure_Number__c']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    },
+                    "Add_a_new_row_-_Location": {
+                      "runAfter": {
+                        "Add_a_new_row_to_selected_environment": [
+                          "Failed"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "8f0d1be5-9327-42fd-8a52-2d74e3230f8d"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "CreateRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "mfd_oym_sfslocations",
+                          "item/mfd_name": "@items('Apply_to_each_-_SFS_Location')?['Name']",
+                          "item/cr4d3_address": "@if(\r\n  empty(items('Apply_to_each_-_SFS_Location')?['Addresses']?['records']),\r\n  null,\r\n  first(items('Apply_to_each_-_SFS_Location')?['Addresses']?['records'])?['Street']\r\n)\r\n",
+                          "item/mfd_contactemail": "@items('Apply_to_each_-_SFS_Location')?['Owner']?['Email']",
+                          "item/mfd_contactname": "@items('Apply_to_each_-_SFS_Location')?['Owner']?['Name']",
+                          "item/mfd_contactphone": "@items('Apply_to_each_-_SFS_Location')?['Owner']?['Phone']",
+                          "item/mfd_fmgroupname": "@items('Apply_to_each_-_SFS_Location')?['FM_Group__r']?['Name']",
+                          "item/mfd_iddeubicacion": "@items('Apply_to_each_-_SFS_Location')?['Id']",
+                          "item/mfd_region": "@items('Apply_to_each_-_SFS_Location')?['Region__r']?['Name']",
+                          "item/mfd_sfscustomertype": "@items('Apply_to_each_-_SFS_Location')?['Customer_Type__c']",
+                          "item/mfd_sfsprogram": "@items('Apply_to_each_-_SFS_Location')?['Program__c']",
+                          "item/mfd_structurenumber": "@items('Apply_to_each_-_SFS_Location')?['FIR_Structure_Number__c']"
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    }
+                  }
+                },
+                "Case_2": {
+                  "case": 1,
+                  "actions": {
+                    "Update_a_row_in_selected_environment_-_Location": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "ad5e469b-1099-465b-b84a-4fca6e1e8a8d"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps_1",
+                          "operationId": "UpdateOnlyRecordWithOrganization",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "organization": "https://sanw-np.crm.dynamics.com",
+                          "entityName": "mfd_oym_sfslocations",
+                          "recordId": "@first(body('Filter_array_-_SFS_Location'))?['OYM_SFSLocation']",
+                          "item/mfd_name": "@items('Apply_to_each_-_SFS_Location')?['Name']",
+                          "item/cr4d3_address": "@if(\n  empty(items('Apply_to_each_-_SFS_Location')?['Addresses']?['records']),\n  null,\n  first(items('Apply_to_each_-_SFS_Location')?['Addresses']?['records'])?['Street']\n)\n",
+                          "item/mfd_contactemail": "@items('Apply_to_each_-_SFS_Location')?['Owner']?['Email']",
+                          "item/mfd_contactname": "@items('Apply_to_each_-_SFS_Location')?['Owner']?['Name']",
+                          "item/mfd_contactphone": "@items('Apply_to_each_-_SFS_Location')?['Owner']?['Phone']",
+                          "item/mfd_fmgroupname": "@items('Apply_to_each_-_SFS_Location')?['FM_Group__r']?['Name']",
+                          "item/mfd_iddeubicacion": "@items('Apply_to_each_-_SFS_Location')?['Id']",
+                          "item/mfd_region": "@items('Apply_to_each_-_SFS_Location')?['Region__r']?['Name']",
+                          "item/mfd_sfscustomertype": "@items('Apply_to_each_-_SFS_Location')?['Customer_Type__c']",
+                          "item/mfd_sfsprogram": "@items('Apply_to_each_-_SFS_Location')?['Program__c']",
+                          "item/mfd_structurenumber": "@items('Apply_to_each_-_SFS_Location')?['FIR_Structure_Number__c']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    },
+                    "Update_a_row_-_Location": {
+                      "runAfter": {
+                        "Update_a_row_in_selected_environment_-_Location": [
+                          "Failed"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "d7375a08-1285-4cd7-8559-cc2a968620ef"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "UpdateOnlyRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "mfd_oym_sfslocations",
+                          "recordId": "@first(body('Filter_array_-_SFS_Location'))?['OYM_SFSLocation']",
+                          "item/mfd_name": "@items('Apply_to_each_-_SFS_Location')?['Name']",
+                          "item/cr4d3_address": "@if(\r\n  empty(items('Apply_to_each_-_SFS_Location')?['Addresses']?['records']),\r\n  null,\r\n  first(items('Apply_to_each_-_SFS_Location')?['Addresses']?['records'])?['Street']\r\n)\r\n",
+                          "item/mfd_contactemail": "@items('Apply_to_each_-_SFS_Location')?['Owner']?['Email']",
+                          "item/mfd_contactname": "@items('Apply_to_each_-_SFS_Location')?['Owner']?['Name']",
+                          "item/mfd_contactphone": "@items('Apply_to_each_-_SFS_Location')?['Owner']?['Phone']",
+                          "item/mfd_fmgroupname": "@items('Apply_to_each_-_SFS_Location')?['FM_Group__r']?['Name']",
+                          "item/mfd_iddeubicacion": "@items('Apply_to_each_-_SFS_Location')?['Id']",
+                          "item/mfd_region": "@items('Apply_to_each_-_SFS_Location')?['Region__r']?['Name']",
+                          "item/mfd_sfscustomertype": "@items('Apply_to_each_-_SFS_Location')?['Customer_Type__c']",
+                          "item/mfd_sfsprogram": "@items('Apply_to_each_-_SFS_Location')?['Program__c']",
+                          "item/mfd_structurenumber": "@items('Apply_to_each_-_SFS_Location')?['FIR_Structure_Number__c']"
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "default": {
+                "actions": {
+                  "Send_an_email_from_a_shared_mailbox_(V2)_3": {
+                    "runAfter": {},
+                    "metadata": {
+                      "operationMetadataId": "17b06771-286e-426b-894c-9445fec768e1"
+                    },
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "host": {
+                        "connectionName": "shared_office365",
+                        "operationId": "SharedMailboxSendEmailV2",
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                      },
+                      "parameters": {
+                        "emailMessage/MailboxAddress": "torresaj@churchofjesuschrist.org",
+                        "emailMessage/To": "torresaj@churchofjesuschrist.org",
+                        "emailMessage/Subject": "Valores duplicados en la tabla ResourcePreferences de SFS - @{items('Apply_to_each_-_SFS_Location')?['Id']}",
+                        "emailMessage/Body": "<p>Error con este Resource Preference de Salesforce: @{items('Apply_to_each_-_SFS_Location')?['Id']}<br>\n<br>\nTiene más de una fila en la tabla ResourcePreferences (valores duplicados). Informar al equipo de Salesforce de Lago Salado</p>",
+                        "emailMessage/Importance": "Normal"
+                      },
+                      "authentication": {
+                        "type": "Raw",
+                        "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                      }
+                    }
+                  }
+                }
+              },
+              "expression": "@length(body('Filter_array_-_SFS_Location'))",
+              "metadata": {
+                "operationMetadataId": "b524ccc1-2f70-4412-b403-99335344df23"
+              },
+              "type": "Switch"
+            }
+          },
+          "runAfter": {
+            "Select_-_Dataverse_Locations": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "2e48468d-0ee9-4c2c-a0ce-f107064dee47"
+          },
+          "type": "Foreach",
+          "runtimeConfiguration": {
+            "concurrency": {
+              "repetitions": 10
+            }
+          }
+        },
+        "Execute_a_SOQL_query_-_ResourcePreferences": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "c84b131b-3052-412b-9fd4-cba179fd79f0"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_salesforce",
+              "operationId": "ExecuteSoqlQuery",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_salesforce"
+            },
+            "parameters": {
+              "queryParameters/query": "SELECT Id, Location__c, Location__r.Name, Location__r.FIR_Structure_Number__c, Location__r.Region__r.Name, Service_Resource__c, Service_Resource__r.Name, Service_Resource__r.RelatedRecord.Email, Service_Resource__r.IsOptimizationCapable, Service_Resource__r.RelatedRecord.IsTechnician__c \nFROM ResourcePreference \nWHERE Related_Record_is_Location__c = true"
+            },
+            "authentication": {
+              "type": "Raw",
+              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+            }
+          }
+        },
+        "List_rows_from_selected_environment_-_Locations": {
+          "runAfter": {
+            "Execute_a_SOQL_query_-_Locations": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "4844c7c8-602f-4473-af1e-12203d60d386"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps_1",
+              "operationId": "ListRecordsWithOrganization",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "organization": "https://sanw-np.crm.dynamics.com",
+              "entityName": "mfd_oym_sfslocations"
+            },
+            "authentication": {
+              "type": "Raw",
+              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+            }
+          }
+        },
+        "Select_-_Dataverse_Locations": {
+          "runAfter": {
+            "List_rows_from_selected_environment_-_Locations": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "96c77c6d-afbc-430a-b350-add428bc134d"
+          },
+          "type": "Select",
+          "inputs": {
+            "from": "@body('List_rows_from_selected_environment_-_Locations')?['value']",
+            "select": {
+              "OYM_SFSLocation": "@item()?['mfd_oym_sfslocationid']",
+              "IdDeUbicacion": "@item()?['mfd_iddeubicacion']"
+            }
+          }
+        },
+        "Execute_a_SOQL_query_-_ServiceResources": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "254b0a48-c7c9-4be7-b55f-c59720da39d5"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_salesforce",
+              "operationId": "ExecuteSoqlQuery",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_salesforce"
+            },
+            "parameters": {
+              "queryParameters/query": "SELECT Id, Name, RelatedRecord.Email, IsOptimizationCapable, RelatedRecord.IsTechnician__c FROM ServiceResource"
+            },
+            "authentication": {
+              "type": "Raw",
+              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+            }
+          }
+        },
+        "List_rows_from_selected_environment_-_ServiceResources": {
+          "runAfter": {
+            "Execute_a_SOQL_query_-_ServiceResources": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "811c195b-041f-48f2-99f9-4da2549e8ad4"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps_1",
+              "operationId": "ListRecordsWithOrganization",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "organization": "https://sanw-np.crm.dynamics.com",
+              "entityName": "mfd_oym_sfsserviceresources"
+            },
+            "authentication": {
+              "type": "Raw",
+              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+            }
+          }
+        },
+        "Select_-_Dataverse_ServiceResources": {
+          "runAfter": {
+            "List_rows_from_selected_environment_-_ServiceResources": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "bbac2840-7a56-4fba-a0eb-6267c0544934"
+          },
+          "type": "Select",
+          "inputs": {
+            "from": "@body('List_rows_from_selected_environment_-_ServiceResources')?['value']",
+            "select": {
+              "OYM_SFSServiceResource": "@item()?['mfd_oym_sfsserviceresourceid']",
+              "IdDeRecursoDeServicio": "@item()?['mfd_idderecursodeservicio']"
+            }
+          }
+        },
+        "Apply_to_each_-_SFS_ServiceResource": {
+          "foreach": "@body('Execute_a_SOQL_query_-_ServiceResources')?['records']",
+          "actions": {
+            "Filter_array_-_SFS_ServiceResource": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "7e61b710-22f7-4ad6-ac99-bfec6f8c4fb1"
+              },
+              "type": "Query",
+              "inputs": {
+                "from": "@body('Select_-_Dataverse_ServiceResources')",
+                "where": "@equals(item()?['IdDeRecursoDeServicio'], items('Apply_to_each_-_SFS_ServiceResource')?['Id'])"
+              }
+            },
+            "Switch_-_ServiceResource": {
+              "runAfter": {
+                "Filter_array_-_SFS_ServiceResource": [
+                  "Succeeded"
+                ]
+              },
+              "cases": {
+                "Case": {
+                  "case": 0,
+                  "actions": {
+                    "Add_a_new_row_to_selected_environment_-_ServiceResource": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "507acb53-fc77-4bc8-84fc-62f84a8f8312"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps_1",
+                          "operationId": "CreateRecordWithOrganization",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "organization": "https://sanw-np.crm.dynamics.com",
+                          "entityName": "mfd_oym_sfsserviceresources",
+                          "item/mfd_name": "@items('Apply_to_each_-_SFS_ServiceResource')?['Name']",
+                          "item/mfd_idderecursodeservicio": "@items('Apply_to_each_-_SFS_ServiceResource')?['Id']",
+                          "item/mfd_includedinschedulingoptimization": "@coalesce(items('Apply_to_each_-_SFS_ServiceResource')?['IsOptimizationCapable'], false)",
+                          "item/mfd_istechnician": "@coalesce(items('Apply_to_each_-_SFS_ServiceResource')?['IsTechnician__c'], false)",
+                          "item/mfd_serviceresourceemail": "@items('Apply_to_each_-_SFS_ServiceResource')?['RelatedRecord']?['Email']",
+                          "item/mfd_serviceresourcename": "@items('Apply_to_each_-_SFS_ServiceResource')?['Name']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  }
+                },
+                "Case_2": {
+                  "case": 1,
+                  "actions": {
+                    "Update_a_row_in_selected_environment_-_ServiceResource": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "cb162ad5-1ddd-40ac-ad10-5ed3ca1573a9"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps_1",
+                          "operationId": "UpdateOnlyRecordWithOrganization",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "organization": "https://sanw-np.crm.dynamics.com",
+                          "entityName": "mfd_oym_sfsserviceresources",
+                          "recordId": "@first(body('Filter_array_-_SFS_ServiceResource'))?['OYM_SFSServiceResource']",
+                          "item/mfd_name": "@items('Apply_to_each_-_SFS_ServiceResource')?['Name']",
+                          "item/mfd_idderecursodeservicio": "@items('Apply_to_each_-_SFS_ServiceResource')?['Id']",
+                          "item/mfd_includedinschedulingoptimization": "@coalesce(items('Apply_to_each_-_SFS_ServiceResource')?['IsOptimizationCapable'], false)",
+                          "item/mfd_istechnician": "@coalesce(items('Apply_to_each_-_SFS_ServiceResource')?['IsTechnician__c'], false)",
+                          "item/mfd_serviceresourceemail": "@items('Apply_to_each_-_SFS_ServiceResource')?['RelatedRecord']?['Email']",
+                          "item/mfd_serviceresourcename": "@items('Apply_to_each_-_SFS_ServiceResource')?['Name']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  }
+                }
+              },
+              "default": {
+                "actions": {
+                  "Send_an_email_from_a_shared_mailbox_(V2)": {
+                    "runAfter": {},
+                    "metadata": {
+                      "operationMetadataId": "2ecd2146-9474-4a20-9bf8-351a05897575"
+                    },
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "host": {
+                        "connectionName": "shared_office365",
+                        "operationId": "SharedMailboxSendEmailV2",
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                      },
+                      "parameters": {
+                        "emailMessage/MailboxAddress": "torresaj@churchofjesuschrist.org",
+                        "emailMessage/To": "torresaj@churchofjesuschrist.org",
+                        "emailMessage/Subject": "Valores duplicados en la tabla ServiceResources de SFS - @{items('Apply_to_each_-_SFS_ServiceResource')?['Id']}",
+                        "emailMessage/Body": "<p>Error con este Service Resource de Salesforce: @{items('Apply_to_each_-_SFS_ServiceResource')?['Id']}<br>\n<br>\nTiene más de una fila en la tabla Service Resources (valores duplicados). Informar al equipo de Salesforce de Lago Salado</p>",
+                        "emailMessage/Importance": "Normal"
+                      },
+                      "authentication": {
+                        "type": "Raw",
+                        "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                      }
+                    }
+                  }
+                }
+              },
+              "expression": "@length(body('Filter_array_-_SFS_ServiceResource'))",
+              "metadata": {
+                "operationMetadataId": "cc2dd32f-335f-409a-8ee6-d4f69002ec7e"
+              },
+              "type": "Switch"
+            }
+          },
+          "runAfter": {
+            "Select_-_Dataverse_ServiceResources": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "f74aad4e-94c1-4596-8030-15f110f04fe0"
+          },
+          "type": "Foreach"
+        },
+        "List_rows_from_selected_environment_-_ResourcePreferences": {
+          "runAfter": {
+            "Execute_a_SOQL_query_-_ResourcePreferences": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "fa1105c1-2fb8-4633-9401-9a8bb5a5064b"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps_1",
+              "operationId": "ListRecordsWithOrganization",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "organization": "https://sanw-np.crm.dynamics.com",
+              "entityName": "mfd_oym_sfsresourcepreferences"
+            },
+            "authentication": {
+              "type": "Raw",
+              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+            }
+          }
+        },
+        "Select_-_Dataverse_ResourcePreferences": {
+          "runAfter": {
+            "List_rows_from_selected_environment_-_ResourcePreferences": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "ee99be42-c953-47ec-a51f-c996b39c4e57"
+          },
+          "type": "Select",
+          "inputs": {
+            "from": "@body('List_rows_from_selected_environment_-_ResourcePreferences')?['value']",
+            "select": {
+              "OYM_SFSResourcePreference": "@item()?['mfd_oym_sfsresourcepreferenceid']",
+              "IdDeUbicacionIdDeRecursoDeServicio": "@item()?['mfd_iddeubicacionidderecursodeservicio']"
+            }
+          }
+        },
+        "Apply_to_each_-_SFS_ResourcePreference": {
+          "foreach": "@body('Execute_a_SOQL_query_-_ResourcePreferences')?['records']",
+          "actions": {
+            "Filter_array_-_SFS_ResourcePreference": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "70d35798-8fda-4fa2-aae4-05b7bea09673"
+              },
+              "type": "Query",
+              "inputs": {
+                "from": "@body('Select_-_Dataverse_ResourcePreferences')",
+                "where": "@equals(item()?['IdDeUbicacionIdDeRecursoDeServicio'], concat(items('Apply_to_each_-_SFS_ResourcePreference')?['Location__c'], '|', items('Apply_to_each_-_SFS_ResourcePreference')?['Service_Resource__c']))"
+              }
+            },
+            "Switch_-_ResourcePreference": {
+              "runAfter": {
+                "Compose_-_Concat": [
+                  "Succeeded"
+                ]
+              },
+              "cases": {
+                "Case": {
+                  "case": 0,
+                  "actions": {
+                    "Add_a_new_row_to_selected_environment_-_ResourcePreference": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "3c323ce0-d476-4426-bccc-a96de2a2f50c"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps_1",
+                          "operationId": "CreateRecordWithOrganization",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "organization": "https://sanw-np.crm.dynamics.com",
+                          "entityName": "mfd_oym_sfsresourcepreferences",
+                          "item/mfd_name": "@items('Apply_to_each_-_SFS_ResourcePreference')?['Service_Resource__r']?['Name']",
+                          "item/mfd_idderecursodeservicio": "@items('Apply_to_each_-_SFS_ResourcePreference')?['Service_Resource__c']",
+                          "item/mfd_iddeubicacion": "@items('Apply_to_each_-_SFS_ResourcePreference')?['Location__c']",
+                          "item/mfd_iddeubicacionidderecursodeservicio": "@concat(\n  items('Apply_to_each_-_SFS_ResourcePreference')?['Location__c'],\n  '|',\n  items('Apply_to_each_-_SFS_ResourcePreference')?['Service_Resource__c']\n)",
+                          "item/mfd_locationname": "@items('Apply_to_each_-_SFS_ResourcePreference')?['Location__r']?['Name']",
+                          "item/mfd_region": "@items('Apply_to_each_-_SFS_ResourcePreference')?['Location__r']?['Region__r']?['Name']",
+                          "item/mfd_serviceresourceemail": "@items('Apply_to_each_-_SFS_ResourcePreference')?['Service_Resource__r']?['RelatedRecord']?['Email']",
+                          "item/mfd_serviceresourcename": "@items('Apply_to_each_-_SFS_ResourcePreference')?['Service_Resource__r']?['Name']",
+                          "item/mfd_structurenumber": "@items('Apply_to_each_-_SFS_ResourcePreference')?['Location__r']?['FIR_Structure_Number__c']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  }
+                },
+                "Case_2": {
+                  "case": 1,
+                  "actions": {
+                    "Update_a_row_in_selected_environment": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "801821c4-6b26-4a55-91f9-956839a48c2a"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps_1",
+                          "operationId": "UpdateOnlyRecordWithOrganization",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "organization": "https://sanw-np.crm.dynamics.com",
+                          "entityName": "mfd_oym_sfsresourcepreferences",
+                          "recordId": "@first(body('Filter_array_-_SFS_ResourcePreference'))?['OYM_SFSResourcePreference']",
+                          "item/mfd_name": "@items('Apply_to_each_-_SFS_ResourcePreference')?['Service_Resource__r']?['Name']",
+                          "item/mfd_idderecursodeservicio": "@items('Apply_to_each_-_SFS_ResourcePreference')?['Service_Resource__c']",
+                          "item/mfd_iddeubicacion": "@items('Apply_to_each_-_SFS_ResourcePreference')?['Location__c']",
+                          "item/mfd_iddeubicacionidderecursodeservicio": "@concat(\n  items('Apply_to_each_-_SFS_ResourcePreference')?['Location__c'],\n  '|',\n  items('Apply_to_each_-_SFS_ResourcePreference')?['Service_Resource__c']\n)",
+                          "item/mfd_locationname": "@items('Apply_to_each_-_SFS_ResourcePreference')?['Location__r']?['Name']",
+                          "item/mfd_region": "@items('Apply_to_each_-_SFS_ResourcePreference')?['Location__r']?['Region__r']?['Name']",
+                          "item/mfd_serviceresourceemail": "@items('Apply_to_each_-_SFS_ResourcePreference')?['Service_Resource__r']?['RelatedRecord']?['Email']",
+                          "item/mfd_serviceresourcename": "@items('Apply_to_each_-_SFS_ResourcePreference')?['Service_Resource__r']?['Name']",
+                          "item/mfd_structurenumber": "@items('Apply_to_each_-_SFS_ResourcePreference')?['Location__r']?['FIR_Structure_Number__c']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  }
+                }
+              },
+              "default": {
+                "actions": {
+                  "Send_an_email_from_a_shared_mailbox_(V2)_2": {
+                    "runAfter": {},
+                    "metadata": {
+                      "operationMetadataId": "3d7eb517-d444-4328-b990-3d1aaa0d168d"
+                    },
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "host": {
+                        "connectionName": "shared_office365",
+                        "operationId": "SharedMailboxSendEmailV2",
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                      },
+                      "parameters": {
+                        "emailMessage/MailboxAddress": "torresaj@churchofjesuschrist.org",
+                        "emailMessage/To": "torresaj@churchofjesuschrist.org",
+                        "emailMessage/Subject": "Valores duplicados en la tabla ResourcePreferences de SFS - @{items('Apply_to_each_-_SFS_ResourcePreference')?['Id']}",
+                        "emailMessage/Body": "<p>Error con este Resource Preference de Salesforce: @{items('Apply_to_each_-_SFS_ResourcePreference')?['Id']}<br>\nIdDeUbicacion|IdDeRecursoDeServicio: @{concat(items('Apply_to_each_-_SFS_ResourcePreference')?['Location__c'], '|', items('Apply_to_each_-_SFS_ResourcePreference')?['Service_Resource__c'])}<br>\n<br>\n<br>\nTiene más de una fila en la tabla ResourcePreferences (valores duplicados). Informar al equipo de Salesforce de Lago Salado</p>",
+                        "emailMessage/Importance": "Normal"
+                      },
+                      "authentication": {
+                        "type": "Raw",
+                        "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                      }
+                    }
+                  }
+                }
+              },
+              "expression": "@length(body('Filter_array_-_SFS_ResourcePreference'))",
+              "metadata": {
+                "operationMetadataId": "ec6ac0c2-8dc0-4284-9aee-086ae3f739f3"
+              },
+              "type": "Switch"
+            },
+            "Compose": {
+              "runAfter": {
+                "Filter_array_-_SFS_ResourcePreference": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "653da924-f272-4d39-aa98-1e074f8a30ff"
+              },
+              "type": "Compose",
+              "inputs": "@items('Apply_to_each_-_SFS_ResourcePreference')?['IdDeUbicacionIdDeRecursoDeServicio']"
+            },
+            "Compose_-_Concat": {
+              "runAfter": {
+                "Compose": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "1a0ddcbc-d123-4ba5-bb05-e68dbeb49328"
+              },
+              "type": "Compose",
+              "inputs": "@concat(items('Apply_to_each_-_SFS_ResourcePreference')?['Location__c'], '|', items('Apply_to_each_-_SFS_ResourcePreference')?['Service_Resource__c'])"
+            }
+          },
+          "runAfter": {
+            "Select_-_Dataverse_ResourcePreferences": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "32b95992-92f8-47f0-b5a1-667b2859787b"
+          },
+          "type": "Foreach"
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -1,0 +1,326 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_microsoftforms_1": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "mfd_sharedmicrosoftforms_e15db"
+        },
+        "api": {
+          "name": "shared_microsoftforms"
+        }
+      },
+      "shared_office365": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "mfd_sharedoffice365_19920"
+        },
+        "api": {
+          "name": "shared_office365"
+        }
+      },
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_d0098"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "When_a_new_response_is_submitted": {
+          "splitOn": "@triggerOutputs()?['body/value']",
+          "metadata": {
+            "operationMetadataId": "9e31c2a7-68d6-4e1d-9994-1d83a1d89d33"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_microsoftforms_1",
+              "operationId": "CreateFormWebhook",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_microsoftforms"
+            },
+            "parameters": {
+              "form_id": "s-7mYddfqkquPGHo3rCbedjoQRahLZdFgGF6VwLr2aVUREk3TjBES1E4WkpRRjUxWUFFQVhSQ1NaTSQlQCN0PWcu"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Get_response_details": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "1f727d2c-008b-463c-82e5-055e28ae78c2"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_microsoftforms_1",
+              "operationId": "GetFormResponseById",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_microsoftforms"
+            },
+            "parameters": {
+              "form_id": "s-7mYddfqkquPGHo3rCbedjoQRahLZdFgGF6VwLr2aVUREk3TjBES1E4WkpRRjUxWUFFQVhSQ1NaTSQlQCN0PWcu",
+              "response_id": "@triggerOutputs()?['body/resourceData/responseId']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Compose": {
+          "runAfter": {
+            "Get_a_row_by_ID_from_selected_environment_-_Vendor": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "4c04de60-93e1-4101-96b4-42a9935a2c52"
+          },
+          "type": "Compose",
+          "inputs": "@outputs('Get_a_row_by_ID_from_selected_environment_-_Bid')?['body/mfd_state']"
+        },
+        "Switch": {
+          "runAfter": {
+            "Compose": [
+              "Succeeded"
+            ]
+          },
+          "cases": {
+            "Case": {
+              "case": 862350000,
+              "actions": {
+                "Send_an_email_from_a_shared_mailbox_(V2)": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "c7e60629-e609-419f-bfb7-1c1369038884"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_office365",
+                      "operationId": "SharedMailboxSendEmailV2",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                    },
+                    "parameters": {
+                      "emailMessage/MailboxAddress": "SANW-MFD-Licitaciones@mail.ChurchofJesusChrist.org",
+                      "emailMessage/To": "@outputs('Get_a_row_by_ID_from_selected_environment_-_Proposal')?['body/mfd_vendoremail']",
+                      "emailMessage/Subject": "Propuesta no recepcionada – Proceso de Licitación",
+                      "emailMessage/Body": "<p>\nEstimado proveedor <strong>@{outputs('Get_a_row_by_ID_from_selected_environment_-_Vendor')?['body/mfd_name']}</strong>,<br><br>\n\nHemos recibido un intento de envío de información correspondiente a la licitación  \n<strong>@{outputs('Get_a_row_by_ID_from_selected_environment_-_Bid')?['body/mfd_bidid']}</strong>.<br><br>\n\nNo obstante, el proceso de <strong>Recepción de sobres aún no ha iniciado</strong>.  \nPor este motivo, su propuesta económica <strong>no ha sido recepcionada ni registrada</strong> en el sistema.<br><br>\n\nLe solicitamos esperar la <strong>indicación oficial del moderador de la licitación</strong>, momento en el cual se habilitará el plazo para el envío de propuestas económicas.  \nUna vez iniciada dicha etapa, deberá realizar nuevamente el envío dentro del tiempo establecido.<br><br>\n\nAgradecemos su comprensión y colaboración en el cumplimiento de las etapas del proceso de licitación.<br><br>\n\nAtentamente,<br><br>\n<strong>Departamento de Propiedades</strong><br>\nÁrea Sudamérica Noroeste\n</p>",
+                      "emailMessage/Importance": "Normal"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                }
+              }
+            },
+            "Case_2": {
+              "case": 862350001,
+              "actions": {
+                "Send_an_email_from_a_shared_mailbox_(V2)_2": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "8cd23f4d-8e9c-4de9-aa5c-c056a2acfadd"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_office365",
+                      "operationId": "SharedMailboxSendEmailV2",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                    },
+                    "parameters": {
+                      "emailMessage/MailboxAddress": "SANW-MFD-Licitaciones@mail.ChurchofJesusChrist.org",
+                      "emailMessage/To": "@outputs('Get_a_row_by_ID_from_selected_environment_-_Proposal')?['body/mfd_vendoremail']",
+                      "emailMessage/Subject": "Propuesta no recepcionada – Proceso de Licitación",
+                      "emailMessage/Body": "<p>\nEstimado proveedor <strong>@{outputs('Get_a_row_by_ID_from_selected_environment_-_Vendor')?['body/mfd_name']}</strong>,<br><br>\n\nHemos recibido un intento de envío de información correspondiente a la licitación  \n<strong>@{outputs('Get_a_row_by_ID_from_selected_environment_-_Bid')?['body/mfd_bidid']}</strong>.<br><br>\n\nNo obstante, el proceso de <strong>Recepción de sobres aún no ha iniciado</strong>.  \nPor este motivo, su propuesta económica <strong>no ha sido recepcionada ni registrada</strong> en el sistema.<br><br>\n\nLe solicitamos esperar la <strong>indicación oficial del moderador de la licitación</strong>, momento en el cual se habilitará el plazo para el envío de propuestas económicas.  \nUna vez iniciada dicha etapa, deberá realizar nuevamente el envío dentro del tiempo establecido.<br><br>\n\nAgradecemos su comprensión y colaboración en el cumplimiento de las etapas del proceso de licitación.<br><br>\n\nAtentamente,<br><br>\n<strong>Departamento de Propiedades</strong><br>\nÁrea Sudamérica Noroeste\n</p>",
+                      "emailMessage/Importance": "Normal"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                }
+              }
+            },
+            "Case_3": {
+              "case": 862350002,
+              "actions": {
+                "Update_a_row_in_selected_environment": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "3354efa9-16a2-4b7c-a955-ca95449025fa"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "UpdateOnlyRecordWithOrganization",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "organization": "https://sanw-np.crm.dynamics.com",
+                      "entityName": "mfd_oym_proposals",
+                      "recordId": "@outputs('Get_response_details')?['body/re821fa783a484d0a84a53b47dd611485']",
+                      "item/mfd_amount": "@outputs('Get_response_details')?['body/rf4b985b762b34e17986d3866acbc149c']",
+                      "item/mfd_proposalreceivedon": "@outputs('Get_response_details')?['body/submitDate']",
+                      "item/mfd_proposedduration": "@outputs('Get_response_details')?['body/r1f1c9ad92ee24eac9f6aa0d2b0ef262a']",
+                      "item/mfd_vendorproposalreceived": true,
+                      "item/mfd_vendorrepresentative": "@outputs('Get_response_details')?['body/r97d1e07dca7343e38bdf0084e102cc32']",
+                      "item/mfd_vendorrepresentativedocumentnumber": "@outputs('Get_response_details')?['body/rc857b0764c474496a10470e7e05b1855']",
+                      "item/mfd_vendorrepresentativedocumenttype": "@outputs('Get_response_details')?['body/reb1b985960d3451a9c139b53ee153368']"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                },
+                "Send_an_email_from_a_shared_mailbox_(V2)_-_Propuesta_Recepcionada": {
+                  "runAfter": {
+                    "Update_a_row_in_selected_environment": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "434717d8-b875-44a7-9933-10e3b94e3dfc"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_office365",
+                      "operationId": "SharedMailboxSendEmailV2",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                    },
+                    "parameters": {
+                      "emailMessage/MailboxAddress": "SANW-MFD-Licitaciones@mail.ChurchofJesusChrist.org",
+                      "emailMessage/To": "@outputs('Get_a_row_by_ID_from_selected_environment_-_Proposal')?['body/mfd_vendoremail']",
+                      "emailMessage/Subject": "Propuesta recepcionada – Proceso de Licitación",
+                      "emailMessage/Body": "<p>\nEstimado proveedor <strong>@{outputs('Get_a_row_by_ID_from_selected_environment_-_Vendor')?['body/mfd_name']}</strong>,\n</p>\n\n<p>\nHemos recepcionado correctamente su <strong>propuesta económica</strong> para la licitación\n<strong>@{outputs('Get_a_row_by_ID_from_selected_environment_-_Bid')?['body/mfd_bidid']}</strong>, dentro del plazo establecido.\n</p>\n\n<p>\n<strong>Siguiente paso:</strong> Para completar su participación en esta etapa, necesitamos que envíe los\n<strong>documentos de respaldo</strong>.  \nHaga clic en el siguiente botón para abrir un correo nuevo con los datos listos; solo deberá\n<strong>adjuntar los archivos</strong> y enviar el mensaje.\n</p>\n\n<!-- BOTÓN ARRIBA -->\n<p style=\"margin:18px 0;\">\n  <a href=\"mailto:SANW-MFD-Licitaciones@mail.churchofjesuschrist.org\n?subject=@{uriComponent(concat(\n  'PROPUESTA-',\n  outputs('Get_response_details')?['body/re821fa783a484d0a84a53b47dd611485']\n))}\n&body=@{uriComponent(\n  'Adjunto los documentos de respaldo de mi propuesta económica para la licitación indicada.'\n)}\"\n  target=\"_blank\"\n  style=\"text-decoration:none;\">\n    <span style=\"\n      display:inline-block;\n      background-color:#287086;\n      color:#FFFFFF;\n      padding:14px 20px;\n      border-radius:8px;\n      font-size:16px;\n      font-weight:600;\n    \">\n      📎 Enviar documentos de respaldo\n    </span>\n  </a>\n</p>\n\n<!-- LISTA DE DOCUMENTOS -->\n<p style=\"margin-top:18px;\">\n<strong>Debe adjuntar los siguientes archivos:</strong>\n</p>\n\n<p style=\"margin:6px 0;\">\n(1) Resumen ejecutivo de la propuesta económica<br>\n(2) Presupuesto general de la obra<br>\n(3) Análisis de precios unitarios (desglose de partidas)<br>\n(4) Cronograma de obra<br>\n(5) Documento de aceptación de términos y condiciones del proyecto, debidamente firmado\n</p>\n\n<hr style=\"border:none; border-top:1px solid #E5E8E9; margin:18px 0;\">\n\n<!-- ALTERNATIVA MANUAL -->\n<p>\nSi el botón no funciona, puede hacerlo manualmente enviando un correo al buzón:\n<strong>SANW-MFD-Licitaciones@mail.churchofjesuschrist.org</strong>\n</p>\n\n<p>\n<strong>Asunto obligatorio del correo (no modificar):</strong><br>\n<span style=\"font-size:14px; background-color:#ECF7F9; padding:8px 12px; border-radius:6px; display:inline-block;\">\n<strong>PROPUESTA-@{outputs('Get_response_details')?['body/re821fa783a484d0a84a53b47dd611485']}</strong>\n</span><br>\n<em>Importante: mantenga este asunto sin cambios para que el sistema identifique correctamente su propuesta.</em>\n</p>\n\n<p>\nLos documentos deberán ser enviados dentro del plazo correspondiente a la etapa de <strong>Recepción de sobres</strong>.\nLos envíos realizados fuera de dicho periodo no serán considerados.\n</p>\n\n<p>\nAgradecemos su participación en este proceso de licitación.\n</p>\n\n<p>\nAtentamente,<br><br>\n<strong>Departamento de Propiedades</strong><br>\nÁrea Sudamérica Noroeste\n</p>",
+                      "emailMessage/Importance": "Normal"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "actions": {
+              "Send_an_email_from_a_shared_mailbox_(V2)_4": {
+                "runAfter": {},
+                "metadata": {
+                  "operationMetadataId": "2a259283-cd90-4c1e-bb43-fbf977aa83f1"
+                },
+                "type": "OpenApiConnection",
+                "inputs": {
+                  "host": {
+                    "connectionName": "shared_office365",
+                    "operationId": "SharedMailboxSendEmailV2",
+                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                  },
+                  "parameters": {
+                    "emailMessage/MailboxAddress": "SANW-MFD-Licitaciones@mail.ChurchofJesusChrist.org",
+                    "emailMessage/To": "@outputs('Get_a_row_by_ID_from_selected_environment_-_Proposal')?['body/mfd_vendoremail']",
+                    "emailMessage/Subject": "Propuesta enviada fuera de plazo – Proceso de Licitación",
+                    "emailMessage/Body": "<p>\nEstimado proveedor \n<strong>@{outputs('Get_a_row_by_ID_from_selected_environment_-_Vendor')?['body/mfd_name']}</strong>,<br><br>\n\nHemos recibido un envío de información relacionado con la licitación  \n<strong>@{outputs('Get_a_row_by_ID_from_selected_environment_-_Bid')?['body/mfd_bidid']}</strong>.<br><br>\n\nSin embargo, el proceso de licitación ya se encuentra <strong>fuera del periodo de Recepción de sobres</strong>.  \nDe acuerdo con el procedimiento establecido, las propuestas económicas enviadas fuera del plazo definido  \n<strong>no pueden ser recepcionadas ni consideradas</strong>.<br><br>\n\nPor este motivo, su propuesta económica <strong>no ha sido registrada</strong> dentro del proceso de licitación.<br><br>\n\nAgradecemos su interés en participar y le invitamos a mantenerse atento/a a futuras licitaciones que puedan ser de su interés.<br><br>\n\nAtentamente,<br><br>\n<strong>Departamento de Propiedades</strong><br>\nÁrea Sudamérica Noroeste\n</p>",
+                    "emailMessage/Importance": "Normal"
+                  },
+                  "authentication": "@parameters('$authentication')"
+                }
+              }
+            }
+          },
+          "expression": "@outputs('Get_a_row_by_ID_from_selected_environment_-_Bid')?['body/mfd_state']",
+          "metadata": {
+            "operationMetadataId": "fb5d6708-37f3-4cca-aa46-e8870a06dcdc"
+          },
+          "type": "Switch"
+        },
+        "Get_a_row_by_ID_from_selected_environment_-_Proposal": {
+          "runAfter": {
+            "Get_response_details": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "f71916a3-4e03-4ee3-a142-6e196d0aa5dd"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItemWithOrganization",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "organization": "https://sanw-np.crm.dynamics.com",
+              "entityName": "mfd_oym_proposals",
+              "recordId": "@outputs('Get_response_details')?['body/re821fa783a484d0a84a53b47dd611485']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Get_a_row_by_ID_from_selected_environment_-_Bid": {
+          "runAfter": {
+            "Get_a_row_by_ID_from_selected_environment_-_Proposal": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "ee5fdef4-b35a-43cf-a66a-461c57ebf1aa"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItemWithOrganization",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "organization": "https://sanw-np.crm.dynamics.com",
+              "entityName": "mfd_oym_bids",
+              "recordId": "@outputs('Get_a_row_by_ID_from_selected_environment_-_Proposal')?['body/_mfd_bidid_value']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Get_a_row_by_ID_from_selected_environment_-_Vendor": {
+          "runAfter": {
+            "Get_a_row_by_ID_from_selected_environment_-_Bid": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "74cb57fa-a34b-4ce4-a49a-ad486ed2334d"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItemWithOrganization",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "organization": "https://sanw-np.crm.dynamics.com",
+              "entityName": "mfd_oym_vendors",
+              "recordId": "@outputs('Get_a_row_by_ID_from_selected_environment_-_Proposal')?['body/_mfd_vendorid_value']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

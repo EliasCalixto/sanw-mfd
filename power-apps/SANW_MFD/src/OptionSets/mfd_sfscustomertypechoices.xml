@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<optionset Name="mfd_sfscustomertypechoices" localizedName="SFSCustomerTypeChoices" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <OptionSetType>picklist</OptionSetType>
+  <IsGlobal>1</IsGlobal>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <ExternalTypeName></ExternalTypeName>
+  <displaynames>
+    <displayname description="SFSCustomerTypeChoices" languagecode="1033" />
+  </displaynames>
+  <Descriptions>
+    <Description description="" languagecode="1033" />
+  </Descriptions>
+  <options>
+    <option value="1173318" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Area Administration-International" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="2193622" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Camp" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1803295" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Center for Young Adults" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137960" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Church Educational System" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1154920" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="DTA Area Office" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1154919" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Facilities Management Department" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137962" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Family &amp; Church History Department" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1177410" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Headquarters Facilities Department" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1177423" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="HFD-Other Customers" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1741551" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Lease Management" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137965" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Materials Management Department" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1157594" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Membership &amp; Stat. Records Dept." languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137961" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Missionary Department" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1768033" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Public Affairs Department" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137959" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Stake" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137963" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Temple Department" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="1137964" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Welfare Department" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+  </options>
+</optionset>

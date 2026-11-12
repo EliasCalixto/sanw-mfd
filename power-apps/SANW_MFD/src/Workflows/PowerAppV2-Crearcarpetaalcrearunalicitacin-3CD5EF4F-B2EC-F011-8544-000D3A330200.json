@@ -1,0 +1,222 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_sharepointonline": {
+        "runtimeSource": "invoker",
+        "connection": {
+          "connectionReferenceLogicalName": "sanwlms_sharedsharepointonline_d1c09"
+        },
+        "api": {
+          "name": "shared_sharepointonline"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "9520f531-2f75-411e-8ce4-62df5f61a93b"
+          },
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "vRegion",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "vBidID",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_2": {
+                  "title": "vFolderName",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_3": {
+                  "title": "vPlanYear",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1",
+                "text_2",
+                "text_3"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Switch": {
+          "runAfter": {},
+          "cases": {
+            "Case": {
+              "case": "Bolivia Region",
+              "actions": {
+                "Create_new_folder": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "6055f720-b436-4ec7-9251-d53aa17dec37"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_sharepointonline",
+                      "operationId": "CreateNewFolder",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                    },
+                    "parameters": {
+                      "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                      "table": "e9df67b0-f600-46ee-9eaa-6b2086e4f463",
+                      "parameters/path": "@{triggerBody()['text_3']}/@{triggerBody()['text_2']}"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                }
+              }
+            },
+            "Case_2": {
+              "case": "Colombia Region",
+              "actions": {
+                "Create_new_folder_2": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "12f99f87-829e-4928-9949-2d1f28c8f70c"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_sharepointonline",
+                      "operationId": "CreateNewFolder",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                    },
+                    "parameters": {
+                      "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                      "table": "f23950be-3213-4715-a0d2-1f93cbbedfa5",
+                      "parameters/path": "@{triggerBody()['text_3']}/@{triggerBody()['text_2']}"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                }
+              }
+            },
+            "Case_3": {
+              "case": "Ecuador Region",
+              "actions": {
+                "Create_new_folder_3": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "b41b2ef1-feec-41f4-84a0-d991a95bca99"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_sharepointonline",
+                      "operationId": "CreateNewFolder",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                    },
+                    "parameters": {
+                      "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                      "table": "dc703ec4-75f1-43cf-937f-03ab1aaca192",
+                      "parameters/path": "@{triggerBody()['text_3']}/@{triggerBody()['text_2']}"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                }
+              }
+            },
+            "Case_4": {
+              "case": "Peru Norte Region",
+              "actions": {
+                "Create_new_folder_4": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "b971324b-89b7-4b0c-99ef-698fed515e15"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_sharepointonline",
+                      "operationId": "CreateNewFolder",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                    },
+                    "parameters": {
+                      "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                      "table": "eaead3dc-52fd-4799-9691-ad146c26339f",
+                      "parameters/path": "@{triggerBody()['text_3']}/@{triggerBody()['text_2']}"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                }
+              }
+            },
+            "Case_5": {
+              "case": "Peru Sur Region",
+              "actions": {
+                "Create_new_folder_5": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "2be3f869-c25a-4b3b-bb67-22186440baef"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_sharepointonline",
+                      "operationId": "CreateNewFolder",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                    },
+                    "parameters": {
+                      "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                      "table": "d4e2ac48-3e7c-4e46-bc63-c6de598e6eef",
+                      "parameters/path": "@{triggerBody()['text_3']}/@{triggerBody()['text_2']}"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "actions": {}
+          },
+          "expression": "@triggerBody()['text']",
+          "metadata": {
+            "operationMetadataId": "5ca9146e-5825-4290-9c26-76a578afc916"
+          },
+          "type": "Switch"
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

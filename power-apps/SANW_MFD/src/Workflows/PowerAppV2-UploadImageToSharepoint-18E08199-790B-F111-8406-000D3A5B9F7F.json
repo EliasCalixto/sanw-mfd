@@ -1,0 +1,228 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_sharepointonline": {
+        "api": {
+          "name": "shared_sharepointonline"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "sanwlms_sharedsharepointonline_d1c09"
+        },
+        "runtimeSource": "embedded"
+      },
+      "shared_commondataserviceforapps": {
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_d0098"
+        },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "file": {
+                  "title": "vFileContent",
+                  "type": "object",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please select file or image",
+                  "x-ms-content-hint": "FILE",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "contentBytes": {
+                      "type": "string",
+                      "format": "byte"
+                    }
+                  }
+                },
+                "text": {
+                  "title": "vFileName",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "description": "Please enter your input",
+                  "title": "vLogItemID",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_2": {
+                  "description": "Please enter your input",
+                  "title": "vProperty",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_3": {
+                  "description": "Please enter your input",
+                  "title": "vCustomer",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_4": {
+                  "description": "Please enter your input",
+                  "title": "vArea",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_5": {
+                  "description": "Please enter your input",
+                  "title": "vItem",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_6": {
+                  "description": "Please enter your input",
+                  "title": "vFileType",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": [
+                "text",
+                "text_1",
+                "text_2",
+                "text_3",
+                "text_4",
+                "text_5",
+                "text_6"
+              ]
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "1d65c142-cd92-4649-a05f-7ee920c56849"
+          }
+        }
+      },
+      "actions": {
+        "Create_file": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+              "folderPath": "/LogItemFiles",
+              "name": "@concat(\n   outputs('Update_a_row_in_selected_environment')?['body/mfd_logitemfileincremental'],\n   '.',\n   last(split(triggerBody()?['file']?['name'], '.'))\n)",
+              "body": "@triggerBody()?['file']?['contentBytes']"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "CreateFile",
+              "connectionName": "shared_sharepointonline"
+            }
+          },
+          "runAfter": {
+            "Update_a_row_in_selected_environment": [
+              "Succeeded"
+            ]
+          },
+          "runtimeConfiguration": {
+            "contentTransfer": {
+              "transferMode": "Chunked"
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "faaa31ed-12e4-475b-90c1-07a6832ef79a"
+          }
+        },
+        "Update_file_properties": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+              "table": "b34b2b9f-8e5d-49cb-a46a-a5f771f32ece",
+              "id": "@outputs('Create_file')?['body/ItemId']",
+              "item/FileName": "@triggerBody()?['file']?['name']",
+              "item/Propiedad": "@triggerBody()?['text_2']",
+              "item/Cliente": "@triggerBody()?['text_3']",
+              "item/Area": "@triggerBody()?['text_4']",
+              "item/Item": "@triggerBody()?['text_5']",
+              "item/LogItemID": "@triggerBody()?['text_1']",
+              "item/LogItemFileIncremental": "@outputs('Update_a_row_in_selected_environment')?['body/mfd_logitemfileincremental']",
+              "item/Fecha": "@utcNow()"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "PatchFileItem",
+              "connectionName": "shared_sharepointonline"
+            }
+          },
+          "runAfter": {
+            "Create_file": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Add_a_new_row_to_selected_environment": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "organization": "https://sanw-np.crm.dynamics.com",
+              "entityName": "mfd_oym_logitemfiles",
+              "item/mfd_name": "@triggerBody()?['file']?['name']",
+              "item/mfd_LogItemID@odata.bind": "mfd_oym_logitems(@{triggerBody()?['text_1']})"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecordWithOrganization",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {}
+        },
+        "Update_a_row_in_selected_environment": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "organization": "https://sanw-np.crm.dynamics.com",
+              "entityName": "mfd_oym_logitemfiles",
+              "recordId": "@outputs('Add_a_new_row_to_selected_environment')?['body/mfd_oym_logitemfileid']",
+              "item/mfd_fileurl": "@concat(\n  'https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD/LogItemFiles/',\n  outputs('Add_a_new_row_to_selected_environment')?['body/mfd_logitemfileincremental'],\n  '.',\n  last(split(triggerBody()?['text'], '.'))\n)"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "UpdateOnlyRecordWithOrganization",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_a_new_row_to_selected_environment": [
+              "Succeeded"
+            ]
+          }
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

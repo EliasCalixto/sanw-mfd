@@ -1,0 +1,376 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_d0098"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "c0f38608-509c-4fd3-9085-3a6cff13407e"
+          },
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "OYM_Certification",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "ID de la certificación",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "GUIDUser",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "GUID del usuario que está creando la certificación",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_2": {
+                  "title": "VendorCategory",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Categoría del proveedor",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1",
+                "text_2"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Switch_2": {
+          "runAfter": {},
+          "cases": {
+            "Case": {
+              "case": "Proveedor",
+              "actions": {
+                "List_rows_from_selected_environment": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "8633465b-f463-4a58-9589-bc1e8f32f5f8"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "ListRecordsWithOrganization",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "organization": "https://sanw-np.crm.dynamics.com",
+                      "entityName": "mfd_oym_certdocstemplates",
+                      "$filter": "mfd_vendorcategory eq 862350000"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                },
+                "Apply_to_each": {
+                  "foreach": "@outputs('List_rows_from_selected_environment')?['body/value']",
+                  "actions": {
+                    "Add_a_new_row_to_selected_environment": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "095028e5-e7e8-482a-84b9-80dc90423ea6"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "CreateRecordWithOrganization",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "organization": "https://sanw-np.crm.dynamics.com",
+                          "entityName": "mfd_oym_certdocs",
+                          "item/mfd_name": "@items('Apply_to_each')?['mfd_name']",
+                          "item/mfd_certdocsgroup": "@items('Apply_to_each')?['mfd_certdocsgroup']",
+                          "item/mfd_CertificationID@odata.bind": "mfd_oym_certdocstemplates(@{triggerBody()['text']})",
+                          "item/mfd_code": "@items('Apply_to_each')?['mfd_code']",
+                          "item/mfd_order": "@items('Apply_to_each')?['mfd_order']",
+                          "item/mfd_state": 862350000,
+                          "item/mfd_vendorcategory": "@items('Apply_to_each')?['mfd_vendorcategory']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    },
+                    "Add_a_new_row_to_selected_environment_2": {
+                      "runAfter": {
+                        "Add_a_new_row_to_selected_environment": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "cfe891ef-9284-4e32-98ac-e08d7102c831"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "CreateRecordWithOrganization",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "organization": "https://sanw-np.crm.dynamics.com",
+                          "entityName": "mfd_oym_logcertdocs",
+                          "item/mfd_name": "@items('Apply_to_each')?['mfd_name']",
+                          "item/mfd_CertDocID@odata.bind": "mfd_oym_certdocs(@{outputs('Add_a_new_row_to_selected_environment')?['body/mfd_oym_certdocid']})",
+                          "item/mfd_comments": "Documento pendiente de subir.",
+                          "item/mfd_Reviewer@odata.bind": "systemusers(@{triggerBody()['text_1']})",
+                          "item/mfd_state": 862350000
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    },
+                    "Compose": {
+                      "runAfter": {
+                        "Add_a_new_row_to_selected_environment_2": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "c14310e7-6457-4d9a-84a4-c1591a3d09d9"
+                      },
+                      "type": "Compose",
+                      "inputs": "@items('Apply_to_each')?['mfd_vendorcategory']"
+                    }
+                  },
+                  "runAfter": {
+                    "List_rows_from_selected_environment": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "638a714a-3440-4f6e-9df8-c8e667718121"
+                  },
+                  "type": "Foreach"
+                }
+              }
+            },
+            "Case_2": {
+              "case": "Contratista",
+              "actions": {
+                "List_rows_from_selected_environment_2": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "8633465b-f463-4a58-9589-bc1e8f32f5f8"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "ListRecordsWithOrganization",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "organization": "https://sanw-np.crm.dynamics.com",
+                      "entityName": "mfd_oym_certdocstemplates",
+                      "$top": 100
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                },
+                "Apply_to_each_3": {
+                  "foreach": "@outputs('List_rows_from_selected_environment_2')?['body/value']",
+                  "actions": {
+                    "Add_a_new_row_to_selected_environment_3": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "095028e5-e7e8-482a-84b9-80dc90423ea6"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "CreateRecordWithOrganization",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "organization": "https://sanw-np.crm.dynamics.com",
+                          "entityName": "mfd_oym_certdocs",
+                          "item/mfd_name": "@items('Apply_to_each_3')?['mfd_name']",
+                          "item/mfd_certdocsgroup": "@items('Apply_to_each_3')?['mfd_certdocsgroup']",
+                          "item/mfd_CertificationID@odata.bind": "mfd_oym_certdocstemplates(@{triggerBody()['text']})",
+                          "item/mfd_code": "@items('Apply_to_each_3')?['mfd_code']",
+                          "item/mfd_order": "@items('Apply_to_each_3')?['mfd_order']",
+                          "item/mfd_state": 862350000,
+                          "item/mfd_vendorcategory": "@items('Apply_to_each_3')?['mfd_vendorcategory']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    },
+                    "Add_a_new_row_to_selected_environment_4": {
+                      "runAfter": {
+                        "Add_a_new_row_to_selected_environment_3": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "cfe891ef-9284-4e32-98ac-e08d7102c831"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "CreateRecordWithOrganization",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "organization": "https://sanw-np.crm.dynamics.com",
+                          "entityName": "mfd_oym_logcertdocs",
+                          "item/mfd_name": "@items('Apply_to_each_3')?['mfd_name']",
+                          "item/mfd_CertDocID@odata.bind": "mfd_oym_certdocs(@{outputs('Add_a_new_row_to_selected_environment_3')?['body/mfd_oym_certdocid']})",
+                          "item/mfd_comments": "Documento pendiente de subir.",
+                          "item/mfd_Reviewer@odata.bind": "systemusers(@{triggerBody()['text_1']})",
+                          "item/mfd_state": 862350000
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "List_rows_from_selected_environment_2": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "638a714a-3440-4f6e-9df8-c8e667718121"
+                  },
+                  "type": "Foreach"
+                }
+              }
+            }
+          },
+          "default": {
+            "actions": {}
+          },
+          "expression": "@triggerBody()['text_2']",
+          "metadata": {
+            "operationMetadataId": "8e1d7452-c1cf-468d-b3fe-8e387ff6a960"
+          },
+          "type": "Switch"
+        },
+        "List_rows_from_selected_environment_-_OYM_VariableTemplates": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "190339cc-455e-4949-819e-f5a6afa6f0a8"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecordsWithOrganization",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "organization": "https://sanw-np.crm.dynamics.com",
+              "entityName": "mfd_oym_variabletemplates"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Apply_to_each_2": {
+          "foreach": "@outputs('List_rows_from_selected_environment_-_OYM_VariableTemplates')?['body/value']",
+          "actions": {
+            "Add_a_new_row_to_selected_environment_-_OYM_Variable": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "966c1211-aa90-4606-9448-b9b669d1d39a"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "CreateRecordWithOrganization",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "organization": "https://sanw-np.crm.dynamics.com",
+                  "entityName": "mfd_oym_variables",
+                  "item/mfd_name": "@items('Apply_to_each_2')?['mfd_name']",
+                  "item/mfd_code": "@items('Apply_to_each_2')?['mfd_code']",
+                  "item/mfd_highriskdescription": "@items('Apply_to_each_2')?['mfd_highriskdescription']",
+                  "item/mfd_lowriskdescription": "@items('Apply_to_each_2')?['mfd_lowriskdescription']",
+                  "item/mfd_midriskdescription": "@items('Apply_to_each_2')?['mfd_midriskdescription']",
+                  "item/mfd_order": "@items('Apply_to_each_2')?['mfd_order']",
+                  "item/mfd_riskfactor": "@items('Apply_to_each_2')?['mfd_riskfactor']",
+                  "item/mfd_state": 862350000
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Add_a_new_row_to_selected_environment_-_OYM_LogVariable": {
+              "runAfter": {
+                "Add_a_new_row_to_selected_environment_-_OYM_Variable": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "966c1211-aa90-4606-9448-b9b669d1d39a"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "CreateRecordWithOrganization",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "organization": "https://sanw-np.crm.dynamics.com",
+                  "entityName": "mfd_oym_logvariables",
+                  "item/mfd_name": "@items('Apply_to_each_2')?['mfd_name']",
+                  "item/mfd_comments": "Variable pendiente de revisar.",
+                  "item/mfd_Reviewer@odata.bind": "systemusers(@{triggerBody()['text_1']})",
+                  "item/mfd_risklevel": "@outputs('Add_a_new_row_to_selected_environment_-_OYM_Variable')?['body/mfd_risklevel']",
+                  "item/mfd_state": 862350000,
+                  "item/mfd_VariableID@odata.bind": "mfd_oym_variables(@{outputs('Add_a_new_row_to_selected_environment_-_OYM_Variable')?['body/mfd_oym_variableid']})"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "List_rows_from_selected_environment_-_OYM_VariableTemplates": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "26e0e450-4bf7-45a4-ab52-fb16aca5193f"
+          },
+          "type": "Foreach"
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

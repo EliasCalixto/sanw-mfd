@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{4b1da4fc-fcf0-4a5e-8e7e-110e231daf3b}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="mfd_proposalid" select="1" icon="1" preview="1">
+        <row name="result" id="mfd_oym_proposalid">
+          <cell name="mfd_proposalid" width="300" />
+          <cell name="createdon" width="125" />
+          <cell name="mfd_bidid" width="100" />
+          <cell name="transactioncurrencyid" width="100" />
+          <cell name="createdby" width="104" />
+          <cell name="createdonbehalfby" width="166" />
+          <cell name="exchangerate" width="125" />
+          <cell name="importsequencenumber" width="185" />
+          <cell name="mfd_amount" width="100" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>1</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="mfd_oym_proposal">
+          <attribute name="mfd_oym_proposalid" />
+          <attribute name="mfd_proposalid" />
+          <attribute name="createdon" />
+          <order attribute="mfd_proposalid" descending="false" />
+          <attribute name="mfd_bidid" />
+          <attribute name="transactioncurrencyid" />
+          <attribute name="createdby" />
+          <attribute name="createdonbehalfby" />
+          <attribute name="exchangerate" />
+          <attribute name="importsequencenumber" />
+          <attribute name="mfd_amount" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="OYM_Proposal Advanced Find View" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

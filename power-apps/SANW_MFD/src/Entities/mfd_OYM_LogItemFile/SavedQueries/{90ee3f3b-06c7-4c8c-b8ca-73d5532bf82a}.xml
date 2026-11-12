@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{90ee3f3b-06c7-4c8c-b8ca-73d5532bf82a}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="mfd_name" select="1" icon="1" preview="1">
+        <row name="result" id="mfd_oym_logitemfileid">
+          <cell name="mfd_name" width="300" />
+          <cell name="createdon" width="125" />
+          <cell name="createdby" width="104" />
+          <cell name="mfd_oym_logitemfileid" width="150" />
+          <cell name="mfd_logitemid" width="103" />
+          <cell name="mfd_fileurl" width="100" />
+          <cell name="mfd_logitemfileincremental" width="177" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="mfd_oym_logitemfile">
+          <attribute name="mfd_oym_logitemfileid" />
+          <attribute name="mfd_name" />
+          <attribute name="createdon" />
+          <order attribute="mfd_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="1" />
+          </filter>
+          <attribute name="createdby" />
+          <attribute name="mfd_logitemid" />
+          <attribute name="mfd_fileurl" />
+          <attribute name="mfd_logitemfileincremental" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Inactive OYM_LogItemFiles" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

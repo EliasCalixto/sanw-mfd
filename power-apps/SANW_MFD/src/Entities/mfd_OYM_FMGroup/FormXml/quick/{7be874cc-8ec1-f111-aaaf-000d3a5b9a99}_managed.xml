@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{7be874cc-8ec1-f111-aaaf-000d3a5b9a99}</formid>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab id="{2b1f04de-db45-4990-9c40-dac7c9348ba9}" showlabel="false" name="New Tab" labelid="{7069f07c-31cf-4c58-aa36-5cd9608f7a13}">
+          <labels>
+            <label description="New Tab" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="true" columns="1" showbar="false" IsUserDefined="false" labelwidth="130" id="{1c50dcf7-3d44-48a7-986d-41c2b51a18d2}" name="New Section" labelid="{db95c23e-ab7e-443d-86e0-d2f1aed30383}">
+                  <labels>
+                    <label description="New Section" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{c2ea638f-3f17-4666-aac9-150508db62bc}" locklevel="0" colspan="1" rowspan="1" labelid="{969de116-b9fc-4b8a-b394-b2a3254682a9}">
+                        <labels>
+                          <label description="Región" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_regionchoices" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="mfd_regionchoices" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{f7a80667-e405-4149-bc91-8785a53e3ad5}" visible="false" labelid="{0709b7b3-783d-48ea-a320-854c0f436a1e}">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_name" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="mfd_name" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <DisplayConditions Order="1" FallbackForm="true">
+        <Role Id="{627090ff-40a3-4053-8790-584edc5be201}" />
+        <Role Id="{119f245c-3cc8-4b62-b31c-d1a046ced15d}" />
+      </DisplayConditions>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Region" languagecode="1033" />
+    </LocalizedNames>
+  </systemform>
+</forms>

@@ -1,0 +1,156 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_office365": {
+        "runtimeSource": "invoker",
+        "connection": {
+          "connectionReferenceLogicalName": "mfd_sharedoffice365_19920"
+        },
+        "api": {
+          "name": "shared_office365"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "3f7d14d1-1fa9-46b7-827a-92657790e219"
+          },
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "vProjectNumber",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "vProjectName",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_2": {
+                  "title": "vBidID",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_3": {
+                  "title": "vVendorsJSON",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1",
+                "text_2",
+                "text_3"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Parse_JSON": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "76150972-cd9b-4183-a088-7d77202a8ab7"
+          },
+          "type": "ParseJson",
+          "inputs": {
+            "content": "@triggerBody()['text_3']",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ProposalID": {
+                    "type": "string"
+                  },
+                  "VendorName": {
+                    "type": "string"
+                  },
+                  "VendorTAXID": {
+                    "type": "string"
+                  },
+                  "VendorEmail": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ProposalID",
+                  "VendorName",
+                  "VendorTAXID",
+                  "VendorEmail"
+                ]
+              }
+            }
+          }
+        },
+        "Apply_to_each": {
+          "foreach": "@body('Parse_JSON')",
+          "actions": {
+            "Send_an_email_from_a_shared_mailbox_(V2)": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "ec59600b-2393-4418-a2de-4887b246b22f"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_office365",
+                  "operationId": "SharedMailboxSendEmailV2",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                },
+                "parameters": {
+                  "emailMessage/MailboxAddress": "SANW-MFD-Licitaciones@mail.ChurchofJesusChrist.org",
+                  "emailMessage/To": "@items('Apply_to_each')['VendorEmail']",
+                  "emailMessage/Subject": "Envío de Formulario de Propuesta Comercial – Proceso de Licitación",
+                  "emailMessage/Body": "<p>Estimado proveedor @{items('Apply_to_each')['VendorName']},\n<br>\n<br>\nGracias por su interés en participar en la licitación del proyecto <strong>@{triggerBody()['text']} – @{triggerBody()['text_1']}</strong>.\n<br>\n<br>\nComo parte del proceso de licitación, le solicitamos completar el formulario \n<strong>“Envío de Propuesta Económica para una Licitación”</strong>, disponible en el siguiente enlace.\n<br>\n<br>\n<a href=\"@{concat(\n  'https://forms.office.com/Pages/ResponsePage.aspx?id=s-7mYddfqkquPGHo3rCbedjoQRahLZdFgGF6VwLr2aVUREk3TjBES1E4WkpRRjUxWUFFQVhSQ1NaTSQlQCN0PWcu',\n  '&rc57d7c158f1d4a869423e289431bdbd0=', uriComponent(triggerBody()?['text']),\n  '&r9c04048b12a34d14801a3d04ce759634=', uriComponent(triggerBody()?['text_1']),\n  '&re821fa783a484d0a84a53b47dd611485=', uriComponent(items('Apply_to_each')['ProposalID']),\n  '&r7ac90f4ccfa24c5daa73e3e97bac3c15=', uriComponent(items('Apply_to_each')?['VendorName']),\n  '&r5ae53630d88c4cc98c9845b3bf4276b6=', uriComponent(items('Apply_to_each')?['VendorTAXID'])\n)}\" target=\"_blank\"><span style=\"font-size: 16px\">📝 Acceder al formulario de envío de Propuesta Comercial</span></a>\n<br>\n<br>\nPor favor, complete únicamente las <strong>preguntas de la 1 a la 5</strong>.  \nLas preguntas <strong>desde la 6 en adelante</strong> corresponden a información de identificación, han sido completadas automáticamente y <strong>no deben ser modificadas</strong>, ya que cualquier cambio invalidará su envío.\n<br>\n<br>\nAsimismo, tenga en cuenta que este formulario es de <strong>uso único</strong> para esta licitación y, no podrá volver a ser utilizado para otras licitaciones.\n<br>\n<br>\nAgradecemos de antemano su colaboración y quedamos atentos a su participación.<br>\n<br>\nAtentamente,<br>\n<br>\nDepartamento de Propiedades<br>\nÁrea Sudamérica Noroeste</p>",
+                  "emailMessage/Importance": "Normal"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "Parse_JSON": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "7dcc4bd8-4a05-4e1d-8476-d52a788a694c"
+          },
+          "type": "Foreach"
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

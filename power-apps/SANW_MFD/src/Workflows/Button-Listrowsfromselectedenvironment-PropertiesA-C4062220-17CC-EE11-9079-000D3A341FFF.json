@@ -1,0 +1,194 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_d0098"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_excelonlinebusiness": {
+        "runtimeSource": "invoker",
+        "connection": {
+          "connectionReferenceLogicalName": "sanwhrd_sharedexcelonlinebusiness_6a552"
+        },
+        "api": {
+          "name": "shared_excelonlinebusiness"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "1d1a197a-5b8a-489e-9f77-54fb9732c174"
+          },
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {},
+              "required": []
+            }
+          }
+        }
+      },
+      "actions": {
+        "List_rows_from_selected_environment_-_Properties": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "ec078b58-4980-4be1-8250-cc6c10e6af43"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecordsWithOrganization",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "organization": "https://sanw-np.crm.dynamics.com",
+              "entityName": "cr4d3_mfd_properties",
+              "$top": 1
+            },
+            "authentication": {
+              "type": "Raw",
+              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+            }
+          }
+        },
+        "Apply_to_each": {
+          "foreach": "@outputs('List_rows_from_selected_environment_-_Properties')?['body/value']",
+          "actions": {
+            "Filter_array": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "8957ec87-8396-41e0-bdd7-dfceed96da2a"
+              },
+              "type": "Query",
+              "inputs": {
+                "from": "@body('Select_-_FMs')",
+                "where": "@equals(items('Apply_to_each')?['cr4d3_emailfm'], item()?['FMEmail'])"
+              }
+            },
+            "Update_a_row_in_selected_environment_2": {
+              "runAfter": {
+                "Compose": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "b03d6957-fe30-4cbd-a8db-9cb0da2e0634"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateRecordWithOrganization",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "organization": "https://sanw-np.crm.dynamics.com",
+                  "entityName": "cr4d3_mfd_properties",
+                  "recordId": "@items('Apply_to_each')?['cr4d3_mfd_propertyid']",
+                  "item/cr4d3_emailfm": "@items('Apply_to_each')?['FMUPN']"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
+              }
+            },
+            "Compose": {
+              "runAfter": {
+                "Filter_array": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "1ac53df7-9642-441e-9ccb-455bfe1c7021"
+              },
+              "type": "Compose",
+              "inputs": "@body('Filter_array')"
+            }
+          },
+          "runAfter": {
+            "Select_-_FMs": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "afaef95f-aaf1-4f93-986a-6536d391d8d7"
+          },
+          "type": "Foreach"
+        },
+        "List_rows_present_in_a_table_-_FMs": {
+          "runAfter": {
+            "List_rows_from_selected_environment_-_Properties": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "01RED7MP4ABQQ2X4TVFVBIX6GTKSSU2LRU": "/FMs List/FMs 14feb.xlsx",
+            "operationMetadataId": "ae252c1a-ea64-416c-bff1-75ab97a9fade",
+            "tableId": "{C91CE818-50A2-614C-8E1F-0329CC6727B9}"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_excelonlinebusiness",
+              "operationId": "GetItems",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_excelonlinebusiness"
+            },
+            "parameters": {
+              "source": "sites/office365lds.sharepoint.com,3f2102b0-a5f2-4dfb-ac0c-d3ac51ca8483,5c9cf235-21dc-4acc-9286-69fea7d79c45",
+              "drive": "b!sAIhP_Kl-02sDNOsUcqEgzXynFzcIcxKkoZp_qfXnEUdjhVYlV0MSo626UQeQWZu",
+              "file": "01RED7MP4ABQQ2X4TVFVBIX6GTKSSU2LRU",
+              "table": "{C91CE818-50A2-614C-8E1F-0329CC6727B9}"
+            },
+            "authentication": {
+              "type": "Raw",
+              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+            }
+          }
+        },
+        "Select_-_FMs": {
+          "runAfter": {
+            "List_rows_present_in_a_table_-_FMs": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "18ba5a4f-afe1-43fe-8658-cc917bb3cb15"
+          },
+          "type": "Select",
+          "inputs": {
+            "from": "@outputs('List_rows_present_in_a_table_-_FMs')?['body/value']",
+            "select": {
+              "FMEmail": "@item()?['FM Group']",
+              "FMUPN": "@item()?['UPN']"
+            }
+          }
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

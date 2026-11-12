@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{e90cbfca-4733-4910-b35d-4e651f3d8d48}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cr4d3_name" select="1" icon="1" preview="1">
+        <row name="result" id="cr4d3_consolidadoid">
+          <cell name="cr4d3_name" width="300" />
+          <cell name="createdon" width="125" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>1</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="cr4d3_consolidado">
+          <attribute name="cr4d3_consolidadoid" />
+          <attribute name="cr4d3_name" />
+          <attribute name="createdon" />
+          <order attribute="cr4d3_name" descending="false" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="cr4d3_Consolidado Advanced Find View" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

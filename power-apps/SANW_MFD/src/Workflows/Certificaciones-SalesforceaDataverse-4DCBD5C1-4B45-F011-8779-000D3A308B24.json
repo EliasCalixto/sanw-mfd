@@ -1,0 +1,257 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_d0098"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_excelonlinebusiness": {
+        "runtimeSource": "invoker",
+        "connection": {
+          "connectionReferenceLogicalName": "sanwhrd_sharedexcelonlinebusiness_6a552"
+        },
+        "api": {
+          "name": "shared_excelonlinebusiness"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "46efb17e-767b-4f12-a549-bf4017ad6ece"
+          },
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {},
+              "required": []
+            }
+          }
+        }
+      },
+      "actions": {
+        "List_rows_from_selected_environment": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "45992e72-b46c-4dbe-b0bc-d9ace9cc037c"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecordsWithOrganization",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "organization": "https://sanw-np.crm.dynamics.com",
+              "entityName": "mfd_oym_vendors"
+            },
+            "authentication": "@parameters('$authentication')"
+          },
+          "runtimeConfiguration": {
+            "paginationPolicy": {
+              "minimumItemCount": 5000
+            }
+          }
+        },
+        "Apply_to_each": {
+          "foreach": "@outputs('List_rows_from_selected_environment')?['body/value']",
+          "actions": {
+            "List_rows_present_in_a_table": {
+              "runAfter": {},
+              "metadata": {
+                "01RED7MPYKLNBE67BOF5CI73DYX7SAOOSU": "/Certificaciones/Certificaciones.xlsx",
+                "operationMetadataId": "d923a6ae-c85f-4293-a985-09914b3ac570",
+                "tableId": "{4E7857CC-1B88-4864-8A3B-64261EBE950D}"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_excelonlinebusiness",
+                  "operationId": "GetItems",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_excelonlinebusiness"
+                },
+                "parameters": {
+                  "source": "sites/churchofjesuschrist.sharepoint.com,3f2102b0-a5f2-4dfb-ac0c-d3ac51ca8483,5c9cf235-21dc-4acc-9286-69fea7d79c45",
+                  "drive": "b!sAIhP_Kl-02sDNOsUcqEgzXynFzcIcxKkoZp_qfXnEVaChbOf4LtRIvIdK3Fim6D",
+                  "file": "01RED7MPYKLNBE67BOF5CI73DYX7SAOOSU",
+                  "table": "{4E7857CC-1B88-4864-8A3B-64261EBE950D}",
+                  "$filter": "mfd_name eq '@{items('Apply_to_each')?['mfd_name']}'"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Apply_to_each_2": {
+              "foreach": "@outputs('List_rows_present_in_a_table')?['body/value']",
+              "actions": {
+                "Append_to_string_variable_2": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "13a918d4-5610-4c56-8372-8d5a428d0cd7"
+                  },
+                  "type": "AppendToStringVariable",
+                  "inputs": {
+                    "name": "EndDate",
+                    "value": "@items('Apply_to_each_2')?['mfd_enddate']"
+                  }
+                },
+                "Append_to_string_variable_3": {
+                  "runAfter": {
+                    "Append_to_string_variable_2": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "ae3238c0-2a4a-4eea-87f0-43cdf35179b5"
+                  },
+                  "type": "AppendToStringVariable",
+                  "inputs": {
+                    "name": "VendorType",
+                    "value": "@items('Apply_to_each_2')?['mfd_type']"
+                  }
+                }
+              },
+              "runAfter": {
+                "Set_variable_3": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "02808ecb-a603-45a8-9fdc-9ba7cacc649d"
+              },
+              "type": "Foreach"
+            },
+            "Set_variable_2": {
+              "runAfter": {
+                "List_rows_present_in_a_table": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "d940bd7d-ea56-4221-8d29-a54bd7110f30"
+              },
+              "type": "SetVariable",
+              "inputs": {
+                "name": "EndDate",
+                "value": "@{null}"
+              }
+            },
+            "Set_variable_3": {
+              "runAfter": {
+                "Set_variable_2": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "e593f01f-8c39-4b75-8066-e411b0adc3e6"
+              },
+              "type": "SetVariable",
+              "inputs": {
+                "name": "VendorType",
+                "value": "@{null}"
+              }
+            },
+            "Add_a_new_row_to_selected_environment_4": {
+              "runAfter": {
+                "Apply_to_each_2": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "624fe5ef-f1f1-4e56-bbf2-27406be0b06c"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "CreateRecordWithOrganization",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "organization": "https://sanw-np.crm.dynamics.com",
+                  "entityName": "mfd_oym_certifications",
+                  "item/mfd_name": "@concat(formatDateTime(addDays('1899-12-30', int(variables('EndDate'))), 'dd-MM-yyyy'), ' ', items('Apply_to_each')?['mfd_name'])",
+                  "item/mfd_enddate": "@addDays('1899-12-30', int(variables('EndDate')))",
+                  "item/mfd_state": 862350001,
+                  "item/mfd_type": "@variables('VendorType')",
+                  "item/mfd_VendorID@odata.bind": "mfd_oym_vendors(@{items('Apply_to_each')?['mfd_oym_vendorid']})"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "Initialize_variable_3": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "ffa92f83-8f29-4719-ad99-e453cb18e8f1"
+          },
+          "type": "Foreach"
+        },
+        "Initialize_variable_2": {
+          "runAfter": {
+            "List_rows_from_selected_environment": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "77ab8633-6d3d-4afa-847d-1b4799ea59b8"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "EndDate",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Initialize_variable_3": {
+          "runAfter": {
+            "Initialize_variable_2": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "a18c9cc6-600a-474b-90f5-756b1619465f"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "VendorType",
+                "type": "string"
+              }
+            ]
+          }
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

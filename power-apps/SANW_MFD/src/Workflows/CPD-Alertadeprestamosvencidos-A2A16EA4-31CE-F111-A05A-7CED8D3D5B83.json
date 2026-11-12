@@ -1,0 +1,249 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crf93_sharedcommondataserviceforapps_ca08a"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_office365": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crf93_sharedoffice365_f3666"
+        },
+        "api": {
+          "name": "shared_office365"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "Recurrence": {
+          "recurrence": {
+            "frequency": "Day",
+            "interval": 1,
+            "timeZone": "SA Pacific Standard Time",
+            "startTime": "2026-10-22T13:00:00Z"
+          },
+          "evaluatedRecurrence": {
+            "frequency": "Day",
+            "interval": 1,
+            "timeZone": "SA Pacific Standard Time",
+            "startTime": "2026-10-22T13:00:00Z"
+          },
+          "metadata": {
+            "operationMetadataId": "9cfa73cf-494f-48ef-bfe8-3ca017f16597"
+          },
+          "type": "Recurrence"
+        }
+      },
+      "actions": {
+        "Listar_Vencidas": {
+          "runAfter": {
+            "Inicializar_vFilas": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "39c09ccb-ba77-4aef-a6ca-ddcad8b145d5"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "mfd_cpd_reservas",
+              "$filter": "mfd_reservationstatus eq 862350001 and mfd_endtime lt '@{utcNow()}'",
+              "$orderby": "mfd_endtime asc",
+              "$expand": "mfd_Item($select=mfd_name,mfd_codigo,mfd_serie)"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Condition": {
+          "actions": {
+            "Listar_Supervisores": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "de4a1f96-8b80-43d7-a888-cdcc1f8cb92b"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "mfd_cpd_users",
+                  "$select": "mfd_email",
+                  "$filter": "statecode eq 0 and mfd_recibenotificaciones eq true"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Recorrer_Supervisores": {
+              "foreach": "@outputs('Listar_Supervisores')?['body/value']",
+              "actions": {
+                "Append_to_string_variable_2": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "4ab144d4-b1b5-4849-a45b-68e338a713f7"
+                  },
+                  "type": "AppendToStringVariable",
+                  "inputs": {
+                    "name": "vDestinatarios",
+                    "value": "@{items('Recorrer_Supervisores')?['mfd_email']};"
+                  }
+                }
+              },
+              "runAfter": {
+                "Listar_Supervisores": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "98508713-7fc3-4f9e-a501-2848bf911dee"
+              },
+              "type": "Foreach"
+            },
+            "Recorrer_Vencidas": {
+              "foreach": "@outputs('Listar_Vencidas')?['body/value']",
+              "actions": {
+                "Append_to_string_variable": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "286b0082-8631-459a-971b-651f64a306a9"
+                  },
+                  "type": "AppendToStringVariable",
+                  "inputs": {
+                    "name": "vFilas",
+                    "value": "<tr><td>@{items('Recorrer_Vencidas')?['mfd_name']}</td><td>@{items('Recorrer_Vencidas')?['mfd_Item/mfd_name']}</td><td>@{items('Recorrer_Vencidas')?['cr4d3_responsablenombre']}</td><td>@{items('Recorrer_Vencidas')?['mfd_ubicaciondestino']}</td><td>@{convertTimeZone(items('Recorrer_Vencidas')?['mfd_endtime'],'UTC','SA Pacific Standard Time','dd/MM/yyyy')}</td><td style=\"color:#b00020;font-weight:bold;\">@{div(sub(ticks(utcNow()),ticks(items('Recorrer_Vencidas')?['mfd_endtime'])),864000000000)}</td></tr>"
+                  }
+                }
+              },
+              "runAfter": {
+                "Recorrer_Supervisores": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "daef88dd-c777-4fe9-8b13-1e010719efe7"
+              },
+              "type": "Foreach"
+            },
+            "Send_an_email_(V2)": {
+              "runAfter": {
+                "Recorrer_Vencidas": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "82ff08c3-a793-4d19-8de5-7328d7d25908"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_office365",
+                  "operationId": "SendEmailV2",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                },
+                "parameters": {
+                  "emailMessage/To": "@variables('vDestinatarios')",
+                  "emailMessage/Subject": "[CPD] ⚠ @{outputs('Cantidad_Vencidas')} equipo(s) con retorno vencido",
+                  "emailMessage/Body": "<p><b style=\"color:#b00020;font-size:16px;\">Hay equipos que superaron su fecha de retorno y siguen registrados como En Curso.</b></p>\n<table border=\"1\" cellpadding=\"8\" cellspacing=\"0\" style=\"border-collapse:collapse;font-family:Segoe UI,Arial,sans-serif;font-size:13px;\">\n<tr style=\"background-color:#1F4E79;color:#FFFFFF;\">\n  <th>Reserva</th><th>Equipo</th><th>Responsable</th><th>Destino</th><th>Debió volver</th><th>Días de atraso</th>\n</tr>\n@{variables('vFilas')}\n</table>\n<p>Si algún equipo ya fue devuelto, registre el retorno en la aplicación para que deje de aparecer en esta alerta.</p>\n<p style=\"font-size:12px;color:#666;\">Notificación automática diaria — Sistema de Control de Inventario CPD.</p>",
+                  "emailMessage/Importance": "Normal"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "Cantidad_Vencidas": [
+              "Succeeded"
+            ]
+          },
+          "expression": {
+            "not": {
+              "equals": [
+                "@outputs('Listar_Vencidas')?['body/value']",
+                ""
+              ]
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "994b09b7-8802-476d-9557-331b622ef52e"
+          },
+          "type": "If"
+        },
+        "Inicializar_vDestinatarios": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "c60abf6f-8ad0-4eeb-80c4-15a7d4ef7387"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "vDestinatarios",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Inicializar_vFilas": {
+          "runAfter": {
+            "Inicializar_vDestinatarios": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "c60abf6f-8ad0-4eeb-80c4-15a7d4ef7387"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "vFilas",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Cantidad_Vencidas": {
+          "runAfter": {
+            "Listar_Vencidas": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "da0b759f-af80-44a7-8a28-ae9839682b63"
+          },
+          "type": "Compose",
+          "inputs": "@length(outputs('Listar_Vencidas')?['body/value'])"
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

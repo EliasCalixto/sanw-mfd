@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{c2d41181-0c0f-47bb-b00e-9531ec5ebb09}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab verticallayout="true" id="{20764642-34d9-4c7e-a13c-a1d568525f41}" IsUserDefined="1">
+          <labels>
+            <label description="" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{24d5f3fa-72e1-4b05-9502-67fb61cd7b0f}">
+                  <labels>
+                    <label description="GENERAL" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{345a581c-bfad-4dc1-94d2-1ea81a89754c}">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="mfd_name" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6a12385d-31aa-48ae-80fe-4cc9e463a921}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{ded6b976-24a7-49b6-80c2-686822632c95}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="PropertyNumber" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_propertynumber" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="mfd_propertynumber" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7f40963c-c73c-498b-9f2b-6b2163f621cd}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="LocatedInFMGroup" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_locatedinfmgroup" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="mfd_locatedinfmgroup" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{4162b11a-6b4f-4c48-a0f8-c9d8d135b55f}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="LocatedInRegion" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_locatedinregion" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="mfd_locatedinregion" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c975aef7-e9b8-4bb2-ae59-a5c44558e1b9}" locklevel="0" rowspan="1" colspan="1">
+                        <labels>
+                          <label description="Country" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_country" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="mfd_country" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+  </systemform>
+</forms>

@@ -1,0 +1,373 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_office365groups": {
+        "api": {
+          "name": "shared_office365groups"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "lms_sharedoffice365groups_faccb"
+        },
+        "runtimeSource": "embedded"
+      },
+      "shared_commondataserviceforapps": {
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_d0098"
+        },
+        "runtimeSource": "embedded"
+      },
+      "shared_office365_1": {
+        "api": {
+          "name": "shared_office365"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "mfd_sharedoffice365_59339"
+        },
+        "runtimeSource": "embedded"
+      },
+      "shared_office365users": {
+        "api": {
+          "name": "shared_office365users"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "sanwhrd_sharedoffice365users_4aa87"
+        },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "Recurrence": {
+          "type": "Recurrence",
+          "recurrence": {
+            "frequency": "Day",
+            "interval": 1,
+            "timeZone": "SA Pacific Standard Time",
+            "startTime": "2025-07-07T06:00:00Z"
+          },
+          "metadata": {
+            "operationMetadataId": "4515243d-dbd5-4576-adac-71a9c858f2fa"
+          }
+        }
+      },
+      "actions": {
+        "List_group_members_-_SANW_Employees": {
+          "type": "OpenApiConnection",
+          "description": "Este es un grupo dinámico que se actualiza en tiempo real con el AtWork",
+          "inputs": {
+            "parameters": {
+              "groupId": "887a5171-f02e-4fcd-bcb5-0cb167d3b8e9"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365groups",
+              "operationId": "ListGroupMembers",
+              "connectionName": "shared_office365groups"
+            }
+          },
+          "runAfter": {},
+          "runtimeConfiguration": {
+            "paginationPolicy": {
+              "minimumItemCount": 50000
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "bb47e498-2a0a-4456-affb-81bde4ab0054"
+          }
+        },
+        "List_rows_from_selected_environment_-_SANW_Employees": {
+          "type": "OpenApiConnection",
+          "description": "Esta es una tabla en Dataverse que se ha creado para poder acceder a la información actualizada de los empleados del área",
+          "inputs": {
+            "parameters": {
+              "organization": "https://sanw-np.crm.dynamics.com",
+              "entityName": "mfd_sanw_employees"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "ListRecordsWithOrganization",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "List_group_members_-_SANW_Employees": [
+              "Succeeded"
+            ]
+          },
+          "runtimeConfiguration": {
+            "paginationPolicy": {
+              "minimumItemCount": 50000
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "2483853c-c3ce-4de6-b411-a9948c79eb86"
+          }
+        },
+        "Apply_to_each_-_List_group_members_SANW_Employees": {
+          "type": "Foreach",
+          "foreach": "@outputs('List_group_members_-_SANW_Employees')?['body/value']",
+          "actions": {
+            "Filter_array": {
+              "type": "Query",
+              "description": "Buscar cada empleado de la lista en la tabla de Dataverse",
+              "inputs": {
+                "from": "@outputs('List_rows_from_selected_environment_-_SANW_Employees')?['body/value']",
+                "where": "@equals(item()?['mfd_userprincipalname'], items('Apply_to_each_-_List_group_members_SANW_Employees')?['userPrincipalName'])"
+              },
+              "metadata": {
+                "operationMetadataId": "4ac4cb2f-ae72-4b76-b86d-e9a90a41c55a"
+              }
+            },
+            "Switch": {
+              "type": "Switch",
+              "expression": "@length(body('Filter_array'))",
+              "default": {
+                "actions": {
+                  "Send_an_email_from_a_shared_mailbox_(V2)": {
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "parameters": {
+                        "emailMessage/MailboxAddress": "torresaj@churchofjesuschrist.org",
+                        "emailMessage/To": "torresaj@churchofjesuschrist.org",
+                        "emailMessage/Subject": "ERROR: HAY 2 EMPLEADOS CON EL MISMO NOMNBRE @{items('Apply_to_each_-_List_group_members_SANW_Employees')?['displayName']}",
+                        "emailMessage/Body": "<p>Hola,<br>\nAl parecer hay 2 empleados con el mismo Diplay Name en la tabla de Dataverse SANW_Employees. POR FAVOR VERIFICAR EL FLUJO Update SANW Employees Table<br>\n<br>\nhttps://make.powerapps.com/environments/0b1e63d8-aeb0-4c2a-8808-93ee84094d46/solutions/83f70a6d-32ab-ee11-be37-000d3a3418c8/objects/cloudflows/a28e34f0-4c5b-f011-bec2-000d3a5b3604/view?isSol=1&amp;isSol=1</p>",
+                        "emailMessage/Importance": "Normal"
+                      },
+                      "host": {
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365",
+                        "operationId": "SharedMailboxSendEmailV2",
+                        "connectionName": "shared_office365_1"
+                      }
+                    },
+                    "metadata": {
+                      "operationMetadataId": "f96dddcc-5ae4-49c2-8209-6445b199bd8b"
+                    }
+                  }
+                }
+              },
+              "cases": {
+                "Case": {
+                  "actions": {
+                    "Add_a_new_row_to_selected_environment": {
+                      "type": "OpenApiConnection",
+                      "description": "Si es un empleado nuevo se agrega a la tabla de Dataverse",
+                      "inputs": {
+                        "parameters": {
+                          "organization": "https://sanw-np.crm.dynamics.com",
+                          "entityName": "mfd_sanw_employees",
+                          "item/mfd_name": "@items('Apply_to_each_-_List_group_members_SANW_Employees')?['displayName']",
+                          "item/cr4d3_active": true,
+                          "item/cr4d3_activechangedate": "@convertTimeZone(utcNow(), 'UTC', 'SA Pacific Standard Time')",
+                          "item/mfd_country": "@if(\n  or(\n    equals(outputs('Get_user_profile_(V2)')?['body/country'], 'BO'),\n    equals(outputs('Get_user_profile_(V2)')?['body/country'], 'BOL')\n  ),\n  'BOLIVIA',\n  if(\n    or(\n      equals(outputs('Get_user_profile_(V2)')?['body/country'], 'CO'),\n      equals(outputs('Get_user_profile_(V2)')?['body/country'], 'COL')\n    ),\n    'COLOMBIA',\n    if(\n      or(\n        equals(outputs('Get_user_profile_(V2)')?['body/country'], 'EC'),\n        equals(outputs('Get_user_profile_(V2)')?['body/country'], 'ECU')\n      ),\n      'ECUADOR',\n      if(\n        or(\n          equals(outputs('Get_user_profile_(V2)')?['body/country'], 'PE'),\n          equals(outputs('Get_user_profile_(V2)')?['body/country'], 'PER')\n        ),\n        'PERU',\n        'SANW'\n      )\n    )\n  )\n)",
+                          "item/mfd_countrychoice": "@if(\n  or(\n    equals(outputs('Get_user_profile_(V2)')?['body/country'], 'BO'),\n    equals(outputs('Get_user_profile_(V2)')?['body/country'], 'BOL')\n  ),\n  576530000,\n  if(\n    or(\n      equals(outputs('Get_user_profile_(V2)')?['body/country'], 'CO'),\n      equals(outputs('Get_user_profile_(V2)')?['body/country'], 'COL')\n    ),\n    576530001,\n    if(\n      or(\n        equals(outputs('Get_user_profile_(V2)')?['body/country'], 'EC'),\n        equals(outputs('Get_user_profile_(V2)')?['body/country'], 'ECU')\n      ),\n      576530002,\n      if(\n        or(\n          equals(outputs('Get_user_profile_(V2)')?['body/country'], 'PE'),\n          equals(outputs('Get_user_profile_(V2)')?['body/country'], 'PER')\n        ),\n        576530003,\n        440510001\n      )\n    )\n  )\n)",
+                          "item/cr4d3_department": "@outputs('Get_user_profile_(V2)')?['body/department']",
+                          "item/mfd_jobtitle": "@items('Apply_to_each_-_List_group_members_SANW_Employees')?['jobTitle']",
+                          "item/cr4d3_microsoftuserid": "@outputs('Get_user_profile_(V2)')?['body/id']",
+                          "item/mfd_userprincipalname": "@items('Apply_to_each_-_List_group_members_SANW_Employees')?['userPrincipalName']"
+                        },
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                          "operationId": "CreateRecordWithOrganization",
+                          "connectionName": "shared_commondataserviceforapps"
+                        }
+                      },
+                      "metadata": {
+                        "operationMetadataId": "ba6a18ad-d6dd-4c37-8006-b6b7f1b8faa4"
+                      }
+                    }
+                  },
+                  "case": 0
+                },
+                "Case_2": {
+                  "actions": {
+                    "Update_a_row_in_selected_environment": {
+                      "type": "OpenApiConnection",
+                      "description": "Si ya existe el empleado, se actualiza su información en la tabla de Dataverse (en caso haya cambiado de departamento, país, etc)",
+                      "inputs": {
+                        "parameters": {
+                          "organization": "https://sanw-np.crm.dynamics.com",
+                          "entityName": "mfd_sanw_employees",
+                          "recordId": "@first(body('Filter_array'))?['mfd_sanw_employeeid']",
+                          "item/mfd_name": "@items('Apply_to_each_-_List_group_members_SANW_Employees')?['displayName']",
+                          "item/cr4d3_active": true,
+                          "item/cr4d3_activechangedate": "@convertTimeZone(utcNow(), 'UTC', 'SA Pacific Standard Time')",
+                          "item/mfd_country": "@if(\n  or(\n    equals(outputs('Get_user_profile_(V2)')?['body/country'], 'BO'),\n    equals(outputs('Get_user_profile_(V2)')?['body/country'], 'BOL')\n  ),\n  'BOLIVIA',\n  if(\n    or(\n      equals(outputs('Get_user_profile_(V2)')?['body/country'], 'CO'),\n      equals(outputs('Get_user_profile_(V2)')?['body/country'], 'COL')\n    ),\n    'COLOMBIA',\n    if(\n      or(\n        equals(outputs('Get_user_profile_(V2)')?['body/country'], 'EC'),\n        equals(outputs('Get_user_profile_(V2)')?['body/country'], 'ECU')\n      ),\n      'ECUADOR',\n      if(\n        or(\n          equals(outputs('Get_user_profile_(V2)')?['body/country'], 'PE'),\n          equals(outputs('Get_user_profile_(V2)')?['body/country'], 'PER')\n        ),\n        'PERU',\n        'SANW'\n      )\n    )\n  )\n)",
+                          "item/mfd_countrychoice": "@if(\n  or(\n    equals(outputs('Get_user_profile_(V2)')?['body/country'], 'BO'),\n    equals(outputs('Get_user_profile_(V2)')?['body/country'], 'BOL')\n  ),\n  576530000,\n  if(\n    or(\n      equals(outputs('Get_user_profile_(V2)')?['body/country'], 'CO'),\n      equals(outputs('Get_user_profile_(V2)')?['body/country'], 'COL')\n    ),\n    576530001,\n    if(\n      or(\n        equals(outputs('Get_user_profile_(V2)')?['body/country'], 'EC'),\n        equals(outputs('Get_user_profile_(V2)')?['body/country'], 'ECU')\n      ),\n      576530002,\n      if(\n        or(\n          equals(outputs('Get_user_profile_(V2)')?['body/country'], 'PE'),\n          equals(outputs('Get_user_profile_(V2)')?['body/country'], 'PER')\n        ),\n        576530003,\n        440510001\n      )\n    )\n  )\n)",
+                          "item/cr4d3_department": "@outputs('Get_user_profile_(V2)')?['body/department']",
+                          "item/mfd_jobtitle": "@items('Apply_to_each_-_List_group_members_SANW_Employees')?['jobTitle']",
+                          "item/cr4d3_microsoftuserid": "@outputs('Get_user_profile_(V2)')?['body/id']",
+                          "item/mfd_userprincipalname": "@items('Apply_to_each_-_List_group_members_SANW_Employees')?['userPrincipalName']"
+                        },
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                          "operationId": "UpdateOnlyRecordWithOrganization",
+                          "connectionName": "shared_commondataserviceforapps"
+                        }
+                      },
+                      "metadata": {
+                        "operationMetadataId": "1629b71f-90b2-4712-9b72-f6663e9b3970"
+                      }
+                    }
+                  },
+                  "case": 1
+                },
+                "Case_3": {
+                  "actions": {},
+                  "case": 101
+                }
+              },
+              "runAfter": {
+                "Get_user_profile_(V2)": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "2dc3171e-55b1-4945-8e84-0130e9cdaca1"
+              }
+            },
+            "Get_user_profile_(V2)": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "id": "@items('Apply_to_each_-_List_group_members_SANW_Employees')?['userPrincipalName']"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365users",
+                  "operationId": "UserProfile_V2",
+                  "connectionName": "shared_office365users"
+                }
+              },
+              "runAfter": {
+                "Filter_array": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "2dabc93a-a70f-4ab7-bb3f-fdeb8a092699"
+              }
+            }
+          },
+          "runAfter": {
+            "List_rows_from_selected_environment_-_SANW_Employees": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "f25b9140-f8d7-4c86-a335-8c3d66b14749"
+          }
+        },
+        "Apply_to_each_-_Dataverse_SANW_Employees": {
+          "type": "Foreach",
+          "foreach": "@outputs('List_rows_from_selected_environment_-_SANW_Employees')?['body/value']",
+          "actions": {
+            "Filter_array_2": {
+              "type": "Query",
+              "inputs": {
+                "from": "@outputs('List_group_members_-_SANW_Employees')?['body/value']",
+                "where": "@equals(item()?['userPrincipalName'], items('Apply_to_each_-_Dataverse_SANW_Employees')?['mfd_userprincipalname'])"
+              },
+              "metadata": {
+                "operationMetadataId": "d21fdef9-3544-4d6a-b243-827f0c676160"
+              }
+            },
+            "Switch_2": {
+              "type": "Switch",
+              "expression": "@length(body('Filter_array_2'))",
+              "default": {
+                "actions": {
+                  "Send_an_email_from_a_shared_mailbox_(V2)_2": {
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "parameters": {
+                        "emailMessage/MailboxAddress": "torresaj@churchofjesuschrist.org",
+                        "emailMessage/To": "torresaj@churchofjesuschrist.org",
+                        "emailMessage/Subject": "ERROR: HAY 2 EMPLEADOS CON EL MISMO NOMNBRE @{items('Apply_to_each_-_Dataverse_SANW_Employees')?['mfd_name']}",
+                        "emailMessage/Body": "<p>Hola,<br>\nAl parecer hay 2 empleados con el mismo Diplay Name en el grupo <br>\ngp-SANW-Employees@groups.churchofjesuschrist.org. POR FAVOR VERIFICAR EL FLUJO Update SANW Employees Table<br>\n<br>\nhttps://make.powerapps.com/environments/0b1e63d8-aeb0-4c2a-8808-93ee84094d46/solutions/83f70a6d-32ab-ee11-be37-000d3a3418c8/objects/cloudflows/a28e34f0-4c5b-f011-bec2-000d3a5b3604/view?isSol=1&amp;isSol=1</p>",
+                        "emailMessage/Importance": "Normal"
+                      },
+                      "host": {
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365",
+                        "operationId": "SharedMailboxSendEmailV2",
+                        "connectionName": "shared_office365_1"
+                      }
+                    },
+                    "metadata": {
+                      "operationMetadataId": "deeed726-2653-481c-bf64-d255bd2da6ce"
+                    }
+                  }
+                }
+              },
+              "cases": {
+                "Case-1": {
+                  "actions": {
+                    "Update_a_row_in_selected_environment_2": {
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "parameters": {
+                          "organization": "https://sanw-np.crm.dynamics.com",
+                          "entityName": "mfd_sanw_employees",
+                          "recordId": "@items('Apply_to_each_-_Dataverse_SANW_Employees')?['mfd_sanw_employeeid']",
+                          "item/cr4d3_active": false,
+                          "item/cr4d3_inactivechangedate": "@convertTimeZone(utcNow(), 'UTC', 'SA Pacific Standard Time')"
+                        },
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                          "operationId": "UpdateOnlyRecordWithOrganization",
+                          "connectionName": "shared_commondataserviceforapps"
+                        }
+                      },
+                      "metadata": {
+                        "operationMetadataId": "e3df95bb-9d9f-4f33-9345-72de3ae36053"
+                      }
+                    }
+                  },
+                  "case": 0
+                },
+                "Case_2-1": {
+                  "actions": {},
+                  "case": 101
+                },
+                "Case_3-1": {
+                  "actions": {},
+                  "case": 1
+                }
+              },
+              "runAfter": {
+                "Filter_array_2": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "d516d4b9-fc89-432d-8744-5220f9b5142b"
+              }
+            }
+          },
+          "runAfter": {
+            "List_rows_from_selected_environment_-_SANW_Employees": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "a6c6f19b-a676-488c-ba53-7cffdb79aa1a"
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

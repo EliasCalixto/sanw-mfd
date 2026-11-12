@@ -1,0 +1,150 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_excelonlinebusiness": {
+        "runtimeSource": "invoker",
+        "connection": {
+          "connectionReferenceLogicalName": "sanwhrd_sharedexcelonlinebusiness_6a552"
+        },
+        "api": {
+          "name": "shared_excelonlinebusiness"
+        }
+      },
+      "shared_office365users": {
+        "runtimeSource": "invoker",
+        "connection": {
+          "connectionReferenceLogicalName": "sanwhrd_sharedoffice365users_4aa87"
+        },
+        "api": {
+          "name": "shared_office365users"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "049293ea-d036-43e0-a228-ce3cd50c54b2"
+          },
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {},
+              "required": []
+            }
+          }
+        }
+      },
+      "actions": {
+        "List_rows_present_in_a_table": {
+          "runAfter": {},
+          "metadata": {
+            "01RED7MP4ABQQ2X4TVFVBIX6GTKSSU2LRU": "/FMs List/FMs 14feb.xlsx",
+            "operationMetadataId": "90fce3ca-9bb0-4b5e-9541-b21afd598c5f"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_excelonlinebusiness",
+              "operationId": "GetItems",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_excelonlinebusiness"
+            },
+            "parameters": {
+              "source": "sites/office365lds.sharepoint.com,3f2102b0-a5f2-4dfb-ac0c-d3ac51ca8483,5c9cf235-21dc-4acc-9286-69fea7d79c45",
+              "drive": "b!sAIhP_Kl-02sDNOsUcqEgzXynFzcIcxKkoZp_qfXnEUdjhVYlV0MSo626UQeQWZu",
+              "file": "01RED7MP4ABQQ2X4TVFVBIX6GTKSSU2LRU",
+              "table": "{C91CE818-50A2-614C-8E1F-0329CC6727B9}"
+            },
+            "authentication": {
+              "type": "Raw",
+              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+            }
+          }
+        },
+        "Apply_to_each": {
+          "foreach": "@outputs('List_rows_present_in_a_table')?['body/value']",
+          "actions": {
+            "Get_user_profile_(V2)_-_FM_UPN": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "69247417-02c8-4845-9486-2aba824dc6d2"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_office365users",
+                  "operationId": "UserProfile_V2",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365users"
+                },
+                "parameters": {
+                  "id": "@items('Apply_to_each')?['FM']"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
+              }
+            },
+            "Update_a_row_-_FM_UPN": {
+              "runAfter": {
+                "Get_user_profile_(V2)_-_FM_UPN": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "01RED7MP4ABQQ2X4TVFVBIX6GTKSSU2LRU": "/FMs List/FMs 14feb.xlsx",
+                "operationMetadataId": "898031e1-28b6-41b1-9514-2eb2909711a2"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_excelonlinebusiness",
+                  "operationId": "PatchItem",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_excelonlinebusiness"
+                },
+                "parameters": {
+                  "source": "sites/office365lds.sharepoint.com,3f2102b0-a5f2-4dfb-ac0c-d3ac51ca8483,5c9cf235-21dc-4acc-9286-69fea7d79c45",
+                  "drive": "b!sAIhP_Kl-02sDNOsUcqEgzXynFzcIcxKkoZp_qfXnEUdjhVYlV0MSo626UQeQWZu",
+                  "file": "01RED7MP4ABQQ2X4TVFVBIX6GTKSSU2LRU",
+                  "table": "{C91CE818-50A2-614C-8E1F-0329CC6727B9}",
+                  "idColumn": "FM",
+                  "id": "@items('Apply_to_each')?['FM']",
+                  "item/UPN": "@outputs('Get_user_profile_(V2)_-_FM_UPN')?['body/userPrincipalName']"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "List_rows_present_in_a_table": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "8c66b4aa-200b-4a4d-82ab-dd7f761c7fb7"
+          },
+          "type": "Foreach"
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

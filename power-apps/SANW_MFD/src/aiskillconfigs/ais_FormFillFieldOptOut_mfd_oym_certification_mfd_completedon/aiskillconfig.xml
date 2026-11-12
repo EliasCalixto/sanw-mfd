@@ -1,0 +1,15 @@
+<aiskillconfig uniquename="ais_FormFillFieldOptOut_mfd_oym_certification_mfd_completedon">
+  <aiskill>FormFillFieldOptOut</aiskill>
+  <attribute>
+    <entityid.logicalname>mfd_oym_certification</entityid.logicalname>
+    <logicalname>mfd_completedon</logicalname>
+  </attribute>
+  <description>mfd_oym_certification - CompletedOn Form fill opt out</description>
+  <entity>
+    <logicalname>mfd_oym_certification</logicalname>
+  </entity>
+  <iscustomizable>1</iscustomizable>
+  <scope>1</scope>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</aiskillconfig>

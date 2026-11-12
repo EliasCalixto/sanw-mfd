@@ -1,0 +1,1086 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_approvals": {
+        "runtimeSource": "invoker",
+        "connection": {
+          "connectionReferenceLogicalName": "mfd_sharedapprovals_bda57"
+        },
+        "api": {
+          "name": "shared_approvals"
+        }
+      },
+      "shared_office365users_1": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "sanwhrd_sharedoffice365users_4aa87"
+        },
+        "api": {
+          "name": "shared_office365users"
+        }
+      },
+      "shared_sharepointonline_1": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "sanwlms_sharedsharepointonline_d1c09"
+        },
+        "api": {
+          "name": "shared_sharepointonline"
+        }
+      },
+      "shared_commondataserviceforapps_1": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_d0098"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_wordonlinebusiness_2": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "sanwhrd_sharedwordonlinebusiness_e421f"
+        },
+        "api": {
+          "name": "shared_wordonlinebusiness"
+        }
+      },
+      "shared_office365_1": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedoffice365_582a6"
+        },
+        "api": {
+          "name": "shared_office365"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "52e93164-8669-43ab-847c-23dec8f2eade"
+          },
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "vGalProposals",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "JSON de la galería de Postulaciones",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "vProjectName",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Nombre de la licitación",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_2": {
+                  "title": "vProjectNumber",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Número de la licitación",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_5": {
+                  "title": "vOYM_Bid",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "ID de la licitación",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_6": {
+                  "title": "vSigner1",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Correo aprovador 1",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_7": {
+                  "title": "vSigner2",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Correo aprovador 2",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_8": {
+                  "title": "vSigner3",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Correo aprovador 3",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_3": {
+                  "title": "vCountry",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Zona horaria dependiendo del país",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_4": {
+                  "title": "vRegion",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Región",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1",
+                "text_2",
+                "text_5",
+                "text_6",
+                "text_7",
+                "text_8",
+                "text_3",
+                "text_4"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Parse_JSON": {
+          "runAfter": {
+            "Initialize_variable_2": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "ecd659fd-10c7-478f-b857-758ff7713382"
+          },
+          "type": "ParseJson",
+          "inputs": {
+            "content": "@triggerBody()['text']",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "VendorName": {
+                    "type": "string"
+                  },
+                  "VendorRepresentative": {
+                    "type": "string"
+                  },
+                  "ProposedDuration": {
+                    "type": "string"
+                  },
+                  "Amount": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "VendorName",
+                  "VendorRepresentative",
+                  "ProposedDuration",
+                  "Amount"
+                ]
+              }
+            }
+          }
+        },
+        "Start_and_wait_for_an_approval": {
+          "runAfter": {
+            "Initialize_variable_-_ApprovalSignatures": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "1be53c3a-585e-4822-9592-43d931f5e84f"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_approvals",
+              "operationId": "StartAndWaitForAnApproval",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_approvals"
+            },
+            "parameters": {
+              "approvalType": "BasicAwaitAll",
+              "WebhookApprovalCreationInput/title": "Aprobación de participación en la licitación @{triggerBody()['text_1']}",
+              "WebhookApprovalCreationInput/assignedTo": "@{triggerBody()['text_6']};@{triggerBody()['text_7']};@{triggerBody()['text_8']};",
+              "WebhookApprovalCreationInput/details": "Se requiere su conformidad (aprobación) de que ha participado en la apertura de sobres de la licitación @{triggerBody()['text_2']} - @{triggerBody()['text_1']}\nFecha de inicio de apertura de sobres: @{variables('StartDateText')}\nFecha de cierra de la licitación: @{variables('EndDateText')}\n\nProveedores postulados:\n@{variables('galProposals')}\n\n\nSaludos,\nSistema de Licitaciones – Departamento de Propiedades\nÁrea Sudamérica Noroeste",
+              "WebhookApprovalCreationInput/enableNotifications": true,
+              "WebhookApprovalCreationInput/enableReassignment": false
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Initialize_variable_-_galProposals": {
+          "runAfter": {
+            "Parse_JSON": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "814589b2-6fd0-4aef-9bc3-0300263884e3"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "galProposals",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Apply_to_each_-_galProposals": {
+          "foreach": "@body('Parse_JSON')",
+          "actions": {
+            "Append_to_string_variable_-_galProposals": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "dfd99a04-0803-4ba3-aad1-bc51bf403523"
+              },
+              "type": "AppendToStringVariable",
+              "inputs": {
+                "name": "galProposals",
+                "value": "@concat(\n   '- ', items('Apply_to_each_-_galProposals')?['VendorName'],\n   ' - ', items('Apply_to_each_-_galProposals')?['VendorRepresentative'],\n   ' ', string(items('Apply_to_each_-_galProposals')?['ProposedDuration']),\n   ' ', string(items('Apply_to_each_-_galProposals')?['Amount']),\n   decodeUriComponent('%0A')\n)"
+              }
+            }
+          },
+          "runAfter": {
+            "Initialize_variable_-_galProposals": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "28cae3f7-38eb-4670-835c-f59b14b6716c"
+          },
+          "type": "Foreach"
+        },
+        "Condition": {
+          "actions": {
+            "Apply_to_each_-_Approval_Signatures": {
+              "foreach": "@outputs('Start_and_wait_for_an_approval')?['body/responses']",
+              "actions": {
+                "Get_user_profile_(V2)_-_Approver": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "9f4d8f83-7c73-450f-8e24-b0055e0859af"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_office365users_1",
+                      "operationId": "UserProfile_V2",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365users"
+                    },
+                    "parameters": {
+                      "id": "@items('Apply_to_each_-_Approval_Signatures')?['responder/email']"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                },
+                "Append_to_array_variable": {
+                  "runAfter": {
+                    "Get_user_profile_(V2)_-_Approver": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "247a0777-0a01-4b5b-9647-705ba9f1e256"
+                  },
+                  "type": "AppendToArrayVariable",
+                  "inputs": {
+                    "name": "ApprovalSignatures",
+                    "value": {
+                      "ApproverName": "@items('Apply_to_each_-_Approval_Signatures')?['responder/displayName']",
+                      "ApproverPosition": "@outputs('Get_user_profile_(V2)_-_Approver')?['body/jobTitle']",
+                      "ApproverComments": "@if(\n  empty(trim(string(items('Apply_to_each_-_Approval_Signatures')?['comments']))),\n  '-',\n  trim(string(items('Apply_to_each_-_Approval_Signatures')?['comments']))\n)",
+                      "ApprovalDate": "@formatDateTime(\n  convertTimeZone(\n    items('Apply_to_each_-_Approval_Signatures')?['responseDate'],\n    'UTC',\n    variables('TimeZone')\n  ),\n  'dd MMM yyyy HH:mm:ss',\n  'es-MX'\n)"
+                    }
+                  }
+                }
+              },
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "2b9bdd46-7eb1-4056-a8e5-ff9421008017"
+              },
+              "type": "Foreach"
+            },
+            "Create_file": {
+              "runAfter": {
+                "Populate_a_Microsoft_Word_template": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "6659abbe-b792-4cac-bcc4-bbe2315dd141"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_sharepointonline_1",
+                  "operationId": "CreateFile",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                },
+                "parameters": {
+                  "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                  "folderPath": "/BorradoresDeAutomatizaciones/Licitaciones/Words",
+                  "name": "@concat(\n  'Acta_',\n  replace(replace(replace(variables('EndDateText'), ' ', '_'), ':', '-'), '/', '-'),\n  '_',\n  coalesce(triggerBody()?['text_1'], 'SinNombre'),\n  '.docx'\n)",
+                  "body": "@body('Populate_a_Microsoft_Word_template')"
+                },
+                "authentication": "@parameters('$authentication')"
+              },
+              "runtimeConfiguration": {
+                "contentTransfer": {
+                  "transferMode": "Chunked"
+                }
+              }
+            },
+            "Create_file_2": {
+              "runAfter": {
+                "Convert_Word_Document_to_PDF": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "ff435613-5dc1-48e7-a58b-508bc499879f"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_sharepointonline_1",
+                  "operationId": "CreateFile",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                },
+                "parameters": {
+                  "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                  "folderPath": "/BorradoresDeAutomatizaciones/Licitaciones/PDFs",
+                  "name": "@replace(outputs('Create_file')?['body/Name'],'docx','pdf')",
+                  "body": "@body('Convert_Word_Document_to_PDF')"
+                },
+                "authentication": "@parameters('$authentication')"
+              },
+              "runtimeConfiguration": {
+                "contentTransfer": {
+                  "transferMode": "Chunked"
+                }
+              }
+            },
+            "Upload_a_file_or_an_image_to_selected_environment_-_OYM_Bid": {
+              "runAfter": {
+                "Create_file_2": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "5b8f933a-f4c3-48f9-bf3b-ee100094e4ae"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps_1",
+                  "operationId": "UpdateEntityFileImageFieldContentWithOrganization",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "organization": "https://sanw-np.crm.dynamics.com",
+                  "entityName": "mfd_oym_bids",
+                  "recordId": "@triggerBody()['text_5']",
+                  "fileImageFieldName": "mfd_meetingminute",
+                  "item": "@body('Convert_Word_Document_to_PDF')",
+                  "x-ms-file-name": "@replace(outputs('Create_file')?['body/Name'],'docx','pdf')"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Update_a_row_in_selected_environment_-_OYM_Bid": {
+              "runAfter": {
+                "Upload_a_file_or_an_image_to_selected_environment_-_OYM_Bid": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "da920c09-c58c-444f-be29-891445ce71c1"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps_1",
+                  "operationId": "UpdateOnlyRecordWithOrganization",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "organization": "https://sanw-np.crm.dynamics.com",
+                  "entityName": "mfd_oym_bids",
+                  "recordId": "@triggerBody()['text_5']",
+                  "item/mfd_state": 862350006
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Populate_a_Microsoft_Word_template": {
+              "runAfter": {
+                "Set_variable": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "01RED7MPZPMM6BY5JPBVEK2JRZP3NSZQN4": "/Licitaciones/MeetingMinuteTemplate.docx",
+                "operationMetadataId": "b3d285dd-be2d-4e2f-bd00-0ed0a9a2a340",
+                "014USOZ76LWEWA3XZD5ZBZWFN4UK43TIKY": "/MeetingMinuteTemplate.docx"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_wordonlinebusiness_2",
+                  "operationId": "CreateFileItem",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_wordonlinebusiness"
+                },
+                "parameters": {
+                  "source": "sites/churchofjesuschrist.sharepoint.com,fa257e8c-1a3c-4f12-ac1c-4a651e1a7520,1229256c-e9aa-4c79-88fc-9d7e35dcf78b",
+                  "drive": "b!jH4l-jwaEk-sHEplHhp1IGwlKRKq6XlMiPydfjXc94vnNCbW3uNAS55TfRE1G9uG",
+                  "file": "014USOZ76LWEWA3XZD5ZBZWFN4UK43TIKY",
+                  "dynamicFileSchema/1198129719": "@triggerBody()['text_4']",
+                  "dynamicFileSchema/1219554683": "@variables('ApprovalSignatures')",
+                  "dynamicFileSchema/1332718601": "@variables('EndDateText')",
+                  "dynamicFileSchema/-1458795181": "@triggerBody()['text_1']",
+                  "dynamicFileSchema/-234710669": "@triggerBody()['text_2']",
+                  "dynamicFileSchema/-1734614924": "@variables('StartDateText')",
+                  "dynamicFileSchema/-1925480827": "@body('Parse_JSON')"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Convert_Word_Document_to_PDF": {
+              "runAfter": {
+                "Create_file": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "e4e99831-dcf0-47b4-9daf-f438d068ed6a"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_wordonlinebusiness_2",
+                  "operationId": "GetFilePDF",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_wordonlinebusiness"
+                },
+                "parameters": {
+                  "source": "sites/churchofjesuschrist.sharepoint.com,fa257e8c-1a3c-4f12-ac1c-4a651e1a7520,1229256c-e9aa-4c79-88fc-9d7e35dcf78b",
+                  "drive": "b!jH4l-jwaEk-sHEplHhp1IGwlKRKq6XlMiPydfjXc94uY0mvzndYyR6rcPhTacRPD",
+                  "file": "/Licitaciones/Words/@{outputs('Create_file')?['body/Name']}"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Current_time": {
+              "runAfter": {
+                "Apply_to_each_-_Approval_Signatures": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "af9f3cbe-0528-4fa2-a8df-d82e65d41df7"
+              },
+              "type": "Expression",
+              "kind": "CurrentTime",
+              "inputs": {}
+            },
+            "Set_variable": {
+              "runAfter": {
+                "Update_a_row_in_selected_environment_-_OYM_Bid_3": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "35679fcf-0226-4047-9f82-8fe740716fb6"
+              },
+              "type": "SetVariable",
+              "inputs": {
+                "name": "EndDateText",
+                "value": "@{formatDateTime(\n  convertTimeZone(\n    outputs('Update_a_row_in_selected_environment_-_OYM_Bid_3')?['body/mfd_endmeeting'],\n    'UTC',\n    variables('TimeZone')\n  ),\n  'dd MMM yyyy HH:mm:ss',\n  'es-MX'\n)}"
+              }
+            },
+            "Switch": {
+              "runAfter": {
+                "Update_a_row_in_selected_environment_-_OYM_Bid": [
+                  "Succeeded"
+                ]
+              },
+              "cases": {
+                "Case": {
+                  "case": "Bolivia Region",
+                  "actions": {
+                    "Create_file_-_Bolivia": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "ff435613-5dc1-48e7-a58b-508bc499879f"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_sharepointonline_1",
+                          "operationId": "CreateFile",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                        },
+                        "parameters": {
+                          "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                          "folderPath": "/LicitacionesBolivia",
+                          "name": "@replace(outputs('Create_file')?['body/Name'], 'docx', 'pdf')",
+                          "body": "@body('Convert_Word_Document_to_PDF')"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      },
+                      "runtimeConfiguration": {
+                        "contentTransfer": {
+                          "transferMode": "Chunked"
+                        }
+                      }
+                    },
+                    "Update_file_properties": {
+                      "runAfter": {
+                        "Create_file_-_Bolivia": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "7bbebc6c-29f1-4ad8-ad50-8fc75f054bf3"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_sharepointonline_1",
+                          "operationId": "PatchFileItem",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                        },
+                        "parameters": {
+                          "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                          "table": "e9df67b0-f600-46ee-9eaa-6b2086e4f463",
+                          "id": "@outputs('Create_file_-_Bolivia')?['body/ItemId']",
+                          "item/Licitaci_x00f3_n": "@outputs('Update_a_row_in_selected_environment_-_OYM_Bid')?['body/mfd_bidid']",
+                          "item/N_x00fa_merodeProyecto": "@triggerBody()['text_2']",
+                          "item/Nombredelproyecto": "@triggerBody()['text_1']",
+                          "item/Fecha": "@body('Current_time')"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  }
+                },
+                "Case_2": {
+                  "case": "Colombia Region",
+                  "actions": {
+                    "Create_file_-_Colombia": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "ff435613-5dc1-48e7-a58b-508bc499879f"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_sharepointonline_1",
+                          "operationId": "CreateFile",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                        },
+                        "parameters": {
+                          "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                          "folderPath": "/LicitacionesColombia",
+                          "name": "@replace(outputs('Create_file')?['body/Name'], 'docx', 'pdf')",
+                          "body": "@body('Convert_Word_Document_to_PDF')"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      },
+                      "runtimeConfiguration": {
+                        "contentTransfer": {
+                          "transferMode": "Chunked"
+                        }
+                      }
+                    },
+                    "Update_file_properties_2": {
+                      "runAfter": {
+                        "Create_file_-_Colombia": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "7bbebc6c-29f1-4ad8-ad50-8fc75f054bf3"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_sharepointonline_1",
+                          "operationId": "PatchFileItem",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                        },
+                        "parameters": {
+                          "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                          "table": "f23950be-3213-4715-a0d2-1f93cbbedfa5",
+                          "id": "@outputs('Create_file_-_Colombia')?['body/ItemId']",
+                          "item/Licitaci_x00f3_n": "@outputs('Update_a_row_in_selected_environment_-_OYM_Bid')?['body/mfd_bidid']",
+                          "item/N_x00fa_merodeProyecto": "@triggerBody()['text_2']",
+                          "item/Nombredelproyecto": "@triggerBody()['text_1']",
+                          "item/Fecha": "@body('Current_time')"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  }
+                },
+                "Case_3": {
+                  "case": "Ecuador Region",
+                  "actions": {
+                    "Create_file_-_Ecuador": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "ff435613-5dc1-48e7-a58b-508bc499879f"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_sharepointonline_1",
+                          "operationId": "CreateFile",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                        },
+                        "parameters": {
+                          "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                          "folderPath": "/LicitacionesEcuador",
+                          "name": "@replace(outputs('Create_file')?['body/Name'], 'docx', 'pdf')",
+                          "body": "@body('Convert_Word_Document_to_PDF')"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      },
+                      "runtimeConfiguration": {
+                        "contentTransfer": {
+                          "transferMode": "Chunked"
+                        }
+                      }
+                    },
+                    "Update_file_properties_3": {
+                      "runAfter": {
+                        "Create_file_-_Ecuador": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "7bbebc6c-29f1-4ad8-ad50-8fc75f054bf3"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_sharepointonline_1",
+                          "operationId": "PatchFileItem",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                        },
+                        "parameters": {
+                          "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                          "table": "dc703ec4-75f1-43cf-937f-03ab1aaca192",
+                          "id": "@outputs('Create_file_-_Ecuador')?['body/ItemId']",
+                          "item/Licitaci_x00f3_n": "@outputs('Update_a_row_in_selected_environment_-_OYM_Bid')?['body/mfd_bidid']",
+                          "item/N_x00fa_merodeProyecto": "@triggerBody()['text_2']",
+                          "item/Nombredelproyecto": "@triggerBody()['text_1']",
+                          "item/Fecha": "@body('Current_time')"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  }
+                },
+                "Case_4": {
+                  "case": "Peru Norte Region",
+                  "actions": {
+                    "Create_file_-_Peru_Norte": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "ff435613-5dc1-48e7-a58b-508bc499879f"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_sharepointonline_1",
+                          "operationId": "CreateFile",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                        },
+                        "parameters": {
+                          "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                          "folderPath": "/LicitacionesPeruNorte",
+                          "name": "@replace(outputs('Create_file')?['body/Name'], 'docx', 'pdf')",
+                          "body": "@body('Convert_Word_Document_to_PDF')"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      },
+                      "runtimeConfiguration": {
+                        "contentTransfer": {
+                          "transferMode": "Chunked"
+                        }
+                      }
+                    },
+                    "Update_file_properties_4": {
+                      "runAfter": {
+                        "Create_file_-_Peru_Norte": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "7bbebc6c-29f1-4ad8-ad50-8fc75f054bf3"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_sharepointonline_1",
+                          "operationId": "PatchFileItem",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                        },
+                        "parameters": {
+                          "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                          "table": "eaead3dc-52fd-4799-9691-ad146c26339f",
+                          "id": "@outputs('Create_file_-_Peru_Norte')?['body/ItemId']",
+                          "item/Licitaci_x00f3_n": "@outputs('Update_a_row_in_selected_environment_-_OYM_Bid')?['body/mfd_bidid']",
+                          "item/N_x00fa_merodeProyecto": "@triggerBody()['text_2']",
+                          "item/Nombredelproyecto": "@triggerBody()['text_1']",
+                          "item/Fecha": "@body('Current_time')"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  }
+                },
+                "Case_5": {
+                  "case": "Peru Sur Region",
+                  "actions": {
+                    "Create_file_-_Peru_Sur": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "a9673d27-a449-40fb-97b1-903d33d851fe"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_sharepointonline_1",
+                          "operationId": "CreateFile",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                        },
+                        "parameters": {
+                          "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                          "folderPath": "/LicitacionesPeruSur",
+                          "name": "@replace(outputs('Create_file')?['body/Name'], 'docx', 'pdf')",
+                          "body": "@body('Convert_Word_Document_to_PDF')"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      },
+                      "runtimeConfiguration": {
+                        "contentTransfer": {
+                          "transferMode": "Chunked"
+                        }
+                      }
+                    },
+                    "Update_file_properties_5": {
+                      "runAfter": {
+                        "Create_file_-_Peru_Sur": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "92b4cc71-2d5e-45af-a369-ac3b3d726f8a"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_sharepointonline_1",
+                          "operationId": "PatchFileItem",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                        },
+                        "parameters": {
+                          "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                          "table": "d4e2ac48-3e7c-4e46-bc63-c6de598e6eef",
+                          "id": "@outputs('Create_file_-_Peru_Sur')?['body/ItemId']",
+                          "item/Licitaci_x00f3_n": "@outputs('Update_a_row_in_selected_environment_-_OYM_Bid')?['body/mfd_bidid']",
+                          "item/N_x00fa_merodeProyecto": "@triggerBody()['text_2']",
+                          "item/Nombredelproyecto": "@triggerBody()['text_1']",
+                          "item/Fecha": "@body('Current_time')"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  }
+                }
+              },
+              "default": {
+                "actions": {}
+              },
+              "expression": "@triggerBody()['text_4']",
+              "metadata": {
+                "operationMetadataId": "7341707b-d4d1-46c9-968c-4e983fc5f500"
+              },
+              "type": "Switch"
+            },
+            "Update_a_row_in_selected_environment_-_OYM_Bid_3": {
+              "runAfter": {
+                "Current_time": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "da920c09-c58c-444f-be29-891445ce71c1"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps_1",
+                  "operationId": "UpdateOnlyRecordWithOrganization",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "organization": "https://sanw-np.crm.dynamics.com",
+                  "entityName": "mfd_oym_bids",
+                  "recordId": "@triggerBody()['text_5']",
+                  "item/mfd_endmeeting": "@body('Current_time')",
+                  "item/mfd_state": 862350005
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Send_an_email_from_a_shared_mailbox_(V2)": {
+              "runAfter": {
+                "Switch": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "47416705-284b-47a5-93e6-5334877d780d"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_office365_1",
+                  "operationId": "SharedMailboxSendEmailV2",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                },
+                "parameters": {
+                  "emailMessage/MailboxAddress": "SANW-MFD-Notifications@churchofjesuschrist.org",
+                  "emailMessage/To": "@{triggerBody()['text_6']};@{triggerBody()['text_7']};@{triggerBody()['text_8']};",
+                  "emailMessage/Subject": "Acta de licitación @{triggerBody()['text_1']}",
+                  "emailMessage/Body": "<p>Estimados(as),<br>\n<br>\nSe confirma la aprobación de la participación en la apertura de sobres de la licitación @{triggerBody()['text_1']}.<br>\nAdjuntamos el Acta de Licitación (PDF) para su registro.<br>\n<br>\n<a href=\"https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD/Licitaciones@{triggerBody()['text_4']}\">Haga clic aquí para ir al Repositorio de Sharepoint de Licitaciones</a><br>\n<br>\nSaludos,<br>\nSistema de Licitaciones – Departamento de Propiedades<br>\nÁrea Sudamérica Noroeste</p>",
+                  "emailMessage/Importance": "Normal"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "Start_and_wait_for_an_approval": [
+              "Succeeded"
+            ]
+          },
+          "else": {
+            "actions": {
+              "Update_a_row_in_selected_environment_-_OYM_Bid_2": {
+                "runAfter": {},
+                "metadata": {
+                  "operationMetadataId": "da920c09-c58c-444f-be29-891445ce71c1"
+                },
+                "type": "OpenApiConnection",
+                "inputs": {
+                  "host": {
+                    "connectionName": "shared_commondataserviceforapps_1",
+                    "operationId": "UpdateOnlyRecordWithOrganization",
+                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                  },
+                  "parameters": {
+                    "organization": "https://sanw-np.crm.dynamics.com",
+                    "entityName": "mfd_oym_bids",
+                    "recordId": "@triggerBody()['text_5']",
+                    "item/mfd_state": 862350008
+                  },
+                  "authentication": "@parameters('$authentication')"
+                }
+              }
+            }
+          },
+          "expression": {
+            "not": {
+              "contains": [
+                "@outputs('Start_and_wait_for_an_approval')?['body/outcome']",
+                "Reject"
+              ]
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "e1f134c7-feab-4195-9e09-49e762718e54"
+          },
+          "type": "If"
+        },
+        "Initialize_variable_-_ApprovalSignatures": {
+          "runAfter": {
+            "Apply_to_each_-_galProposals": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "22e66f3e-de09-425c-ba9a-05bc4f33110e"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "ApprovalSignatures",
+                "type": "array"
+              }
+            ]
+          }
+        },
+        "Initialize_variable_2": {
+          "runAfter": {
+            "Initialize_variable": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "882b6371-7a74-4156-ad45-bb5c0b0210fb"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "EndDateText",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Get_a_row_by_ID_from_selected_environment": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "3d3f11c2-5a41-4a23-8245-0f2ee3af1e48"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps_1",
+              "operationId": "GetItemWithOrganization",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "organization": "https://sanw-np.crm.dynamics.com",
+              "entityName": "mfd_oym_bids",
+              "recordId": "@triggerBody()['text_5']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Initialize_variable_-_TimeZone": {
+          "runAfter": {
+            "Condition_-_Validar_que_StartMeeting_no_sea_Null": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "23414521-58f3-410e-9b56-b5748b9729fe"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "TimeZone",
+                "type": "string",
+                "value": "@{if(\n  equals(triggerBody()?['text_3'], 'BOLIVIA'),\n  'SA Western Standard Time',\n  'SA Pacific Standard Time'\n)}"
+              }
+            ]
+          }
+        },
+        "Initialize_variable": {
+          "runAfter": {
+            "Initialize_variable_-_TimeZone": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "ce38cbd0-59a0-4efa-afdc-79468fd2a2b4"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "StartDateText",
+                "type": "string",
+                "value": "@{formatDateTime(\n  convertTimeZone(\n    coalesce(\n      outputs('Get_a_row_by_ID_from_selected_environment')?['body/mfd_startmeeting'],\n      body('Current_time_-_StartMeeting')\n    ),\n    'UTC',\n    variables('TimeZone')\n  ),\n  'dd MMM yyyy HH:mm:ss',\n  'es-MX'\n)}"
+              }
+            ]
+          }
+        },
+        "Condition_-_Validar_que_StartMeeting_no_sea_Null": {
+          "actions": {
+            "Current_time_-_StartMeeting": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "b2871b0f-0f66-4eda-bb38-ffd5ae1f984b"
+              },
+              "type": "Expression",
+              "kind": "CurrentTime",
+              "inputs": {}
+            },
+            "Update_a_row_in_selected_environment": {
+              "runAfter": {
+                "Current_time_-_StartMeeting": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "fea6fd76-3899-4018-85b3-4172a971cd20"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps_1",
+                  "operationId": "UpdateOnlyRecordWithOrganization",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "organization": "https://sanw-np.crm.dynamics.com",
+                  "entityName": "mfd_oym_bids",
+                  "recordId": "@triggerBody()['text_5']",
+                  "item/mfd_startmeeting": "@body('Current_time_-_StartMeeting')"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "Get_a_row_by_ID_from_selected_environment": [
+              "Succeeded"
+            ]
+          },
+          "expression": {
+            "equals": [
+              "@outputs('Get_a_row_by_ID_from_selected_environment')?['body/mfd_startmeeting']",
+              "@null"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "f096bb2a-9c0c-4bf6-a1cf-6b63d6152067"
+          },
+          "type": "If"
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{81a25ce6-e204-4e9d-baaf-f2d0af97001a}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="mfd_name" select="1" icon="1" preview="1">
+        <row name="result" id="mfd_oym_inspectionid">
+          <cell name="mfd_name" width="300" />
+          <cell name="createdon" width="125" />
+          <cell name="mfd_localname" width="106" />
+          <cell name="mfd_facilityid" width="100" />
+          <cell name="mfd_snapshotareas" width="124" />
+          <cell name="mfd_completedareas" width="135" />
+          <cell name="mfd_canceleddate" width="119" />
+          <cell name="mfd_completeddate" width="128" />
+          <cell name="mfd_state" width="100" />
+          <cell name="createdby" width="104" />
+          <cell name="mfd_completeditems" width="133" />
+          <cell name="mfd_snapshotitems" width="123" />
+          <cell name="mfd_type" width="100" />
+          <cell name="ownerid" width="100" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="mfd_oym_inspection">
+          <attribute name="mfd_oym_inspectionid" />
+          <attribute name="mfd_name" />
+          <attribute name="createdon" />
+          <order attribute="mfd_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="mfd_localname" />
+          <attribute name="mfd_facilityid" />
+          <attribute name="mfd_snapshotareas" />
+          <attribute name="mfd_completedareas" />
+          <attribute name="mfd_canceleddate" />
+          <attribute name="mfd_completeddate" />
+          <attribute name="mfd_state" />
+          <attribute name="createdby" />
+          <attribute name="mfd_completeditems" />
+          <attribute name="mfd_snapshotitems" />
+          <attribute name="mfd_type" />
+          <attribute name="ownerid" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active OYM_Inspections" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

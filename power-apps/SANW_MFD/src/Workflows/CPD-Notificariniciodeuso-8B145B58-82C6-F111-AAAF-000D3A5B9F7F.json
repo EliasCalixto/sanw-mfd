@@ -1,0 +1,223 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crf93_sharedcommondataserviceforapps_ca08a"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_office365": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crf93_sharedoffice365_f3666"
+        },
+        "api": {
+          "name": "shared_office365"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "When_a_row_is_added,_modified_or_deleted": {
+          "metadata": {
+            "operationMetadataId": "88d5a4f6-2e7a-40f3-9621-dbd46a221d7e"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 3,
+              "subscriptionRequest/entityname": "mfd_cpd_reserva",
+              "subscriptionRequest/scope": 4,
+              "subscriptionRequest/filteringattributes": "mfd_reservationstatus",
+              "subscriptionRequest/filterexpression": "mfd_reservationstatus eq 862350001"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Obtener_Item": {
+          "runAfter": {
+            "Obtener_Reserva": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "953073d2-a9ac-4d18-8a0f-614897dd26f1"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "mfd_cpd_items",
+              "recordId": "@outputs('Obtener_Reserva')?['body/_mfd_item_value']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Listar_Supervisores": {
+          "runAfter": {
+            "Initialize_variable": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "de4a1f96-8b80-43d7-a888-cdcc1f8cb92b"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "mfd_cpd_users",
+              "$select": "mfd_email",
+              "$filter": "statecode eq 0 and mfd_recibenotificaciones eq true"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Initialize_variable": {
+          "runAfter": {
+            "Obtener_Creador": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "c60abf6f-8ad0-4eeb-80c4-15a7d4ef7387"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "vDestinatarios",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Apply_to_each": {
+          "foreach": "@outputs('Listar_Supervisores')?['body/value']",
+          "actions": {
+            "Append_to_string_variable": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "4ab144d4-b1b5-4849-a45b-68e338a713f7"
+              },
+              "type": "AppendToStringVariable",
+              "inputs": {
+                "name": "vDestinatarios",
+                "value": "@{items('Apply_to_each')?['mfd_email']};"
+              }
+            }
+          },
+          "runAfter": {
+            "Listar_Supervisores": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "98508713-7fc3-4f9e-a501-2848bf911dee"
+          },
+          "type": "Foreach"
+        },
+        "Send_an_email_(V2)": {
+          "runAfter": {
+            "Apply_to_each": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "5dea4ae1-2962-43cc-b110-caa59000f8aa"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_office365",
+              "operationId": "SendEmailV2",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+            },
+            "parameters": {
+              "emailMessage/To": "@variables('vDestinatarios')",
+              "emailMessage/Subject": "[CPD] SALIDA DE EQUIPO - @{outputs('Obtener_Item')?['body/mfd_name']} hacia @{outputs('Obtener_Reserva')?['body/mfd_ubicaciondestino']}",
+              "emailMessage/Body": "<p><b>Se inició el uso de un equipo del inventario CPD.</b> El equipo ha salido de su ubicación base.</p>\n<table border=\"1\" cellpadding=\"8\" cellspacing=\"0\" style=\"border-collapse:collapse;font-family:Segoe UI,Arial,sans-serif;font-size:14px;\">\n  <tr><td><b>N° de reserva</b></td><td>@{outputs('Obtener_Reserva')?['body/mfd_name']}</td></tr>\n  <tr><td><b>Equipo</b></td><td>@{outputs('Obtener_Item')?['body/mfd_name']}</td></tr>\n  <tr><td><b>Código / Serie</b></td><td>@{outputs('Obtener_Item')?['body/mfd_codigo']} / @{outputs('Obtener_Item')?['body/mfd_serie']}</td></tr>\n  <tr><td><b>Responsable</b></td><td>@{outputs('Obtener_Creador')?['body/fullname']}</td></tr>\n  <tr><td><b>Destino</b></td><td style=\"color:#b00020;\"><b>@{outputs('Obtener_Reserva')?['body/mfd_ubicaciondestino']}</b></td></tr>\n  <tr><td><b>Motivo</b></td><td>@{outputs('Obtener_Reserva')?['body/mfd_motivo']}</td></tr>\n<tr><td><b>Motivo</b></td><td>@{outputs('Obtener_Reserva')?['body/cr4d3_comentarioinicio']}</td></tr>\n  <tr><td><b>Ubicación base</b></td><td>@{outputs('Obtener_Item')?['body/mfd_ubicacionbase']}</td></tr>\n  <tr><td><b>Estado al salir</b></td><td>@{if(equals(outputs('Obtener_Reserva')?['body/mfd_initialstate'],862350001),'Bueno',if(equals(outputs('Obtener_Reserva')?['body/mfd_initialstate'],862350003),'Regular',if(equals(outputs('Obtener_Reserva')?['body/mfd_initialstate'],862350002),'Dañado',if(equals(outputs('Obtener_Reserva')?['body/mfd_initialstate'],862350004),'Malo','Sin Datos'))))}</td></tr>\n  <tr><td><b>Salida</b></td><td>@{convertTimeZone(outputs('Obtener_Reserva')?['body/mfd_starttime'],'UTC','SA Pacific Standard Time','dd/MM/yyyy HH:mm')}</td></tr>\n  <tr><td><b>Retorno previsto</b></td><td>@{convertTimeZone(outputs('Obtener_Reserva')?['body/mfd_endtime'],'UTC','SA Pacific Standard Time','dd/MM/yyyy HH:mm')}</td></tr>\n</table>\n<p style=\"font-size:12px;color:#666;\">Notificación automática — Sistema de Control de Inventario CPD.</p>",
+              "emailMessage/Importance": "Normal"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Obtener_Creador": {
+          "runAfter": {
+            "Obtener_Item": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "d939f0e7-3bfd-4bfa-99ab-dfb93353005a"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "systemusers",
+              "recordId": "@outputs('Obtener_Reserva')?['body/_createdby_value']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Obtener_Reserva": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "e90d9dfc-6c48-4027-bac2-7fdb91df40ba"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "mfd_cpd_reservas",
+              "recordId": "@triggerOutputs()?['body/mfd_cpd_reservaid']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

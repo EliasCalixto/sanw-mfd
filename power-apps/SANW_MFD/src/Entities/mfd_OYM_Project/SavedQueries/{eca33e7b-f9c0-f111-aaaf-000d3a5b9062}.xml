@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{eca33e7b-f9c0-f111-aaaf-000d3a5b9062}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="mfd_project" select="1" icon="1" preview="1">
+        <row name="result" id="mfd_oym_projectid">
+          <cell name="mfd_regionunitname" width="139" />
+          <cell name="mfd_name" width="200" />
+          <cell name="mfd_project" width="200" />
+          <cell name="mfd_projecttype" width="108" />
+          <cell name="mfd_projectowner" width="118" />
+          <cell name="mfd_projectstatus" width="114" />
+          <cell name="mfd_approvaldate" width="120" />
+          <cell name="mfd_actualstartdate" width="131" />
+          <cell name="mfd_actualcompletiondate" width="200" />
+          <cell name="mfd_closedate" width="100" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="true">
+        <entity name="mfd_oym_project">&lt;attribute name="mfd_name" /&gt;&lt;attribute name="mfd_project" /&gt;&lt;attribute name="mfd_actualcompletiondate" /&gt;&lt;attribute name="mfd_budgetamount" /&gt;&lt;attribute name="mfd_comments" /&gt;
+        
+        
+        <attribute name="mfd_name" /><attribute name="mfd_project" /><attribute name="mfd_actualcompletiondate" /><attribute name="mfd_oym_projectid" /><attribute name="mfd_regionunitname" /><attribute name="mfd_projectowner" /><attribute name="mfd_approvaldate" /><attribute name="mfd_actualstartdate" /><attribute name="mfd_closedate" /><attribute name="mfd_projectstatus" /><order attribute="mfd_regionunitname" descending="false" /><attribute name="mfd_projecttype" /><filter type="and"><condition attribute="mfd_iscurrentyear" operator="eq" value="1" /></filter></entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Proyectos año actual" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

@@ -1,0 +1,366 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_wordonlinebusiness": {
+        "runtimeSource": "invoker",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedwordonlinebusiness_f8c6e"
+        },
+        "api": {
+          "name": "shared_wordonlinebusiness"
+        }
+      },
+      "shared_commondataserviceforapps-1": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_113c0"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_sharepointonline-1": {
+        "runtimeSource": "invoker",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedsharepointonline_ac759"
+        },
+        "api": {
+          "name": "shared_sharepointonline"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "14cfe248-ba3b-44df-ac63-aea5881d1eaf"
+          },
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "vOYM_Requisition",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "vDate",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_2": {
+                  "title": "vRequesterName",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_3": {
+                  "title": "vRequisition",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_4": {
+                  "title": "vShippingMethod",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_5": {
+                  "title": "vDeliveryLocation",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_6": {
+                  "title": "vRegion",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_7": {
+                  "title": "vRequesterEmail",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_8": {
+                  "title": "vRequestedProducts",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_9": {
+                  "title": "vCountry",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1",
+                "text_2",
+                "text_3",
+                "text_4",
+                "text_5",
+                "text_6",
+                "text_7",
+                "text_8",
+                "text_9"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Populate_a_Microsoft_Word_template": {
+          "runAfter": {
+            "Parse_JSON": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "014USOZ7YORRUEBP4J5VFKU2SALARIKBPF": "/RequisitionTemplate.docx",
+            "operationMetadataId": "d0a47ec6-5b5e-4a4e-833c-160201291d6e"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "source": "sites/churchofjesuschrist.sharepoint.com,fa257e8c-1a3c-4f12-ac1c-4a651e1a7520,1229256c-e9aa-4c79-88fc-9d7e35dcf78b",
+              "drive": "b!jH4l-jwaEk-sHEplHhp1IGwlKRKq6XlMiPydfjXc94vnNCbW3uNAS55TfRE1G9uG",
+              "file": "014USOZ7YORRUEBP4J5VFKU2SALARIKBPF",
+              "dynamicFileSchema/327870541": "@triggerBody()['text_7']",
+              "dynamicFileSchema/1198129719": "@triggerBody()['text_6']",
+              "dynamicFileSchema/1332718601": "@triggerBody()['text_4']",
+              "dynamicFileSchema/-234710669": "@triggerBody()['text_3']",
+              "dynamicFileSchema/-2134627797": "@formatDateTime(\n  addHours(\n    body('Current_time'),\n    if(equals(triggerBody()?['text_9'], 'BOLIVIA'), -4, -5)\n  ),\n  'dd MMM yyyy',\n  'es-MX'\n)",
+              "dynamicFileSchema/-1458795181": "@triggerBody()['text_2']",
+              "dynamicFileSchema/-1734614924": "@triggerBody()['text_5']",
+              "dynamicFileSchema/-1925480827": "@body('Parse_JSON')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_wordonlinebusiness",
+              "operationId": "CreateFileItem",
+              "connectionName": "shared_wordonlinebusiness"
+            }
+          }
+        },
+        "Upload_a_file_or_an_image_to_selected_environment": {
+          "runAfter": {
+            "Create_file_2": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "0a802a72-fad6-417e-b589-67a8f3bdd406"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "organization": "https://sanw-np.crm.dynamics.com",
+              "x-ms-file-name": "@replace(outputs('Create_file')?['body/Name'],'docx','pdf')",
+              "entityName": "mfd_oym_requisitions",
+              "recordId": "@triggerBody()['text']",
+              "fileImageFieldName": "mfd_requisitondocument",
+              "item": "@body('Convert_Word_Document_to_PDF')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "UpdateEntityFileImageFieldContentWithOrganization",
+              "connectionName": "shared_commondataserviceforapps-1"
+            }
+          }
+        },
+        "Create_file": {
+          "runAfter": {
+            "Populate_a_Microsoft_Word_template": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "be7ba9bf-efab-4c8b-a8fd-0d98bf143ac1"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+              "folderPath": "/BorradoresDeAutomatizaciones/Requisiciones/Words",
+              "name": "@concat(\n  replace(\n    concat(\n      'Requisición_',\n      coalesce(triggerBody()?['text_3'], 'SinNrRequisición'),\n      '_',\n      formatDateTime(\n        addHours(\n          body('Current_time'),\n          if(equals(triggerBody()?['text_9'], 'BOLIVIA'), -4, -5)\n        ),\n        'ddMMMyyyy',\n        'es-MX'\n      ),\n      '-',\n      formatDateTime(\n        addHours(\n          body('Current_time'),\n          if(equals(triggerBody()?['text_9'], 'BOLIVIA'), -4, -5)\n        ),\n        'HHmmss'\n      )\n    ),\n    '.',\n    ''\n  ),\n  '.docx'\n)",
+              "body": "@body('Populate_a_Microsoft_Word_template')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "CreateFile",
+              "connectionName": "shared_sharepointonline-1"
+            }
+          },
+          "runtimeConfiguration": {
+            "contentTransfer": {
+              "transferMode": "Chunked"
+            }
+          }
+        },
+        "Convert_Word_Document_to_PDF": {
+          "runAfter": {
+            "Create_file": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "9308001a-d081-4c82-a61a-e6b53c5f3e0d"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "source": "sites/churchofjesuschrist.sharepoint.com,fa257e8c-1a3c-4f12-ac1c-4a651e1a7520,1229256c-e9aa-4c79-88fc-9d7e35dcf78b",
+              "drive": "b!jH4l-jwaEk-sHEplHhp1IGwlKRKq6XlMiPydfjXc94uY0mvzndYyR6rcPhTacRPD",
+              "file": "/Requisiciones/Words/@{outputs('Create_file')?['body/Name']}"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_wordonlinebusiness",
+              "operationId": "GetFilePDF",
+              "connectionName": "shared_wordonlinebusiness"
+            }
+          }
+        },
+        "Create_file_2": {
+          "runAfter": {
+            "Convert_Word_Document_to_PDF": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "6dca9a52-d7ff-40a3-a940-48bb8f8eb77e"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+              "folderPath": "/BorradoresDeAutomatizaciones/Requisiciones/PDFs",
+              "name": "@replace(outputs('Create_file')?['body/Name'],'docx','pdf')",
+              "body": "@body('Convert_Word_Document_to_PDF')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "CreateFile",
+              "connectionName": "shared_sharepointonline-1"
+            }
+          },
+          "runtimeConfiguration": {
+            "contentTransfer": {
+              "transferMode": "Chunked"
+            }
+          }
+        },
+        "Update_a_row_in_selected_environment": {
+          "runAfter": {
+            "Upload_a_file_or_an_image_to_selected_environment": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "754de607-dac2-4658-9c5e-67c44c7980ea"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "organization": "https://sanw-np.crm.dynamics.com",
+              "entityName": "mfd_oym_requisitions",
+              "recordId": "@triggerBody()['text']",
+              "item/mfd_state": 862350000
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "UpdateOnlyRecordWithOrganization",
+              "connectionName": "shared_commondataserviceforapps-1"
+            }
+          }
+        },
+        "Parse_JSON": {
+          "runAfter": {
+            "Current_time": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "daeec761-c622-480d-8725-a0497ac24df2"
+          },
+          "type": "ParseJson",
+          "inputs": {
+            "content": "@triggerBody()['text_8']",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ProductName": {
+                    "type": "string"
+                  },
+                  "ProductQuantity": {
+                    "type": "string"
+                  },
+                  "ProductQuantityAvailable": {
+                    "type": "string"
+                  },
+                  "ProductUnitCost": {
+                    "type": "string"
+                  },
+                  "ProductTotalCost": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ProductName",
+                  "ProductQuantity",
+                  "ProductQuantityAvailable",
+                  "ProductUnitCost",
+                  "ProductTotalCost"
+                ]
+              }
+            }
+          }
+        },
+        "Current_time": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "56d01e44-f11b-4219-8454-3f0f45b7db1e"
+          },
+          "type": "Expression",
+          "kind": "CurrentTime",
+          "inputs": {}
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

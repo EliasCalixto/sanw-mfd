@@ -1,0 +1,687 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_d0098"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_office365": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "mfd_sharedoffice365_19920"
+        },
+        "api": {
+          "name": "shared_office365"
+        }
+      },
+      "shared_sharepointonline": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "sanwlms_sharedsharepointonline_d1c09"
+        },
+        "api": {
+          "name": "shared_sharepointonline"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "When_a_new_email_arrives_in_a_shared_mailbox_(V2)": {
+          "recurrence": {
+            "interval": 1,
+            "frequency": "Minute"
+          },
+          "splitOn": "@triggerOutputs()?['body/value']",
+          "metadata": {
+            "operationMetadataId": "58058e1f-bbef-4475-89e4-c814a6d76daf"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_office365",
+              "operationId": "SharedMailboxOnNewEmailV2",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+            },
+            "parameters": {
+              "mailboxAddress": "sanw-mfd-licitaciones@mail.churchofjesuschrist.org",
+              "folderId": "Inbox",
+              "importance": "Any",
+              "hasAttachments": true,
+              "includeAttachments": true
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Compose_-_OYM_Proposal": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "e789fcae-73dc-4ecc-a29c-e8de034e8fa9"
+          },
+          "type": "Compose",
+          "inputs": "@substring(\n  trim(last(split(triggerOutputs()?['body/subject'], 'PROPUESTA-'))),\n  0,\n  36\n)"
+        },
+        "Condition": {
+          "actions": {
+            "Get_a_row_by_ID_from_selected_environment_-_Proposal": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "19b4610c-9b15-4b05-8732-3cd71db10e9e"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "GetItemWithOrganization",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "organization": "https://sanw-np.crm.dynamics.com",
+                  "entityName": "mfd_oym_proposals",
+                  "recordId": "@outputs('Compose_-_OYM_Proposal')"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Get_a_row_by_ID_from_selected_environment_-_Bid": {
+              "runAfter": {
+                "Get_a_row_by_ID_from_selected_environment_-_Proposal": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "8a43adcd-a6e9-4ba1-bba8-895bd2753883"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "GetItemWithOrganization",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "organization": "https://sanw-np.crm.dynamics.com",
+                  "entityName": "mfd_oym_bids",
+                  "recordId": "@outputs('Get_a_row_by_ID_from_selected_environment_-_Proposal')?['body/_mfd_bidid_value']"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Get_a_row_by_ID_from_selected_environment_-_Vendor": {
+              "runAfter": {
+                "Get_a_row_by_ID_from_selected_environment_-_Bid": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "11c1381f-4530-4e3d-88df-141c56b9e767"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "GetItemWithOrganization",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "organization": "https://sanw-np.crm.dynamics.com",
+                  "entityName": "mfd_oym_vendors",
+                  "recordId": "@outputs('Get_a_row_by_ID_from_selected_environment_-_Proposal')?['body/_mfd_vendorid_value']"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Switch_-_Estado_de_la_licitación": {
+              "runAfter": {
+                "Get_a_row_by_ID_from_selected_environment_-_Project": [
+                  "Succeeded"
+                ]
+              },
+              "cases": {
+                "Case": {
+                  "case": 862350000,
+                  "actions": {
+                    "Send_an_email_from_a_shared_mailbox_(V2)_2": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "23a191cc-a785-4c6d-b743-45f07a4e5e5b"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_office365",
+                          "operationId": "SharedMailboxSendEmailV2",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                        },
+                        "parameters": {
+                          "emailMessage/MailboxAddress": "SANW-MFD-Licitaciones@mail.ChurchofJesusChrist.org",
+                          "emailMessage/To": "@triggerOutputs()?['body/from']",
+                          "emailMessage/Subject": "Propuesta no recepcionada – Proceso de Licitación",
+                          "emailMessage/Body": "<p>\nEstimado proveedor \n<strong>@{outputs('Get_a_row_by_ID_from_selected_environment_-_Vendor')?['body/mfd_name']}</strong>,<br><br>\n\nHemos recibido un intento de envío de <strong>documentos de respaldo</strong> correspondiente a la licitación  \n<strong>@{outputs('Get_a_row_by_ID_from_selected_environment_-_Bid')?['body/mfd_bidid']}</strong>.<br><br>\n\nSin embargo, el proceso de <strong>Recepción de sobres aún no ha iniciado</strong>.<br><br>\n\nPor este motivo, los archivos enviados <strong>no han sido recepcionados ni almacenados</strong> en el sistema.\nLe solicitamos esperar la indicación oficial del moderador de la licitación, momento en el cual se habilitará el plazo para el envío de documentos de respaldo de su propuesta económica.<br><br>\n\nUna vez iniciada la etapa de <strong>Recepción de sobres</strong>, deberá realizar nuevamente el envío dentro del tiempo establecido.<br><br>\n\nAgradecemos su comprensión.<br><br>\n\nAtentamente,<br><br>\n<strong>Departamento de Propiedades</strong><br>\nÁrea Sudamérica Noroeste\n</p>",
+                          "emailMessage/Importance": "Normal"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  }
+                },
+                "Case_2": {
+                  "case": 862350001,
+                  "actions": {
+                    "Send_an_email_from_a_shared_mailbox_(V2)_3": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "2f98197a-9843-415a-bfcb-403d2e8edce6"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_office365",
+                          "operationId": "SharedMailboxSendEmailV2",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                        },
+                        "parameters": {
+                          "emailMessage/MailboxAddress": "SANW-MFD-Licitaciones@mail.ChurchofJesusChrist.org",
+                          "emailMessage/To": "@triggerOutputs()?['body/from']",
+                          "emailMessage/Subject": "Propuesta no recepcionada – Proceso de Licitación",
+                          "emailMessage/Body": "<p>\nEstimado proveedor \n<strong>@{outputs('Get_a_row_by_ID_from_selected_environment_-_Vendor')?['body/mfd_name']}</strong>,<br><br>\n\nHemos recibido un intento de envío de <strong>documentos de respaldo</strong> correspondiente a la licitación  \n<strong>@{outputs('Get_a_row_by_ID_from_selected_environment_-_Bid')?['body/mfd_bidid']}</strong>.<br><br>\n\nSin embargo, el proceso de <strong>Recepción de sobres aún no ha iniciado</strong>.<br><br>\n\nPor este motivo, los archivos enviados <strong>no han sido recepcionados ni almacenados</strong> en el sistema.\nLe solicitamos esperar la indicación oficial del moderador de la licitación, momento en el cual se habilitará el plazo para el envío de documentos de respaldo de su propuesta económica.<br><br>\n\nUna vez iniciada la etapa de <strong>Recepción de sobres</strong>, deberá realizar nuevamente el envío dentro del tiempo establecido.<br><br>\n\nAgradecemos su comprensión.<br><br>\n\nAtentamente,<br><br>\n<strong>Departamento de Propiedades</strong><br>\nÁrea Sudamérica Noroeste\n</p>",
+                          "emailMessage/Importance": "Normal"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  }
+                },
+                "Case_3": {
+                  "case": 862350002,
+                  "actions": {
+                    "Switch_-_Region": {
+                      "runAfter": {},
+                      "cases": {
+                        "Case": {
+                          "case": "Bolivia Region",
+                          "actions": {
+                            "Create_new_folder": {
+                              "runAfter": {},
+                              "metadata": {
+                                "operationMetadataId": "b6202c6c-2982-4418-8422-ed38c1ed75e4"
+                              },
+                              "type": "OpenApiConnection",
+                              "inputs": {
+                                "host": {
+                                  "connectionName": "shared_sharepointonline",
+                                  "operationId": "CreateNewFolder",
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                                },
+                                "parameters": {
+                                  "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                                  "table": "e9df67b0-f600-46ee-9eaa-6b2086e4f463",
+                                  "parameters/path": "@{outputs('Get_a_row_by_ID_from_selected_environment_-_Bid')?['body/mfd_bidid']}/@{outputs('Get_a_row_by_ID_from_selected_environment_-_Proposal')?['body/mfd_proposalid']}"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                              }
+                            },
+                            "Apply_to_each": {
+                              "foreach": "@triggerOutputs()?['body/attachments']",
+                              "actions": {
+                                "Create_file": {
+                                  "runAfter": {},
+                                  "metadata": {
+                                    "operationMetadataId": "354cfbb8-b665-4a97-9954-31a9d4048a4b"
+                                  },
+                                  "type": "OpenApiConnection",
+                                  "inputs": {
+                                    "host": {
+                                      "connectionName": "shared_sharepointonline",
+                                      "operationId": "CreateFile",
+                                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                                    },
+                                    "parameters": {
+                                      "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                                      "folderPath": "LicitacionesBolivia/2026/@{outputs('Get_a_row_by_ID_from_selected_environment_-_Bid')?['body/mfd_bidid']}/@{outputs('Get_a_row_by_ID_from_selected_environment_-_Proposal')?['body/mfd_proposalid']}",
+                                      "name": "@items('Apply_to_each')?['name']",
+                                      "body": "@items('Apply_to_each')?['contentBytes']"
+                                    },
+                                    "authentication": "@parameters('$authentication')"
+                                  },
+                                  "runtimeConfiguration": {
+                                    "contentTransfer": {
+                                      "transferMode": "Chunked"
+                                    }
+                                  }
+                                }
+                              },
+                              "runAfter": {
+                                "Create_new_folder": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "metadata": {
+                                "operationMetadataId": "e709a0cc-4d27-429e-8a8f-253ee3e4fa65"
+                              },
+                              "type": "Foreach"
+                            }
+                          }
+                        },
+                        "Case_2": {
+                          "case": "Colombia Region",
+                          "actions": {
+                            "Create_new_folder_2": {
+                              "runAfter": {},
+                              "metadata": {
+                                "operationMetadataId": "e66f8d9b-e675-4a03-ae45-bea68c711bc2"
+                              },
+                              "type": "OpenApiConnection",
+                              "inputs": {
+                                "host": {
+                                  "connectionName": "shared_sharepointonline",
+                                  "operationId": "CreateNewFolder",
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                                },
+                                "parameters": {
+                                  "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                                  "table": "f23950be-3213-4715-a0d2-1f93cbbedfa5",
+                                  "parameters/path": "@{outputs('Get_a_row_by_ID_from_selected_environment_-_Bid')?['body/mfd_bidid']}/@{outputs('Get_a_row_by_ID_from_selected_environment_-_Proposal')?['body/mfd_proposalid']}"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                              }
+                            },
+                            "Apply_to_each_2": {
+                              "foreach": "@triggerOutputs()?['body/attachments']",
+                              "actions": {
+                                "Create_file_2": {
+                                  "runAfter": {},
+                                  "metadata": {
+                                    "operationMetadataId": "93d93be5-916a-469c-a119-480c8bfe28b1"
+                                  },
+                                  "type": "OpenApiConnection",
+                                  "inputs": {
+                                    "host": {
+                                      "connectionName": "shared_sharepointonline",
+                                      "operationId": "CreateFile",
+                                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                                    },
+                                    "parameters": {
+                                      "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                                      "folderPath": "LicitacionesColombia/2026/@{outputs('Get_a_row_by_ID_from_selected_environment_-_Bid')?['body/mfd_bidid']}/@{outputs('Get_a_row_by_ID_from_selected_environment_-_Proposal')?['body/mfd_proposalid']}",
+                                      "name": "@items('Apply_to_each_2')?['name']",
+                                      "body": "@items('Apply_to_each_2')?['contentBytes']"
+                                    },
+                                    "authentication": "@parameters('$authentication')"
+                                  },
+                                  "runtimeConfiguration": {
+                                    "contentTransfer": {
+                                      "transferMode": "Chunked"
+                                    }
+                                  }
+                                }
+                              },
+                              "runAfter": {
+                                "Create_new_folder_2": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "metadata": {
+                                "operationMetadataId": "44d53148-c957-449f-966f-449147e7c182"
+                              },
+                              "type": "Foreach"
+                            }
+                          }
+                        },
+                        "Case_3": {
+                          "case": "Ecuador Region",
+                          "actions": {
+                            "Create_new_folder_3": {
+                              "runAfter": {},
+                              "metadata": {
+                                "operationMetadataId": "ed3691a8-9d68-4acb-bcd5-6c455520ca3c"
+                              },
+                              "type": "OpenApiConnection",
+                              "inputs": {
+                                "host": {
+                                  "connectionName": "shared_sharepointonline",
+                                  "operationId": "CreateNewFolder",
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                                },
+                                "parameters": {
+                                  "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                                  "table": "dc703ec4-75f1-43cf-937f-03ab1aaca192",
+                                  "parameters/path": "@{outputs('Get_a_row_by_ID_from_selected_environment_-_Bid')?['body/mfd_bidid']}/@{outputs('Get_a_row_by_ID_from_selected_environment_-_Proposal')?['body/mfd_proposalid']}"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                              }
+                            },
+                            "Apply_to_each_3": {
+                              "foreach": "@triggerOutputs()?['body/attachments']",
+                              "actions": {
+                                "Create_file_3": {
+                                  "runAfter": {},
+                                  "metadata": {
+                                    "operationMetadataId": "a25a4302-76a8-4394-a3b4-04e04a1212f2"
+                                  },
+                                  "type": "OpenApiConnection",
+                                  "inputs": {
+                                    "host": {
+                                      "connectionName": "shared_sharepointonline",
+                                      "operationId": "CreateFile",
+                                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                                    },
+                                    "parameters": {
+                                      "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                                      "folderPath": "LicitacionesEcuador/2026/@{outputs('Get_a_row_by_ID_from_selected_environment_-_Bid')?['body/mfd_bidid']}/@{outputs('Get_a_row_by_ID_from_selected_environment_-_Proposal')?['body/mfd_proposalid']}",
+                                      "name": "@items('Apply_to_each_3')?['name']",
+                                      "body": "@items('Apply_to_each_3')?['contentBytes']"
+                                    },
+                                    "authentication": "@parameters('$authentication')"
+                                  },
+                                  "runtimeConfiguration": {
+                                    "contentTransfer": {
+                                      "transferMode": "Chunked"
+                                    }
+                                  }
+                                }
+                              },
+                              "runAfter": {
+                                "Create_new_folder_3": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "metadata": {
+                                "operationMetadataId": "90e8a38a-2834-496b-9395-606908d95755"
+                              },
+                              "type": "Foreach"
+                            }
+                          }
+                        },
+                        "Case_4": {
+                          "case": "Peru Norte Region",
+                          "actions": {
+                            "Create_new_folder_4": {
+                              "runAfter": {},
+                              "metadata": {
+                                "operationMetadataId": "b11b752a-861e-476f-bd19-b85969cdcf80"
+                              },
+                              "type": "OpenApiConnection",
+                              "inputs": {
+                                "host": {
+                                  "connectionName": "shared_sharepointonline",
+                                  "operationId": "CreateNewFolder",
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                                },
+                                "parameters": {
+                                  "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                                  "table": "eaead3dc-52fd-4799-9691-ad146c26339f",
+                                  "parameters/path": "@{outputs('Get_a_row_by_ID_from_selected_environment_-_Bid')?['body/mfd_bidid']}/@{outputs('Get_a_row_by_ID_from_selected_environment_-_Proposal')?['body/mfd_proposalid']}"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                              }
+                            },
+                            "Apply_to_each_4": {
+                              "foreach": "@triggerOutputs()?['body/attachments']",
+                              "actions": {
+                                "Create_file_4": {
+                                  "runAfter": {},
+                                  "metadata": {
+                                    "operationMetadataId": "51a767b5-ebb2-49ae-b217-31843ce81bfc"
+                                  },
+                                  "type": "OpenApiConnection",
+                                  "inputs": {
+                                    "host": {
+                                      "connectionName": "shared_sharepointonline",
+                                      "operationId": "CreateFile",
+                                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                                    },
+                                    "parameters": {
+                                      "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                                      "folderPath": "LicitacionesPeruNorte/2026/@{outputs('Get_a_row_by_ID_from_selected_environment_-_Bid')?['body/mfd_bidid']}/@{outputs('Get_a_row_by_ID_from_selected_environment_-_Proposal')?['body/mfd_proposalid']}",
+                                      "name": "@items('Apply_to_each_4')?['name']",
+                                      "body": "@items('Apply_to_each_4')?['contentBytes']"
+                                    },
+                                    "authentication": "@parameters('$authentication')"
+                                  },
+                                  "runtimeConfiguration": {
+                                    "contentTransfer": {
+                                      "transferMode": "Chunked"
+                                    }
+                                  }
+                                }
+                              },
+                              "runAfter": {
+                                "Create_new_folder_4": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "metadata": {
+                                "operationMetadataId": "98cde367-86da-4587-9131-d8e07a5f2e4b"
+                              },
+                              "type": "Foreach"
+                            },
+                            "Send_an_email_from_a_shared_mailbox_(V2)_5": {
+                              "runAfter": {
+                                "Apply_to_each_4": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "metadata": {
+                                "operationMetadataId": "5c8f7b38-4e54-4a91-91bc-1ec83b87dfec"
+                              },
+                              "type": "OpenApiConnection",
+                              "inputs": {
+                                "host": {
+                                  "connectionName": "shared_office365",
+                                  "operationId": "SharedMailboxSendEmailV2",
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                                },
+                                "parameters": {
+                                  "emailMessage/MailboxAddress": "SANW-MFD-Licitaciones@mail.ChurchofJesusChrist.org",
+                                  "emailMessage/To": "@triggerOutputs()?['body/from']",
+                                  "emailMessage/Subject": "Documentos de respaldo recepcionados – Proceso de Licitación",
+                                  "emailMessage/Body": "<p>\nEstimado proveedor <strong>@{outputs('Get_a_row_by_ID_from_selected_environment_-_Vendor')?['body/mfd_name']}</strong>,\n</p>\n\n<p>\nConfirmamos la <strong>recepción correcta de los documentos de respaldo</strong> correspondientes a su propuesta económica para la licitación\n<strong>@{outputs('Get_a_row_by_ID_from_selected_environment_-_Bid')?['body/mfd_bidid']}</strong>.\n</p>\n\n<p>\nLos archivos enviados han sido registrados y almacenados satisfactoriamente en el sistema, y serán considerados como parte del proceso de evaluación conforme a las condiciones y etapas establecidas para esta licitación.\n</p>\n\n<p>\n<strong>No es necesario realizar ningún envío adicional</strong>, salvo que sea expresamente solicitado por el equipo a cargo del proceso.\n</p>\n\n<p>\nAgradecemos su participación y el cumplimiento oportuno de los requerimientos del proceso de licitación.\n</p>\n\n<p>\nAtentamente,<br><br>\n<strong>Departamento de Propiedades</strong><br>\nÁrea Sudamérica Noroeste\n</p>",
+                                  "emailMessage/Importance": "Normal"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                              }
+                            }
+                          }
+                        },
+                        "Case_5": {
+                          "case": "Peru Sur Region",
+                          "actions": {
+                            "Create_new_folder_5": {
+                              "runAfter": {},
+                              "metadata": {
+                                "operationMetadataId": "f9fac993-009f-495c-a11e-74525f04257f"
+                              },
+                              "type": "OpenApiConnection",
+                              "inputs": {
+                                "host": {
+                                  "connectionName": "shared_sharepointonline",
+                                  "operationId": "CreateNewFolder",
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                                },
+                                "parameters": {
+                                  "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                                  "table": "d4e2ac48-3e7c-4e46-bc63-c6de598e6eef",
+                                  "parameters/path": "@{outputs('Get_a_row_by_ID_from_selected_environment_-_Bid')?['body/mfd_bidid']}/@{outputs('Get_a_row_by_ID_from_selected_environment_-_Proposal')?['body/mfd_proposalid']}"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                              }
+                            },
+                            "Apply_to_each_5": {
+                              "foreach": "@triggerOutputs()?['body/attachments']",
+                              "actions": {
+                                "Create_file_5": {
+                                  "runAfter": {},
+                                  "metadata": {
+                                    "operationMetadataId": "152621d5-1724-4eb5-bd1a-bd0ce1942d77"
+                                  },
+                                  "type": "OpenApiConnection",
+                                  "inputs": {
+                                    "host": {
+                                      "connectionName": "shared_sharepointonline",
+                                      "operationId": "CreateFile",
+                                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                                    },
+                                    "parameters": {
+                                      "dataset": "https://churchofjesuschrist.sharepoint.com/sites/SANW-MFD",
+                                      "folderPath": "LicitacionesPeruSur/2026/@{outputs('Get_a_row_by_ID_from_selected_environment_-_Bid')?['body/mfd_bidid']}/@{outputs('Get_a_row_by_ID_from_selected_environment_-_Proposal')?['body/mfd_proposalid']}",
+                                      "name": "@items('Apply_to_each_5')?['name']",
+                                      "body": "@items('Apply_to_each_5')?['contentBytes']"
+                                    },
+                                    "authentication": "@parameters('$authentication')"
+                                  },
+                                  "runtimeConfiguration": {
+                                    "contentTransfer": {
+                                      "transferMode": "Chunked"
+                                    }
+                                  }
+                                }
+                              },
+                              "runAfter": {
+                                "Create_new_folder_5": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "metadata": {
+                                "operationMetadataId": "455cdcf5-2fd5-4cf0-ac7b-ecac78b6cb9a"
+                              },
+                              "type": "Foreach"
+                            }
+                          }
+                        }
+                      },
+                      "default": {
+                        "actions": {}
+                      },
+                      "expression": "@outputs('Get_a_row_by_ID_from_selected_environment_-_Bid')?['body/mfd_region']",
+                      "metadata": {
+                        "operationMetadataId": "c95e073b-5a18-46de-963c-670828f81f2f"
+                      },
+                      "type": "Switch"
+                    }
+                  }
+                }
+              },
+              "default": {
+                "actions": {
+                  "Send_an_email_from_a_shared_mailbox_(V2)_4": {
+                    "runAfter": {},
+                    "metadata": {
+                      "operationMetadataId": "1283ce80-5672-400b-a680-10530b1d11b5"
+                    },
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "host": {
+                        "connectionName": "shared_office365",
+                        "operationId": "SharedMailboxSendEmailV2",
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                      },
+                      "parameters": {
+                        "emailMessage/MailboxAddress": "SANW-MFD-Licitaciones@mail.ChurchofJesusChrist.org",
+                        "emailMessage/To": "@triggerOutputs()?['body/from']",
+                        "emailMessage/Subject": "Envio de archivos fuera de plazo – Proceso de Licitación",
+                        "emailMessage/Body": "<p>\nEstimado proveedor \n<strong>@{outputs('Get_a_row_by_ID_from_selected_environment_-_Vendor')?['body/mfd_name']}</strong>,<br><br>\n\nHemos recibido un envío de <strong>documentos de respaldo</strong> relacionado con la licitación  \n<strong>@{outputs('Get_a_row_by_ID_from_selected_environment_-_Bid')?['body/mfd_bidid']}</strong>.<br><br>\n\nNo obstante, el proceso de licitación <strong>ya se encuentra fuera del periodo de Recepción de sobres</strong>.<br><br>\n\nDe acuerdo con el procedimiento establecido, los documentos enviados fuera del plazo definido  \n<strong>no pueden ser recepcionados ni considerados</strong> dentro del proceso de evaluación, por lo que los archivos remitidos no han sido registrados en el sistema.<br><br>\n\nAgradecemos su interés en participar y le invitamos a mantenerse atento/a a futuras licitaciones.<br><br>\n\nAtentamente,<br><br>\n<strong>Departamento de Propiedades</strong><br>\nÁrea Sudamérica Noroeste\n</p>",
+                        "emailMessage/Importance": "Normal"
+                      },
+                      "authentication": "@parameters('$authentication')"
+                    }
+                  }
+                }
+              },
+              "expression": "@outputs('Get_a_row_by_ID_from_selected_environment_-_Bid')?['body/mfd_state']",
+              "metadata": {
+                "operationMetadataId": "1572bd48-b11d-4540-8b4c-3f46a2b70264"
+              },
+              "type": "Switch"
+            },
+            "Get_a_row_by_ID_from_selected_environment_-_Project": {
+              "runAfter": {
+                "Get_a_row_by_ID_from_selected_environment_-_Vendor": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "c8b6271b-7747-4209-a5b6-3f3166d2935f"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "GetItemWithOrganization",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "organization": "https://sanw-np.crm.dynamics.com",
+                  "entityName": "mfd_oym_projects",
+                  "recordId": "@outputs('Get_a_row_by_ID_from_selected_environment_-_Bid')?['body/_mfd_projectid_value']"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "Compose_-_OYM_Proposal": [
+              "Succeeded"
+            ]
+          },
+          "else": {
+            "actions": {
+              "Send_an_email_from_a_shared_mailbox_(V2)": {
+                "runAfter": {},
+                "metadata": {
+                  "operationMetadataId": "e487ce0f-2381-4d99-af79-8cd1e92edde7"
+                },
+                "type": "OpenApiConnection",
+                "inputs": {
+                  "host": {
+                    "connectionName": "shared_office365",
+                    "operationId": "SharedMailboxSendEmailV2",
+                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                  },
+                  "parameters": {
+                    "emailMessage/MailboxAddress": "SANW-MFD-Licitaciones@mail.ChurchofJesusChrist.org",
+                    "emailMessage/To": "@triggerOutputs()?['body/from']",
+                    "emailMessage/Subject": "No se pudo procesar el envío de documentos – Proceso de Licitaciones",
+                    "emailMessage/Body": "<p>Estimado proveedor,<br>\n<br>\nNo hemos podido procesar su envío de documentos debido a que el <strong>asunto del correo no contiene un código de propuesta válido</strong> o no pudo ser identificado correctamente por el sistema.<br>\n<br>\n<strong>Qué debe hacer</strong><br>\nPor favor, revise el correo de confirmación que recibió previamente con el asunto:<br>\n<br>\n<span style=\"font-size: 14px\">Propuesta recepcionada – Proceso de Licitación<br>\n</span><br>\nEn dicho correo encontrará el <strong>código de propuesta</strong> y las instrucciones para el envío correcto de los documentos de respaldo.<br>\n<br>\nUna vez identificado el código, envíe nuevamente su correo a <strong>SANW-MFD-Licitaciones@mail.churchofjesuschrist.org</strong>, adjuntando los documentos solicitados y utilizando exactamente el asunto indicado en el correo de confirmación.<br>\n<br>\n<em>Importante: el asunto del correo es obligatorio y no debe ser modificado, ya que permite al sistema asociar correctamente los documentos a su propuesta.</em><br>\n<br>\nAgradecemos su comprensión y colaboración.<br>\n<br>\nAtentamente,<br>\n<br>\n<strong>Departamento de Propiedades</strong><br>\nÁrea Sudamérica Noroeste</p>",
+                    "emailMessage/Importance": "Normal"
+                  },
+                  "authentication": "@parameters('$authentication')"
+                }
+              }
+            }
+          },
+          "expression": {
+            "equals": [
+              "@length(outputs('Compose_-_OYM_Proposal'))",
+              36
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "4cdf7316-069f-4371-881e-cce8341e2128"
+          },
+          "type": "If"
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

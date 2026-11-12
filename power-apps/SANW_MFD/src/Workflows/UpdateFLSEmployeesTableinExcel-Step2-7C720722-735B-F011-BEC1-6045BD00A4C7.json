@@ -1,0 +1,281 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_d0098"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_excelonlinebusiness": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "sanwhrd_sharedexcelonlinebusiness_6a552"
+        },
+        "api": {
+          "name": "shared_excelonlinebusiness"
+        }
+      },
+      "shared_office365_1": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "mfd_sharedoffice365_59339"
+        },
+        "api": {
+          "name": "shared_office365"
+        }
+      },
+      "shared_dataflows": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "mfd_shareddataflows_59a99"
+        },
+        "api": {
+          "name": "shared_dataflows"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "Recurrence": {
+          "recurrence": {
+            "frequency": "Day",
+            "interval": 1,
+            "timeZone": "SA Pacific Standard Time",
+            "startTime": "2025-07-07T08:00:00Z"
+          },
+          "evaluatedRecurrence": {
+            "frequency": "Day",
+            "interval": 1,
+            "timeZone": "SA Pacific Standard Time",
+            "startTime": "2025-07-07T08:00:00Z"
+          },
+          "metadata": {
+            "operationMetadataId": "4515243d-dbd5-4576-adac-71a9c858f2fa"
+          },
+          "type": "Recurrence"
+        }
+      },
+      "actions": {
+        "List_rows_from_selected_environment_-_SANW_Employees": {
+          "runAfter": {
+            "List_rows_present_in_a_table_-_FLS_Employees": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "2483853c-c3ce-4de6-b411-a9948c79eb86"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecordsWithOrganization",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "organization": "https://sanw-np.crm.dynamics.com",
+              "entityName": "mfd_sanw_employees"
+            },
+            "authentication": "@parameters('$authentication')"
+          },
+          "runtimeConfiguration": {
+            "paginationPolicy": {
+              "minimumItemCount": 50000
+            }
+          }
+        },
+        "List_rows_present_in_a_table_-_FLS_Employees": {
+          "runAfter": {},
+          "metadata": {
+            "01RED7MP35TPBQ7RN4EVBL7RDUDIZTMV6O": "/Certificaciones/FLSEmployeesExcel/FLSEmployees.xlsx",
+            "operationMetadataId": "c6c441f0-1210-4cf0-b2ad-ce853cb2b8ca",
+            "tableId": "{00000000-000C-0000-FFFF-FFFF00000000}",
+            "01RED7MP35LZYWXTS5R5BJCRI2EQEL35J4": "/FLSEmployees/Excel/FLSEmployees.xlsx",
+            "014USOZ76IBODIOUZQKBGLIUGZOJBUVVSV": "/FLSEmployees/Excels/FLSEmployees.xlsx"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_excelonlinebusiness",
+              "operationId": "GetItems",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_excelonlinebusiness"
+            },
+            "parameters": {
+              "source": "sites/churchofjesuschrist.sharepoint.com,fa257e8c-1a3c-4f12-ac1c-4a651e1a7520,1229256c-e9aa-4c79-88fc-9d7e35dcf78b",
+              "drive": "b!jH4l-jwaEk-sHEplHhp1IGwlKRKq6XlMiPydfjXc94vHcobBMlm2RIGTavIWqCmB",
+              "file": "014USOZ76IBODIOUZQKBGLIUGZOJBUVVSV",
+              "table": "{00000000-000C-0000-FFFF-FFFF00000000}"
+            },
+            "authentication": "@parameters('$authentication')"
+          },
+          "runtimeConfiguration": {
+            "paginationPolicy": {
+              "minimumItemCount": 50000
+            }
+          }
+        },
+        "Apply_to_each": {
+          "foreach": "@outputs('List_rows_present_in_a_table_-_FLS_Employees')?['body/value']",
+          "actions": {
+            "Filter_array": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "d4efa5f4-14be-4d28-8c1e-5f0ae9f1c4e1"
+              },
+              "type": "Query",
+              "inputs": {
+                "from": "@outputs('List_rows_from_selected_environment_-_SANW_Employees')?['body/value']",
+                "where": "@equals(item()?['mfd_name'], items('Apply_to_each')?['Name'])"
+              }
+            },
+            "Switch": {
+              "runAfter": {
+                "Filter_array": [
+                  "Succeeded"
+                ]
+              },
+              "cases": {
+                "Case": {
+                  "case": 0,
+                  "actions": {}
+                },
+                "Case_2": {
+                  "case": 1,
+                  "actions": {
+                    "Update_a_row": {
+                      "runAfter": {},
+                      "metadata": {
+                        "01RED7MP35TPBQ7RN4EVBL7RDUDIZTMV6O": "/Certificaciones/FLSEmployeesExcel/FLSEmployees.xlsx",
+                        "operationMetadataId": "b90d2411-a304-4450-bcc6-5c24b54c6428",
+                        "tableId": "{00000000-000C-0000-FFFF-FFFF00000000}",
+                        "01RED7MP35LZYWXTS5R5BJCRI2EQEL35J4": "/FLSEmployees/Excel/FLSEmployees.xlsx",
+                        "014USOZ76IBODIOUZQKBGLIUGZOJBUVVSV": "/FLSEmployees/Excels/FLSEmployees.xlsx"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_excelonlinebusiness",
+                          "operationId": "PatchItem",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_excelonlinebusiness"
+                        },
+                        "parameters": {
+                          "source": "sites/churchofjesuschrist.sharepoint.com,fa257e8c-1a3c-4f12-ac1c-4a651e1a7520,1229256c-e9aa-4c79-88fc-9d7e35dcf78b",
+                          "drive": "b!jH4l-jwaEk-sHEplHhp1IGwlKRKq6XlMiPydfjXc94vHcobBMlm2RIGTavIWqCmB",
+                          "file": "014USOZ76IBODIOUZQKBGLIUGZOJBUVVSV",
+                          "table": "{00000000-000C-0000-FFFF-FFFF00000000}",
+                          "idColumn": "Key",
+                          "id": "@items('Apply_to_each')?['Key']",
+                          "item/UserPrincipalName": "@first(body('Filter_array'))?['mfd_userprincipalname']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  }
+                }
+              },
+              "default": {
+                "actions": {
+                  "Send_an_email_from_a_shared_mailbox_(V2)_2": {
+                    "runAfter": {},
+                    "metadata": {
+                      "operationMetadataId": "ff595484-64e8-4269-a9b8-b863baa281db"
+                    },
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "host": {
+                        "connectionName": "shared_office365_1",
+                        "operationId": "SharedMailboxSendEmailV2",
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                      },
+                      "parameters": {
+                        "emailMessage/MailboxAddress": "torresaj@churchofjesuschrist.org",
+                        "emailMessage/To": "torresaj@churchofjesuschrist.org",
+                        "emailMessage/Subject": "ERROR: HAY 2 EMPLEADOS CON EL MISMO NOMNBRE @{items('Apply_to_each')?['Name']}",
+                        "emailMessage/Body": "<p>Hola,<br>\nAl parecer hay 2 o más empleados con el mismo Diplay Name en la tabla de Dataverse SANW_Employees. POR FAVOR VERIFICAR EL FLUJO Update FLS Employees Table<br>\n<br>\nhttps://make.powerapps.com/environments/0b1e63d8-aeb0-4c2a-8808-93ee84094d46/solutions/83f70a6d-32ab-ee11-be37-000d3a3418c8/objects/cloudflows/7c720722-735b-f011-bec1-6045bd00a4c7/view?isSol=1&amp;isSol=1</p>",
+                        "emailMessage/Importance": "Normal"
+                      },
+                      "authentication": "@parameters('$authentication')"
+                    }
+                  }
+                }
+              },
+              "expression": "@length(body('Filter_array'))",
+              "metadata": {
+                "operationMetadataId": "db6b0e8a-104b-4fc6-8af9-83994959f73b"
+              },
+              "type": "Switch"
+            }
+          },
+          "runAfter": {
+            "List_rows_from_selected_environment_-_SANW_Employees": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "e8d088d4-82b0-4692-958b-76882ab8f8f6"
+          },
+          "type": "Foreach"
+        },
+        "Refresh_a_dataflow": {
+          "runAfter": {
+            "Delay": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "066ddd8f-8767-4692-9576-d2f458636207"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_dataflows",
+              "operationId": "RefreshDataflow",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_dataflows"
+            },
+            "parameters": {
+              "workspaceType": "Environment",
+              "groupIdForRefreshDataflow": "0b1e63d8-aeb0-4c2a-8808-93ee84094d46-31c688f59-us",
+              "dataflowIdForRefreshDataflow": "74caa26a-d850-448b-8f65-5b93e2ef52ed"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Delay": {
+          "runAfter": {
+            "Apply_to_each": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "882a4cac-92ef-4d07-bfb3-83badde130dd"
+          },
+          "type": "Wait",
+          "inputs": {
+            "interval": {
+              "count": 2,
+              "unit": "Minute"
+            }
+          }
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

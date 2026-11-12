@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{566f4beb-a023-477a-88d7-252ec85072ee}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab verticallayout="true" id="{b8bb9870-8ff4-4c40-a6e6-7ee4786469aa}" IsUserDefined="1">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{0832ff17-71a1-4a5b-8b89-f38ed1e6cad7}">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{5f87f8bc-9158-4bab-9f56-294123527b27}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_facilityidentifier" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="mfd_facilityidentifier" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{fce9b674-fd0d-480b-b71b-024a5c7ebc86}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{b8737e84-dd36-4ee1-b39a-7e329f202f09}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_facilitymanagementgroup" classid="{4273edbd-ac1d-40d3-9fb2-095c621b552d}" datafieldname="mfd_facilitymanagementgroup" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8e39c80e-dae6-44df-80b3-8458fad1b345}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="mfd_localfacilityname" classid="{4273edbd-ac1d-40d3-9fb2-095c621b552d}" datafieldname="mfd_localfacilityname" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>
